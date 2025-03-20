@@ -1,0 +1,252 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Character Entities</title>
+</head>
+
+<body>
+<h1 class="topic">*HTML Character Entities*</h1><br><br>
+<h3>HTML <b>character entities</b> are special codes used to represent reserved or special characters that cannot be
+directly typed into an HTML document. These entities ensure that special characters display correctly without
+breaking the HTML structure.</h3><br>
+<h3>
+<li>✔️ Used to display special symbols</li>
+<li>✔️ Prevents conflicts with HTML syntax</li>
+<li>✔️ Ensures consistent rendering across browsers</li>
+</h3>
+<h6>Syntax of HTML Character Entities</h6>
+<h3>
+<h3>An HTML entity consists of:</h3><br>
+<li>An ampersand (`&`)</li>
+<li>An entity name or number</li>
+<li>A semicolon (`;`)</li>
+</h3>
+<h6>Named Entity Example</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is an ampersand: &amp;</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="note-box">
+<h3>The entity &amp;amp; will display "&" instead of being interpreted as part of the HTML syntax.</h3>
+</div><br>
+<h6>Numeric Entity Example</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is a greater-than sign: &#62;</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Commonly Used HTML Character Entities</h6>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Entity Name</th>
+<th>Numeric Code</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;</td>
+<td>&amp;lt;</td>
+<td>&amp;#60;</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>></td>
+<td>&amp;gt;</td>
+<td>&amp;#62;</td>
+<td>></td>
+</tr>
+<tr>
+<td>&</td>
+<td>&amp;amp;</td>
+<td>&amp;#38;</td>
+<td>&</td>
+</tr>
+<tr>
+<td>"</td>
+<td>&amp;quot;</td>
+<td>&amp;#34;</td>
+<td>"</td>
+</tr>
+<tr>
+<td>'</td>
+<td>&amp;apos;</td>
+<td>&amp;#39;</td>
+<td>'</td>
+</tr>
+</tbody>
+</table>
+<h6>Example Usage</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&amp;lt;h1&amp;gt; for headings &amp;lt;/h1&amp;gt;.
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>Hello, &amp;nbsp;&amp;nbsp;&amp;nbsp; world!</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Special Symbols</h6>
+<h3>Used for mathematical symbols, currency, and arrows.</h3><br>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Entity Name</th>
+<th>Numeric Code</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>©</td>
+<td>&amp;copy;</td>
+<td>&amp;#169;</td>
+<td>©</td>
+</tr>
+<tr>
+<td>®</td>
+<td>&amp;reg;</td>
+<td>&amp;#174;</td>
+<td>®</td>
+</tr>
+<tr>
+<td>€</td>
+<td>&amp;euro;</td>
+<td>&amp;#8364;</td>
+<td>€</td>
+</tr>
+<tr>
+<td>£</td>
+<td>&amp;pound;</td>
+<td>&amp;#163;</td>
+<td>£</td>
+</tr>
+<tr>
+<td>¥</td>
+<td>&amp;yen;</td>
+<td>&amp;#165;</td>
+<td>¥</td>
+</tr>
+<tr>
+
+<td>✓</td>
+<td>&amp;check;</td>
+<td>&amp;#10003;</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>→</td>
+<td>&amp;rarr;</td>
+<td>&amp;#8594;</td>
+<td>→</td>
+</tr>
+</tbody>
+</table>
+<h6>Example Usage</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>Copyright &copy; 2025 CodeNova. All rights reserved.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>Area of a circle = &pi; × r<sup>2</sup></p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Browser Compatibility</h6>
+<h3>Fully supported in all browsers, including:</h3><br>
+<h3>
+<li>✔️ Chrome </li>
+<li>✔️ Firefox </li>
+<li>✔️ Safari </li>
+<li>✔️ Edge </li>
+<li>✔️ Opera</li>
+<li>✔️ Internet Explorer</li></h3>
+<h6>Limitations of HTML Character Entities</h6>
+<h3> 
+<li>❌ Not necessary for modern UTF-8 documents (most characters can be typed directly).</li>  
+<li>❌ Can make code harder to read if overused.  </li>
+<li>❌ Requires extra typing, which can be avoided with proper HTML encoding.</li></h3>
+<h6>Best Practices</h6>
+<h3>
+<li>✔️ Use named entities for readability (`&amp;copy; ` instead of ` &amp;#169; `).</li>  
+<li>✔️ Avoid using unnecessary entities if UTF-8 encoding is enabled.</li>  
+<li>✔️ Use `& nbsp; `sparingly—prefer CSS `margin` or `padding` for spacing.</li>  
+<li>✔️ Always test in different browsers to ensure proper rendering.  </li></h3>
+<div class="note-box"><h3><b>HTML character entities</b> play a crucial role in ensuring that special characters display correctly in web pages. They are useful for escaping reserved characters, adding special symbols, and ensuring proper formatting. However, with modern UTF-8 encoding, their use is less necessary unless dealing with special cases.</h3></div><br>  
+<div class="questions-container">
+<a href="html character entities quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html character entities exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+
+</html>

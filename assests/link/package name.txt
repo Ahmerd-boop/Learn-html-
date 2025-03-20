@@ -1,0 +1,10 @@
+🔹 Replace your.package.name with your actual app package name.
+
+For example:
+
+Copy
+Edithttps://play.google.com/store/apps/details?id=com.learnhtml
+
+package name: htmlhausa
+
+

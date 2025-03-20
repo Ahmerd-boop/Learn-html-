@@ -1,0 +1,265 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Block-Level Elements</title>
+</head>
+<body>
+<h1 class="topic">*HTML Block-Level Elements*</h1><br><br>
+<h3>HTML elements are categorized into two main types: block-level elements and inline elements. Block-level elements create a new block or section on the page, typically starting on a new line and taking up the full width available.</h3>
+<h6>Characteristics of Block-Level Elements</h6>
+<h3>
+<li>Start on a new line.</li>
+<li>Stretch to take up the full width of their parent container.</li>
+<li>Can contain other block-level and inline elements.</li>
+<li>Help structure the webpage into meaningful sections.</li>
+</h3>
+<h6>Common Block-Level Elements</h6>
+<h3>Here are some of the most frequently used block-level elements in HTML</h3>
+<h6><span>&lt;div&gt;</span> – Division Element</h6>
+<h6>example</h6><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<div style="background-color: aqua;">
+<p>This is a block-level container.</p>
+</div>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 70px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Used as a container for grouping multiple elements.</li>
+<li>Helps apply styles and layouts with CSS.</li>
+</h3><br>
+<h6><span>&lt;p&gt;</span> – Paragraph Element</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p  style="background-color: red; color: white;">This is a paragraph.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Used for writing textual content.</li>
+<li>Adds spacing between paragraphs automatically.</li>
+</h3><br>
+<h6><span>&lt;h1&gt;</span> to <span>&lt;h6&gt;</span> – Heading Elements</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<h1 style="background-color: lightblue;">This is a heading</h1>
+<h2 style="background-color: blue;">This is a subheading</h2>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Defines headings of different levels.</li>
+<li>&lt;h1&gt; is the largest, &lt;h6&gt; is the smallest.</li>
+<li>Important for SEO and accessibility.</li>
+</h3><br>
+<h6><span>&lt;header&gt;</span> – Header Section</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<header  style="background-color: #f9f">
+<h1>Website Title</h1>
+<p>Welcome to my website</p>
+</header>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Use Case</h6><br>
+<h3>
+<li>Defines a section for introductory content or navigation.</li>
+<li>Usually contains a logo, headings, or navigation links.</li>
+</h3><br>
+<h6><span>&lt;section&gt;</span> – Section Element</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<section style="background-color: lightblue;">
+<h2>About Us</h2>
+<p>We provide web development services.</p>
+</section>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 120px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Groups related content together.</li>
+<li>Useful for dividing content into different sections.</li>
+</h3><br>
+<h6><span>&lt;article&gt;</span> – Article Element</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<article style="background-color: yellowgreen;">
+<h2>News Title</h2>
+<p>This is a news article.</p>
+</article>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3><li>Represents self-contained content like blog posts or news articles.</li>
+<li>Can be distributed and shared independently.</li>
+</h3><br>
+<h6><span>&lt;aside&gt;</span> – Sidebar Content</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 220px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<aside style="background-color: bisque;">
+<h3>Related Links</h3>
+<ul>
+<li><a href="#">Link 1</a></li>
+<li><a href="#">Link 2</a></li>
+</ul>
+</aside>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 110px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>Contains related information, like sidebars or advertisements.</h3><br>
+<h6><span>&lt;footer&gt;</span> – Footer Section</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<footer style="background-color: bisque;">
+<p>&copy; 2025 My Website. All rights reserved.</p>
+</footer>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 40px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Defines the footer of a webpage.</li>
+<li>Often contains copyright, links, or contact information.</li>
+</h3><br>
+<h6><span>&lt;nav&gt;</span> – Navigation Element</h6>
+
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<nav>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">About</a></li>
+</ul>
+</nav>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3>
+<li>Defines navigation menus for links.</li>
+<li>Helps improve accessibility and SEO.</li>
+</h3><br>
+<h6><span>&lt;main&gt;</span> – Main Content Area</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<main style="background-color: cornsilk;">
+<h2>Main Content</h2>
+<p>This is the central content of the page.</p>
+</main>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 110px;"></iframe>
+</div><br>
+<h6>Use Case</h6>
+<h3><li>Represents the main content of the webpage.</li>
+<li>Should be unique to each page.</li>
+</h3><br>
+<h6>Best Practices for Using Block-Level Elements</h6>
+<h3>
+<li>Use semantic elements (&lt;header&gt;, &lt;section&gt;, &lt;article&gt;, &lt;nav&gt;, &lt;footer&gt;) for better structure and accessibility.</li>
+<li>Avoid unnecessary &lt;div&gt; elements (known as "div soup").</li>
+<li>Use headings (&lt;h1&gt; to &lt;h6&gt;) properly for SEO and readability.</li>
+<li>Ensure block-level elements do not overlap in unintended ways.</li>
+</h3><br>
+<div class="questions-container">
+<a href="html block-level quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html block-level exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

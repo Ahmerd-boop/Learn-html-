@@ -1,0 +1,86 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML HAUSA - Editor</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
+<style>
+    button{
+        font-family: cursive;
+    }
+</style>
+</head>
+
+<body>
+    <div class="editor-header">
+        <!--editor title-->
+        <h1 class="head-title">Editor</h1><br>
+        <h3>Try to upgrade to premuim, gain access to locked tools and advanced functionalities.</h3><br>
+        <h3><strong>Note:</strong> Network Connection Required! to <button id="upgrade" class="unlock" onclick="payWithPaystack()">💰 Unlock Features</button></h3>
+        <!--editorr container-->
+    </div>
+    <div class="editor-container" id="editor-container">
+        <textarea id="code" spellcheck="false" class="editor" placeholder="Write your HTML code here..."></textarea><br>
+        <div class="editor-toolbar">
+            <button onclick="insertTag('&lt;html&gt;')">&lt;html&gt;</button>
+            <button onclick="insertTag('&lt;/html&gt;')">&lt;/html&gt;</button>
+            <button onclick="insertTag('<head>')" class="locked">&lt;head&gt;</button>
+            <button onclick="insertTag('</head>')" class="locked">&lt;/head&gt;</button>
+            <button onclick="insertTag('&lt;style&gt;')">&lt;style&gt;</button>
+            <button onclick="insertTag('&lt;/style&gt;')" class="locked">&lt;/style&gt;</button>    
+            <button onclick="insertTag('<title>')">&lt;title&gt;</button>
+            <button onclick="insertTag('</title>')" class="locked">&lt;/title&gt;</button>
+            <button onclick="insertTag('<body>')" class="locked">&lt;body&gt;</button>
+            <button onclick="insertTag('&lt;/body&gt;')" class="locked">&lt;/body&gt;</button>
+            <button onclick="insertTag('<h1>')">&lt;h1&gt;</button>
+            <button onclick="insertTag('</h1>')" class="locked">&lt;/h1&gt;</button>
+            <button onclick="insertTag('<h2>')" class="locked">&lt;h2&gt;</button>
+            <button onclick="insertTag('</h2>')" class="locked">&lt;/h2&gt;</button>
+            <button onclick="insertTag('<h3>')">&lt;h3&gt;</button>
+            <button onclick="insertTag('</h3>')" class="locked">&lt;/h3&gt;</button>
+            <button onclick="insertTag('<h4>')">&lt;h4&gt;</button>
+            <button onclick="insertTag('</h4>')" class="locked">&lt;/h4&gt;</button>
+            <button onclick="insertTag('<div>')" class="locked">&lt;div&gt;</button>
+            <button onclick="insertTag('</div>')" class="locked">&lt;/div&gt;</button>
+            <button onclick="insertTag('<section>')" class="locked">&lt;section&gt;</button>
+            <button onclick="insertTag('</section>')" class="locked">&lt;/section&gt;</button>
+            <button onclick="insertTag('<p>')" class="locked">&lt;p&gt;</button>
+            <button onclick="insertTag('</p>')">&lt;/p&gt;</button>
+            <button onclick="insertTag('<h5>')">&lt;h5&gt;</button>
+            <button onclick="insertTag('</h5>')" class="locked">&lt;/h5&gt;</button>
+            <button onclick="insertTag('<a>')" class="locked">&lt;a&gt;</button>
+            <button onclick="insertTag('<img>')">&lt;img&gt;</button>
+            <button onclick="insertTag('<button>')">&lt;button&gt;</button>
+            <button onclick="insertTag('</button>')">&lt;/button&gt;</button>
+            <button onclick="insertTag('<ul>')" class="locked">&lt;ul&gt;</button>
+            <button onclick="insertTag('</ul>')">&lt;/ul&gt;</button>
+            <button onclick="insertTag('<li>')">&lt;li&gt;</button>
+            <button onclick="insertTag('</li>')" class="locked">&lt;/li&gt;</button>
+            <!--uprage button-->
+
+            <button id="upgrade" onclick="payWithPaystack()">💰 Unlock Features</button>
+        </div>
+
+        <!--run button-->
+
+        <button onclick="runCode()" class="run">▶️ Run Your Code</button>
+        <!--output iframe-->
+
+        <iframe id="output"></iframe>
+    </div>
+    <br><br><br>
+
+    <script src="assests/js/editor.js"></script>
+    <script src="assests/js/payment method.js"></script>
+    <script src="assests/js/script.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="assests/js/server.js"></script>
+    <script src="assests/js/scret key.env"></script>
+    <script src="assests/js/paystack.js"></script>
+</body>
+
+</html>

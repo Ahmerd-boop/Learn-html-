@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Description List</title>
+</head>
+<body>
+<h1 class="topic">*HTML Description List*</h1> <br><br>
+<h3>HTML provides different types of lists to organize content, including ordered lists (&lt;ol&gt;), unordered lists (&lt;ul&gt;), and description lists (&lt;dl&gt;). In this guide, we will focus on <b>HTML Description Lists</b>, which are used to present terms and their corresponding descriptions.</h3>
+<h6>What is a Description List?</h6>
+<h3>A <i>description list</i> is a structured way to display a set of terms and their explanations. It is commonly used for glossaries, metadata, or presenting key-value pairs.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 250px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<dl>
+<dt>Noun</dt>
+<dd>Noun is naming anything...</dd>
+<dt>Pronoun</dt>
+<dd>Pronoun is used to replace a noun.</dd>
+</dl>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Explanation</h6><br>
+<li><span>&lt;dl&gt;</span> Defines the description list.</li>
+<li><span>&lt;dt&gt;</span> Represents the term.</li>
+<li><span>&lt;dd&gt;</span> Represents the description of the term.</li><br>
+<h6>Basic Example</h6><br>
+<h3>Here is a simple example of an HTML description list:</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 380px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Description List Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<h2>HTML Description List Example</h2>
+<dl>
+<dt>HTML</dt>
+<dd>A standard language for creating web pages.</dd>
+<dt>CSS</dt>
+<dd>A stylesheet language used for styling web pages.</dd>
+<dt>JavaScript</dt>
+<dd>A programming language used to make web pages interactive.</dd>
+</dl>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Advanced Example with Nested Description Lists</h6><br>
+<h3>A description list can contain nested lists to organize hierarchical information.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 750px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+dl {
+background-color: #333;
+color: #fff;
+padding: 10px;
+border-radius: 5px;
+width: 100%;
+}
+dt {
+font-weight: bolder;
+text-decoration: underline;
+}
+dd {
+margin-left: 20px;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<dl>
+<dt>Programming Languages</dt>
+<dd>
+<dl>
+<dt>HTML</dt>
+<dd>Used for structuring web pages.</dd>
+<dt>CSS</dt>
+<dd>Used for styling web pages.</dd>
+<dt>JavaScript</dt>
+<dd>Used for adding interactivity to web pages.</dd>
+</dl>
+</dd>
+<dt>Frameworks</dt>
+<dd>
+<dl>
+<dt>React</dt>
+<dd>A JavaScript library for building user interfaces.</dd>
+<dt>Bootstrap</dt>
+<dd>A CSS framework for responsive web design.</dd>
+</dl>
+</dd>
+</dl>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 350px;"></iframe>
+</div><br>
+<h6>Use Cases</h6><br>
+<h3>
+<li>Glossaries or dictionaries.</li>
+<li>FAQ sections.</li>
+<li>Metadata presentation.</li>
+<li>Defining key-value pairs in structured documentation.</li>
+<li>Product specifications on e-commerce websites.</li></h3>
+<br>
+<h6>Best Practices</h6>
+<h3>
+<li>Always enclose terms (&lt;dt&gt;) and descriptions (&lt;dd&gt;) within a &lt;dl&gt; tag.</li>
+<li>Keep descriptions concise and informative.</li>
+<li>Use CSS to enhance readability and user experience.</li>
+<li>Use nested description lists when necessary to improve content organization.</li></h3>
+<br>
+<div class="note-box"><h3><b>HTML Description Lists</b> are a useful way to present definitions, metadata, and other structured information. By using &lt;dl&gt;, &lt;dt&gt;, and &lt;dd&gt;, you can create well-structured and readable content on your webpage.</h3></div><br>
+<div class="questions-container">
+<a href="html description list quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html description list exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/script.js"></script>
+<script src="assests/js/exaple-editor.js"></script>
+</body>
+</html>

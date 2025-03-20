@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Contenteditable</title>
+</head>
+<body>
+<h1 class="topic">*HTML Contenteditable*</h1><br><br>
+<h3>The <b>contenteditable attribute</b> in HTML allows elements to be edited directly by the user. When this attribute is set to <span>"true"</span>, users can modify the content of the element in the browser without requiring JavaScript or additional scripts.</h3><br>
+<h6>Syntax</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<element contenteditable="true">Hi, I am Ahmad Hussaini</element>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 50px;"></iframe>
+</div><br>
+<h6>Attribute Values:</h6>
+<h3>
+<li><span>"true"</span> – The element's content is editable.</li>
+<li><span>"false"</span> – The element's content is not editable.</li>
+<li><span>"inherit"</span> – The element inherits the contenteditable value from its parent.</li></h3>
+<h6>Usage & Applications</h6>
+<h3>The contenteditable attribute is useful for building interactive web applications such as:</h3>
+<h3>
+<li>Rich text editors (WYSIWYG editors).</li>
+<li>Inline content editing without reloading the page.</li>
+<li>Live text formatting using JavaScript.</li>
+<li>Editable forms and notes applications.</li></h3><br>
+<h6>Example: Basic Editable Paragraph</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p contenteditable="true">This text is editable. Click to edit.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 50px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p contenteditable="true">This text is editable. Click to edit.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 50px;"></iframe>
+</div><br>
+<h6>Example: Editable Div with Styling</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<div contenteditable="true" style="border: 1px solid #ccc; padding: 10px;">
+Click here to edit this text.
+</div>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>Example: Restricting Editable Areas</h6>
+<h3>You can make only specific parts of a webpage editable while keeping other parts static.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is a normal paragraph.</p>
+<p contenteditable="true">You can edit this paragraph.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>Example: Saving Editable Content Using JavaScript</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 600px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<title>Editable Content</title>
+&lt;/head&gt;
+&lt;body&gt;
+<div id="editableDiv" contenteditable="true" style="border: 1px solid #ccc; padding: 10px;">
+I am Ahmad Hussaini, <br />I love CodeNova.
+</div><br />
+<button onclick="saveContent()">Save</button>
+
+<script>
+function saveContent() {
+const content = document.getElementById("editableDiv").innerHTML;
+localStorage.setItem("savedContent", content);
+alert("Content saved!");
+}
+
+window.onload = function() {
+const savedContent = localStorage.getItem("savedContent");
+if (savedContent) {
+document.getElementById("editableDiv").innerHTML = savedContent;
+}
+};
+</script>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<body>
+<h6>Explanation:</h6>
+<h3>
+<li>Users can edit the text inside the <span>&lt;div&gt;</span>.</li>
+<li>When they click the "Save" button, the content is stored in localStorage.</li>
+<li>The saved content is automatically loaded when the page refreshes.</li></h3>
+<div class="note-box"><h3>The <b>contenteditable attribute</b> is a powerful feature for enabling in-browser text editing. However, it requires careful implementation, security considerations, and JavaScript enhancements for a smooth user experience. For complex applications, third-party rich text editors are recommended.</h3></div><br>
+<div class="questions-container">
+<a href="html contenteditable quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html contenteditable exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

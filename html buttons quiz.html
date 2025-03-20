@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Buttons</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Buttons Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{
+  question: "Which HTML tag is used to create a clickable button?",
+  options: ["<input>", "<btn>", "<button>", "<click>"],
+  answer: 2
+},
+
+{
+  question: "Which attribute specifies the type of button?",
+  options: ["action", "method", "type", "value"],
+  answer: 2
+},
+
+{
+  question: "What is the default type of a `<button>` element?",
+  options: ["button", "submit", "reset", "default"],
+  answer: 1
+},
+
+{
+  question: "Which button type is used to reset all form fields to their default values?",
+  options: ["submit", "button", "reset", "clear"],
+  answer: 2
+},
+
+{
+  question: "Which button type submits the form data when clicked?",
+  options: ["button", "submit", "send", "post"],
+  answer: 1
+},
+
+{
+  question: "Which attribute disables a button so it cannot be clicked?",
+  options: ["readonly", "disabled", "inactive", "locked"],
+  answer: 1
+},
+
+{
+  question: "Which element can be used to create a button besides `<button>`?",
+  options: ["<a>", "<span>", "<input>", "<label>"],
+  answer: 2
+},
+
+{
+  question: "Which attribute sets the text displayed on an `<input>` button?",
+  options: ["name", "value", "text", "label"],
+  answer: 1
+},
+
+{
+  question: "Which HTML button type allows custom JavaScript actions?",
+  options: ["reset", "submit", "button", "custom"],
+  answer: 2
+},
+
+{
+  question: "Which attribute is used to associate a button with a form?",
+  options: ["form", "action", "name", "method"],
+  answer: 0
+},
+
+{
+  question: "Which CSS property is commonly used to change the background color of a button?",
+  options: ["text-color", "background-color", "color", "button-color"],
+  answer: 1
+},
+
+{
+  question: "What happens when a button inside a form is clicked without specifying `type`?",
+  options: ["Does nothing", "Acts as a submit button", "Resets the form", "Shows an alert"],
+  answer: 1
+},
+
+{
+  question: "Which event listener is used in JavaScript to detect when a button is clicked?",
+  options: ["onpress", "onclick", "onhover", "onchange"],
+  answer: 1
+},
+
+{
+  question: "How do you prevent a button inside a form from submitting the form?",
+  options: ["Set type='button'", "Set type='submit'", "Use preventDefault() in JavaScript", "Both A and C"],
+  answer: 3
+},
+
+{
+  question: "Which HTML element can be used to create a button that redirects to another page?",
+  options: ["<button>", "<input>", "<a>", "<label>"],
+  answer: 2
+}
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html buttons.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

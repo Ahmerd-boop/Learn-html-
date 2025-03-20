@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Attributes</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Attributes Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { 
+        question: "Which attribute specifies the URL of a hyperlink? <br> just type href as an answer", 
+        answer: "href" 
+    },
+    { 
+        question: "Which attribute specifies the source of an image?", 
+        answer: "src" 
+    },
+    { 
+        question: "Which attribute provides alternative text for an image?", 
+        answer: "alt" 
+    },
+    { 
+        question: "Which attribute defines inline CSS styles?", 
+        answer: "style" 
+    },
+    { 
+        question: "Which attribute is used to open a link in a new tab?", 
+        answer: "target" 
+    },
+    { 
+        question: "Which attribute is used to set a unique identifier for an HTML element?", 
+        answer: "id" 
+    },
+    { 
+        question: "Which attribute is used to group multiple elements under the same styling class?", 
+        answer: "class" 
+    },
+    { 
+        question: "Which attribute specifies a short description when hovering over an element?", 
+        answer: "title" 
+    },
+    { 
+        question: "Which attribute disables an input field?", 
+        answer: "disabled" 
+    },
+    { 
+        question: "Which attribute pre-fills an input field with a value?", 
+        answer: "value" 
+    },
+    { 
+        question: "Which attribute is used to specify a placeholder text inside an input field?", 
+        answer: "placeholder" 
+    },
+    { 
+        question: "Which attribute makes a form field mandatory?", 
+        answer: "required" 
+    },
+    { 
+        question: "Which attribute makes an input field read-only?", 
+        answer: "readonly" 
+    },
+    { 
+        question: "Which attribute automatically focuses on an input field when the page loads?", 
+        answer: "autofocus" 
+    },
+    { 
+        question: "Which attribute is used to select a checkbox or radio button by default?", 
+        answer: "checked" 
+    },
+    { 
+        question: "Which attribute allows multiple file selection in an input field?", 
+        answer: "multiple" 
+    },
+    { 
+        question: "Which attribute sets the maximum number of characters allowed in an input field?", 
+        answer: "maxlength" 
+    },
+    { 
+        question: "Which attribute sets the width of an image in pixels?", 
+        answer: "width" 
+    },
+    { 
+        question: "Which attribute hides an element but keeps it in the DOM?", 
+        answer: "hidden" 
+    },
+    { 
+        question: "Which attribute specifies the relationship between the current document and the linked document in <link>?", 
+        answer: "rel" 
+    },
+    { 
+        question: "Which attribute prevents form submission when an input field is empty?", 
+        answer: "required" 
+    },
+    { 
+        question: "Which attribute forces a file to be downloaded instead of opening in the browser?", 
+        answer: "download" 
+    },
+    { 
+        question: "Which attribute specifies a tooltip text for an image?", 
+        answer: "title" 
+    },
+    { 
+        question: "Which attribute specifies the language of the document in the <html> tag?", 
+        answer: "lang" 
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html attributes.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Sections</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+
+<body>
+<h1 class="topic">*HTML Section*</h1><br><br>
+<h3>The <span>&lt;section&gt;</span> element in HTML is a block-level element used to define thematic sections of
+content on a webpage. It groups related content together, making the document more organized and improving
+accessibility.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<section>
+<h2>Section Title</h2>
+<p>This is a paragraph inside the section.</p>
+</section>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>When to Use the <span>&lt;section&gt;</span> Element</h6>
+<h3>
+<li> When dividing content into meaningful sections, such as chapters, introductions, and articles.</li>
+<li> When structuring content in a way that makes sense for search engines and screen readers.</li>
+<li> When needing to apply styles or scripts to a specific part of the page.</li>
+</h3><br>
+<h6><span>&lt;section&gt;</span> vs. <span>&lt;div&gt;</span></h6><br>
+<table>
+<tr>
+<th><b>Feature</b></th>
+<th><b>&lt;section&gt;</b></th>
+<th><b>&lt;div&gt;</b></th>
+</tr>
+<tbody>
+<tr>
+<td>Semantic?</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Used for?</td>
+<td>Thematic grouping</td>
+<td>Generic container</td>
+</tr>
+<tr>
+<td>Recommended?</td>
+<td>When content is related and meaningful</td>
+<td>When styling or scripting is needed without semantics</td>
+</tr>
+</tbody>
+</table><br>
+<h6>Example: Using <span>&lt;section&gt;</span> for a Blog Page</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 400px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<header>
+<h1>My Blog</h1>
+</header>
+<section>
+<h2>Latest Articles</h2>
+<article>
+<h3>Understanding HTML Sections</h3>
+<p>HTML sections help in structuring content meaningfully.</p>
+</article>
+</section>
+<footer>
+<p>&copy; 2025 My Blog</p>
+</footer>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 280px;"></iframe>
+</div><br>
+</body>
+
+</html>
+<h6>Nesting <span>&lt;section&gt;</span> Elements</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<section>
+<h2>Main Topic</h2>
+<section>
+<h3>Subsection 1</h3>
+<p>Details about subsection 1.</p>
+</section>
+<section>
+<h3>Subsection 2</h3>
+<p>Details about subsection 2.</p>
+</section>
+</section>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>✔️Use <span>&lt;section&gt;</span> when the content is thematically related.</li>
+<li>✔️Always include a heading inside each <span>&lt;section&gt;</span>.</li>
+<li>❌Don't use <span>&lt;section&gt;</span> just for styling purposes; use <span>&lt;div&gt;</span> instead.</li>
+</h3><br>
+<div class="note-box">
+<h3>The <b>section</b> element is essential for structuring web content in a meaningful and accessible way. By using it appropriately, you improve readability, maintainability, and SEO.</h3>
+</div><br>
+<div class="questions-container">
+<a href="html section quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html section exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+
+</html>

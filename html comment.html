@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Comments</title>
+</head>
+<body>
+<h1 class="topic">*HTML Comments*</h1><br><br>
+<h3>HTML comments are non-executable pieces of text used to annotate code. They help improve code readability, provide explanations, and temporarily disable code during development. Browsers ignore comments, meaning they do not affect how the webpage is displayed.</h3>
+<h3><br>
+Syntax of HTML Comments<br><br>
+<span style="color: green;">&lt;!-- This is a comment --&gt;
+</h3><br><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is a paragraph.</p>
+<!-- This is a comment explaining the paragraph above -->
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Single-Line Comments</h6>
+<h3>A single-line comment is a brief note added within the HTML code.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<!-- This is a single-line comment -->
+<p>Welcome to my website</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Use Cases</h6>
+<h3>
+<li>To describe the purpose of an element.</li>
+<li>To provide notes for other developers.</li>
+<li>To temporarily remove elements for debugging.</li>
+</h3>
+<h6>Multi-Line Comments</h6>
+<h3>Multi-line comments span multiple lines and are useful for detailed explanations.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<!--
+This is a multi-line comment.
+It can be used to explain complex sections of code.
+-->
+<p>Enjoy your visit!</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Use Cases</h6>
+<h3>
+<li> To document large sections of code.</li>
+<li> To describe a block of related elements.</li>
+<li> To outline changes in code versions.</li>
+</h3>
+<h6>Commenting Out Code</h6>
+<h3>Comments can be used to temporarily disable HTML elements without deleting them.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<!-- <h1>Temporarily Hidden Heading</h1> -->
+<p>Visible text</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use this method for debugging or testing changes.</li>
+<li>Do not leave commented-out code in production files.</li>
+</h3>
+<h6>Using Comments for Documentation</h6>
+<h3>Comments can serve as in-code documentation, making it easier for teams to understand the purpose of code.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<!-- <h1>Temporarily Hidden Heading</h1> -->
+<p>Visible text</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use clear and concise descriptions.</li>
+<li>Avoid redundant or excessive commenting.</li>
+</h3>
+<h6>Comments in HTML with JavaScript and CSS</h6>
+<h3>While HTML comments are ignored by browsers, different commenting syntax is used within <span>&lt;script&gt;</span> and <span>&lt;style&gt;</span>.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<script>
+// This is a single-line JavaScript comment
+/* This is a multi-line
+JavaScript comment */
+</script>
+<style>
+/* This is a CSS comment */
+p {
+color: blue; /* Inline CSS comment */
+}
+</style>
+<p>Visible text</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use the correct syntax depending on the language.</li>
+<li> Avoid excessive inline comments in stylesheets and scripts.</li>
+</h3>
+<div class="note-box"><h3><b>HTML comments</b> are an essential tool for improving code maintainability and organization. By using comments effectively, developers can create clearer and more readable code without affecting the website's appearance or functionality.</h3></div><br>
+<div class="questions-container">
+<a href="html comment quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html comment exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

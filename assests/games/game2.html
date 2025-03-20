@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Stars</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: rgba(14, 43, 53, 0.815);
+            color: white;
+        }
+        .game-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background: black;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .star {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, lightblue, #333);
+            position: absolute;
+            top: 0;
+            border-radius: 50%;
+        }
+        .basket {
+            width: 60px;
+            height: 20px;
+            background: lightblue;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .control-btn {
+            width: 60px;
+            height: 40px;
+            margin: 5px;
+            background: lightblue;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Catch the Falling Stars &#x2605</h1>
+    <p>Move the basket left and right to catch the stars!</p>
+    
+    <div class="game-container" id="game-container">
+        <div class="basket" id="basket"></div>
+    </div>
+    
+    <p>Score: <span id="score">0</span></p>
+
+    <!-- Mobile Controls -->
+    <div class="controls">
+        <button class="control-btn" id="leftBtn">&#9664;</button>
+        <button class="control-btn" id="rightBtn">&#9654;</button>
+    </div>
+
+    <script>
+        let basket = document.getElementById('basket');
+        let gameContainer = document.getElementById('game-container');
+        let scoreDisplay = document.getElementById('score');
+        let leftBtn = document.getElementById('leftBtn');
+        let rightBtn = document.getElementById('rightBtn');
+
+        let score = 0;
+        let basketSpeed = 30;
+
+        function moveBasketLeft() {
+            let basketPosition = basket.offsetLeft;
+            if (basketPosition > 10) {
+                basket.style.left = basketPosition - basketSpeed + 'px';
+            }
+        }
+
+        function moveBasketRight() {
+            let basketPosition = basket.offsetLeft;
+            if (basketPosition < 230) {
+                basket.style.left = basketPosition + basketSpeed + 'px';
+            }
+        }
+
+        function moveBasket(event) {
+            if (event.key === 'ArrowLeft') {
+                moveBasketLeft();
+            } else if (event.key === 'ArrowRight') {
+                moveBasketRight();
+            }
+        }
+
+        function createStar() {
+            let star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 280 + 'px';
+            gameContainer.appendChild(star);
+
+            let fallInterval = setInterval(() => {
+                let starTop = parseInt(star.style.top || 0);
+                star.style.top = starTop + 5 + 'px';
+
+                if (starTop > 370) {
+                    let basketLeft = basket.offsetLeft;
+                    let starLeft = star.offsetLeft;
+                    if (starLeft > basketLeft && starLeft < basketLeft + 60) {
+                        score++;
+                        scoreDisplay.textContent = score;
+                    }
+                    star.remove();
+                    clearInterval(fallInterval);
+                }
+            }, 50);
+        }
+
+        document.addEventListener('keydown', moveBasket);
+        leftBtn.addEventListener('click', moveBasketLeft);
+        rightBtn.addEventListener('click', moveBasketRight);
+
+        setInterval(createStar, 1000);
+    </script>
+</body>
+</html>

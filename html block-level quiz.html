@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Block-level Elements Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. Which of the following is a block-level element?",
+        options: ["<span>", "<div>", "<a>", "<b>"],
+        answer: 1
+    },
+    {
+        question: "2. What is the main characteristic of a block-level element?",
+        options: [
+            "Takes up only as much width as needed",
+            "Always appears on a new line and takes full width",
+            "Cannot contain other elements",
+            "Is always inline"
+        ],
+        answer: 1
+    },
+    {
+        question: "3. Which of these is NOT a block-level element?",
+        options: ["<p>", "<h1>", "<span>", "<section>"],
+        answer: 2
+    },
+    {
+        question: "4. What is the default display property of a `<div>`?",
+        options: ["inline", "block", "flex", "grid"],
+        answer: 1
+    },
+    {
+        question: "5. Which HTML element is used to create a generic block container?",
+        options: ["<section>", "<div>", "<span>", "<article>"],
+        answer: 1
+    },
+    {
+        question: "6. Which of the following block elements is used to group content and give it meaning?",
+        options: ["<div>", "<p>", "<section>", "<b>"],
+        answer: 2
+    },
+    {
+        question: "7. How does a `<p>` tag behave in an HTML document?",
+        options: [
+            "It appears on a new line by default",
+            "It does not take full width",
+            "It is an inline element",
+            "It must be used inside a `<span>` tag"
+        ],
+        answer: 0
+    },
+    {
+        question: "8. Which block-level element is used for self-contained content like news articles?",
+        options: ["<header>", "<section>", "<article>", "<aside>"],
+        answer: 2
+    },
+    {
+        question: "9. Which of the following block elements is used for navigation links?",
+        options: ["<nav>", "<span>", "<a>", "<aside>"],
+        answer: 0
+    },
+    {
+        question: "10. What is the purpose of the `<aside>` tag?",
+        options: [
+            "To style text as italic",
+            "To group links together",
+            "To display content related to the main content",
+            "To create tables"
+        ],
+        answer: 2
+    },
+    {
+        question: "11. Can a `<div>` contain another `<div>`?",
+        options: ["Yes", "No", "Only in some browsers", "Only in HTML5"],
+        answer: 0
+    },
+    {
+        question: "12. Which block element is used to define a footer in HTML?",
+        options: ["<footer>", "<div>", "<section>", "<bottom>"],
+        answer: 0
+    },
+    {
+        question: "13. Which block element is commonly used to structure the top part of a webpage?",
+        options: ["<nav>", "<header>", "<aside>", "<article>"],
+        answer: 1
+    },
+    {
+        question: "14. What happens if you put an inline element inside a block-level element?",
+        options: [
+            "It breaks the layout",
+            "It is not allowed",
+            "It works normally",
+            "It makes the block element inline"
+        ],
+        answer: 2
+    },
+    {
+        question: "15. Which block-level element is used to create a section of a document?",
+        options: ["<div>", "<section>", "<span>", "<strong>"],
+        answer: 1
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html block-level element.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avoid the Blocks</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        h1 { margin-bottom: 10px; }
+        .game-container {
+            width: 400px;
+            height: 500px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .player {
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+        .block {
+            width: 50px;
+            height: 50px;
+            background: black;
+            position: absolute;
+            top: -50px;
+            border-radius: 5px;
+        }
+        .scoreboard {
+            margin: 10px;
+            font-size: 20px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .control-btn {
+            width: 60px;
+            height: 50px;
+            margin: 5px;
+            background: lightblue;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Avoid the Blocks</h1>
+    <p>Move left and right to dodge falling blocks!</p>
+
+    <div class="scoreboard">
+        Score: <span id="score">0</span> | Best: <span id="best-score">0</span>
+    </div>
+
+    <div class="game-container" id="game-container">
+        <div class="player" id="player"></div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div class="controls">
+        <button class="control-btn" id="leftBtn">&#9664;</button>
+        <button class="control-btn" id="rightBtn">&#9654;</button>
+    </div>
+
+    <script>
+        let player = document.getElementById("player");
+        let gameContainer = document.getElementById("game-container");
+        let leftBtn = document.getElementById("leftBtn");
+        let rightBtn = document.getElementById("rightBtn");
+        let scoreDisplay = document.getElementById("score");
+        let bestScoreDisplay = document.getElementById("best-score");
+
+        let playerPos = 175;
+        let gameOver = false;
+        let score = 0;
+        let speed = 25;
+
+        // Load best score from local storage
+        let bestScore = localStorage.getItem("bestScore") || 0;
+        bestScoreDisplay.textContent = bestScore;
+
+        function moveLeft() {
+            if (playerPos > 0) {
+                playerPos -= speed;
+                player.style.left = playerPos + "px";
+            }
+        }
+
+        function moveRight() {
+            if (playerPos < 350) {
+                playerPos += speed;
+                player.style.left = playerPos + "px";
+            }
+        }
+
+        // Keyboard Controls
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "ArrowLeft") moveLeft();
+            else if (event.key === "ArrowRight") moveRight();
+        });
+
+        // Mobile Controls
+        leftBtn.addEventListener("click", moveLeft);
+        rightBtn.addEventListener("click", moveRight);
+
+        function createBlock() {
+            if (gameOver) return;
+            let block = document.createElement("div");
+            block.classList.add("block");
+            block.style.left = Math.random() * 350 + "px";
+            gameContainer.appendChild(block);
+
+            let fallInterval = setInterval(() => {
+                if (gameOver) {
+                    clearInterval(fallInterval);
+                    return;
+                }
+                let blockTop = parseInt(block.style.top || 0);
+                block.style.top = blockTop + 5 + "px";
+
+                if (blockTop >= 450) {
+                    let blockLeft = parseInt(block.style.left);
+                    if (Math.abs(playerPos - blockLeft) < 50) {
+                        gameOver = true;
+                        updateBestScore();
+                        setTimeout(() => location.reload(), 1000);
+                    }
+                    block.remove();
+                    clearInterval(fallInterval);
+                }
+            }, 30);
+
+            // Increase score every second
+            if (!gameOver) {
+                score++;
+                scoreDisplay.textContent = score;
+            }
+
+            setTimeout(createBlock, 1000);
+        }
+
+        function updateBestScore() {
+            if (score > bestScore) {
+                bestScore = score;
+                localStorage.setItem("bestScore", bestScore);
+                bestScoreDisplay.textContent = bestScore;
+            }
+        }
+
+        createBlock();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML line break</title>
+</head>
+<body>
+<h1 class="topic">*HTML Line Break*</h1><br><br>
+<h3>In HTML, the <span>&lt;br&gt;</span> tag is used to insert a line break within text. Unlike the <span>&lt;p&gt;</span> (paragraph) tag, which creates separate blocks of text, the <span>&lt;br&gt;</span> tag forces text to move to the next line while remaining within the same element.</h3><br><br>
+<h6>Basic Example</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;This is the first line.<br>This is the second line.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li><span>&lt;br&gt;</span> Creates a line break.</li>
+<li>The text after <span>&lt;br&gt;</span> appears on the next line.</li>
+</h3><br>
+<h6>When to Use &lt;br&gt;</h6>
+<h3>The &lt;br&gt; tag is useful in the following cases: <br>
+<li> Breaking text within a single paragraph.</li>
+<li> Formatting addresses or poetry.</li>
+<li> Displaying line breaks inside an inline element.</li>
+</h3><br>
+<h6>Example: Formatting an Address</h6><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;
+Ahmad Hussaini,<br>
+Farinyaro Katsina,<br>
+Katsina, Nigeria<br>
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Using <span>&lt;br&gt;</span> in Forms</h6><br>
+<h3>Line breaks are useful inside forms to separate labels and input fields:</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;label&gt;Name:&lt;/label&gt;&lt;br&gt;
+&lt;input type="text"&gt;&lt;br&gt;&lt;br&gt;
+&lt;label&gt;Email&lt;/label&gt;&lt;br&gt;
+&lt;input type="email"&gt;&lt;br&gt;&lt;br&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Best Practices</h6><br>
+<li>Use <span>&lt;br&gt;</span> only when necessary. Prefer &lt;p&gt; for structuring text.</li>
+<li>Avoid excessive <span>&lt;br&gt;</span> usage, as it can make HTML code cluttered.</li>
+<li>For spacing, consider using CSS margin or padding instead of multiple <span>&lt;br&gt;</span> tags.</li><br>
+<div class="questions-container">
+<a href="html line break quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html line break exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

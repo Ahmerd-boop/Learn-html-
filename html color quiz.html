@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Colors Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+    <script>
+const questions = [
+    { question: "1. Which attribute is used to change the text color in HTML?", options: ["text-color", "color", "style", "font"], answer: 2 },
+    { question: "2. How can you set a red text color using inline CSS?", options: ["<p color='red'>", "<p style='color:red;'>", "<p text='red'>", "<p font-color='red'>"], answer: 1 },
+    { question: "3. Which of the following is a valid hex color code?", options: ["#FF5733", "rgb(255,87,51)", "hsl(9, 100%, 60%)", "All of the above"], answer: 3 },
+    { question: "4. What is the default text color in HTML?", options: ["Black", "White", "Blue", "Red"], answer: 0 },
+    { question: "5. Which CSS property is used to change the background color of an element?", options: ["color", "bgcolor", "background", "background-color"], answer: 3 },
+    { question: "6. What does RGB stand for?", options: ["Red Green Black", "Red Green Blue", "Red Grey Blue", "Random Gradient Background"], answer: 1 },
+    { question: "7. Which CSS function allows defining colors using red, green, and blue values?", options: ["rgb()", "rgba()", "hsl()", "hex()"], answer: 0 },
+    { question: "8. How do you set a fully transparent background using RGBA?", options: ["rgba(0,0,0,0)", "rgba(255,255,255,1)", "rgb(0,0,0,0)", "rgb(255,255,255,0)"], answer: 0 },
+    { question: "9. Which color model uses hue, saturation, and lightness values?", options: ["RGB", "HSL", "CMYK", "HEX"], answer: 1 },
+    { question: "10. What is the correct way to define a blue background using a hexadecimal value?", options: ["background-color: blue;", "background-color: #0000FF;", "background-color: rgb(0,0,255);", "All of the above"], answer: 3 },
+    { question: "11. Which of these is NOT a valid way to specify color in CSS?", options: ["Named color (e.g., red)", "RGB values", "Decimal values", "HSL values"], answer: 2 },
+    { question: "12. How can you make text semi-transparent using CSS?", options: ["opacity: 0.5;", "color: rgba(0,0,0,0.5);", "Both A and B", "None of the above"], answer: 2 },
+    { question: "13. Which CSS property affects the transparency of an element?", options: ["color", "opacity", "visibility", "background"], answer: 1 },
+    { question: "14. What is the range of values for RGB color channels?", options: ["0 to 100", "1 to 255", "0 to 255", "0 to 360"], answer: 2 },
+    { question: "15. How do you set a gradient background in CSS?", options: ["background: linear-gradient(red, blue);", "background: gradient(red, blue);", "background: color-gradient(red, blue);", "background: blend(red, blue);"], answer: 0 }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html color.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

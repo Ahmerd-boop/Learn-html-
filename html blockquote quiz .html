@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Blockquote</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Blockquote Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What is the purpose of the `<blockquote>` element in HTML?",
+    options: ["To display a long quotation", "To create a hyperlink", "To format text as bold", "To define a paragraph"],
+    answer: 0
+  },
+
+  {
+    question: "2. How do you correctly use the `<blockquote>` tag?",
+    options: ["<blockquote>This is a quote</blockquote>", "<quote>This is a quote</quote>", "<bq>This is a quote</bq>", "<blockquote='This is a quote'>"],
+    answer: 0
+  },
+
+  {
+    question: "3. What is the difference between `<blockquote>` and `<q>`?",
+    options: ["`<blockquote>` is for longer quotes, `<q>` is for short inline quotes", "`<q>` is for block-level quotes, `<blockquote>` is for inline quotes", "Both are used interchangeably", "`<q>` is only supported in HTML5"],
+    answer: 0
+  },
+
+  {
+    question: "4. Which attribute can be used with `<blockquote>` to indicate the source of the quote?",
+    options: ["href", "cite", "src", "ref"],
+    answer: 1
+  },
+
+  {
+    question: "5. How do you properly include a citation in `<blockquote>`?",
+    options: ["<blockquote cite='https://example.com'>Quoted text</blockquote>", "<blockquote href='https://example.com'>Quoted text</blockquote>", "<blockquote src='https://example.com'>Quoted text</blockquote>", "<blockquote ref='https://example.com'>Quoted text</blockquote>"],
+    answer: 0
+  },
+
+  {
+    question: "6. What is the default styling of `<blockquote>` in most browsers?",
+    options: ["Indented text", "Bold text", "Italic text", "Underlined text"],
+    answer: 0
+  },
+
+  {
+    question: "7. Can you nest a `<blockquote>` inside another `<blockquote>`?",
+    options: ["Yes", "No"],
+    answer: 0
+  },
+
+  {
+    question: "8. How does `<blockquote>` improve accessibility?",
+    options: ["It helps screen readers identify quotes", "It makes text larger", "It changes the font style", "It adds a hover effect"],
+    answer: 0
+  },
+
+  {
+    question: "9. Is the `<cite>` tag required inside `<blockquote>`?",
+    options: ["Yes, always", "No, it is optional", "Only in HTML5", "It depends on the browser"],
+    answer: 1
+  },
+
+  {
+    question: "10. What is the semantic meaning of `<blockquote>`?",
+    options: ["It indicates that the text is a quotation", "It makes text bold", "It defines a paragraph", "It adds a hyperlink"],
+    answer: 0
+  },
+
+  {
+    question: "11. How can you style `<blockquote>` with CSS to remove indentation?",
+    options: ["blockquote { margin: 0; }", "blockquote { padding: 0; }", "blockquote { text-align: center; }", "blockquote { font-size: 20px; }"],
+    answer: 0
+  },
+
+  {
+    question: "12. Can the `<blockquote>` tag contain other HTML elements like `<p>` or `<cite>`?",
+    options: ["Yes", "No"],
+    answer: 0
+  },
+
+  {
+    question: "13. How do you add quotation marks around a `<blockquote>` using CSS?",
+    options: ["blockquote { quotes: '“' '”' '‘' '’'; }", "blockquote { font-style: italic; }", "blockquote { text-decoration: underline; }", "blockquote { color: blue; }"],
+    answer: 0
+  },
+
+  {
+    question: "14. Which of the following is a valid example of using `<blockquote>`?",
+    options: [
+      "<blockquote>‘This is a quote.’</blockquote>",
+      "<blockquote>This is a quote</quote>",
+      "<quote>This is a quote</quote>",
+      "<blockquote=‘This is a quote.’>"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "15. Can `<blockquote>` be used inside an `<article>`?",
+    options: ["Yes", "No"],
+    answer: 0
+  },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html blockquote.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

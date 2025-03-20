@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Elements</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { question: "What HTML element is used to define an unordered list? &lt;___&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/___&gt;", answer: "ul" },
+    { question: "What HTML element is used to define an ordered list? &lt;___&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/___&gt;", answer: "ol" },
+    { question: "What HTML element is used to define a form? &lt;___ action='submit.php'&gt;", answer: "form" },
+    { question: "What HTML element is used to input text in a form? &lt;___ type='text'&gt;", answer: "input" },
+    { question: "What HTML element defines a section in an HTML document? &lt;___&gt;Content here&lt;/___&gt;", answer: "section" },
+    { question: "What HTML element represents a button? &lt;___&gt;Click me&lt;/___&gt;", answer: "button" },
+    { question: "Which HTML element adds a line break? &lt;___&gt;", answer: "br" },
+    { question: "What HTML element is used to define table headers? &lt;tr&gt;&lt;___&gt;Heading&lt;/___&gt;&lt;/tr&gt;", answer: "th" },
+    { question: "Which HTML element is used to add metadata to an HTML document? &lt;___&gt;", answer: "meta" },
+    { question: "What HTML element is used to define a navigation menu? &lt;___&gt;Links&lt;/____&gt;", answer: "nav" },
+    { question: "What HTML element is used to display a video? &lt;___ src='video.mp4'&gt;&lt;/___&gt;", answer: "video" },
+    { question: "Which HTML element defines a footer section? &lt;___&gt;Footer content&lt;/___&gt;", answer: "footer" },
+    { question: "What HTML element is used to define bold text? &lt;___&gt;Bold Text&lt;/___&gt;", answer: "b" },
+    { question: "What HTML element is used to define emphasized (italic) text? &lt;___&gt;Emphasized Text&lt;/___&gt;", answer: "em" },
+    { question: "What HTML element is used to define a container for other elements without affecting layout? &lt;___&gt;Content here&lt;/___&gt;", answer: "div" }
+];
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html element.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

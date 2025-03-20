@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML block-level element</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML element represents the main heading of a page?", answer: "<h1>" },
+
+{ question: "2. What block-level element is used to define a paragraph?", answer: "<p>" },
+
+{ question: "3. Which HTML tag is used to define a division or section in a document?", answer: "<div>" },
+
+{ question: "4. What block element is commonly used for grouping content and applying styles?", answer: "<section>" },
+
+{ question: "5. Which element is used to define an independent piece of content?", answer: "<article>" },
+
+{ question: "6. What tag represents content that is self-contained and related to the main content?", answer: "<aside>" },
+
+{ question: "7. Which block-level element is used to define the footer of a webpage?", answer: "<footer>" },
+
+{ question: "8. What HTML element represents a header section in a document or section?", answer: "<header>" },
+
+{ question: "9. Which block-level element is used to represent navigation links?", answer: "<nav>" },
+
+{ question: "10. What element is used to group content inside a form?", answer: "<fieldset>" },
+
+{ question: "11. Which HTML tag is used to represent tabular data?", answer: "<table>" },
+
+{ question: "12. What block-level tag is used to represent a list item?", answer: "<li>" },
+
+{ question: "13. Which block-level element is used to display a horizontal rule (line)?", answer: "<hr>" },
+
+{ question: "14. What block-level element is used for preformatted text?", answer: "<pre>" },
+
+{ question: "15. Which block-level element is used to create a quote in HTML?", answer: "<blockquote>" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html block-level element.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

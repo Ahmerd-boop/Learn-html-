@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Description Lists Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. Which HTML tag is used to create a description list?",
+        options: ["<dl>", "<dt>", "<dd>", "<list>"],
+        answer: 0
+    },
+    {
+        question: "2. Which tag is used to define a term in a description list?",
+        options: ["<dl>", "<dt>", "<dd>", "<term>"],
+        answer: 1
+    },
+    {
+        question: "3. Which tag is used to define the description of a term in a description list?",
+        options: ["<dl>", "<dt>", "<dd>", "<define>"],
+        answer: 2
+    },
+    {
+        question: "4. What does `<dl>` stand for in HTML?",
+        options: [
+            "Description List",
+            "Detailed List",
+            "Data List",
+            "Defined List"
+        ],
+        answer: 0
+    },
+    {
+        question: "5. What is the purpose of `<dt>` in a description list?",
+        options: [
+            "Defines the term or name",
+            "Defines the description",
+            "Defines the list type",
+            "Defines the bullet style"
+        ],
+        answer: 0
+    },
+    {
+        question: "6. What is the purpose of `<dd>` in a description list?",
+        options: [
+            "Defines the list itself",
+            "Defines the term",
+            "Defines the description or details",
+            "Defines the list order"
+        ],
+        answer: 2
+    },
+    {
+        question: "7. Can a description list contain multiple `<dt>` elements before a `<dd>`?",
+        options: [
+            "Yes, a single `<dd>` can describe multiple `<dt>` terms",
+            "No, each `<dt>` must have a separate `<dd>`",
+            "Only if using the `multiple` attribute",
+            "Only if placed inside a `<ul>`"
+        ],
+        answer: 0
+    },
+    {
+        question: "8. Can a description list contain multiple `<dd>` elements for one `<dt>`?",
+        options: [
+            "Yes, multiple `<dd>` elements can provide multiple descriptions",
+            "No, each `<dt>` must have only one `<dd>`",
+            "Only if using the `multiple` attribute",
+            "Only if placed inside a `<table>`"
+        ],
+        answer: 0
+    },
+    {
+        question: "9. Can you nest a description list inside another list?",
+        options: [
+            "Yes, a `<dl>` can be nested inside `<ul>` or `<ol>`",
+            "No, description lists cannot be nested",
+            "Only if using `<div>` around the `<dl>`",
+            "Only in HTML5"
+        ],
+        answer: 0
+    },
+    {
+        question: "10. How can you style a description list using CSS?",
+        options: [
+            "Using `list-style` property",
+            "Using `display` and `margin` properties",
+            "Using `list-type` property",
+            "You cannot style description lists"
+        ],
+        answer: 1
+    },
+    {
+        question: "11. What happens if you use `<dl>` without `<dt>` and `<dd>`?",
+        options: [
+            "The list will still display correctly",
+            "It will generate an error",
+            "It will display but without any formatting",
+            "It will automatically add `<dt>` and `<dd>`"
+        ],
+        answer: 2
+    },
+    {
+        question: "12. Which HTML version introduced the `<dl>` element?",
+        options: [
+            "HTML5",
+            "HTML4",
+            "HTML3",
+            "HTML2"
+        ],
+        answer: 3
+    },
+    {
+        question: "13. What is the default browser styling for `<dt>`?",
+        options: [
+            "Bold text",
+            "Italic text",
+            "Underlined text",
+            "Larger font size"
+        ],
+        answer: 0
+    },
+    {
+        question: "14. What is the default browser styling for `<dd>`?",
+        options: [
+            "Indented text",
+            "Centered text",
+            "Uppercase text",
+            "Bold text"
+        ],
+        answer: 0
+    },
+    {
+        question: "15. What is a common use case for a description list?",
+        options: [
+            "Defining terms and their meanings",
+            "Creating navigation menus",
+            "Displaying tabular data",
+            "Making numbered lists"
+        ],
+        answer: 0
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "description list.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

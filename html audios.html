@@ -1,0 +1,233 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Audio</title>
+</head>
+
+<body>
+<h1 class="topic">*HTML Audio</span>*</h1><br><br>
+<h3>The HTML <span>&lt;audio&gt;</span> element is used to <b>embed audio content</b> in a webpage. It allows users to
+play audio files directly within their browsers <b>without requiring external plugins</b>. The
+<span>&lt;audio&gt;</span> element supports multiple formats and provides controls for <b>playback, volume, and
+looping</b>.</h3><br>
+<h3>
+<li>✔️Allows embedding of audio files</li>
+<li>✔️Supports multiple formats (`MP3`, `WAV`, `OGG`)</li>
+<li>✔️Provides built-in controls for playback</li>
+</h3>
+<h6>Syntax of the <span>&lt;audio&gt;</span> Element</h6>
+<h3>The basic syntax of the <span>&lt;audio&gt;</span> element is:</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<audio controls>
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li>✔️ The <span>&lt;audio&gt;</span> tag <b>creates the audio player</b>.</li>
+<li>✔️ The <span>&lt;source&gt;</span> tag <b>provides multiple file formats</b> for better browser compatibility.
+</li>
+<li>✔️ The <span>&lt;source&gt;</span> attribute <b>adds play, pause, and volume controls</b>.</li>
+<li>✔️ The fallback text <b>displays if the browser does not support the <span>&lt;audio&gt;</span> element</b>.
+</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<audio controls muted>
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+
+<h6>Attributes of the <span>&lt;audio&gt;</span> Element</h6>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>&lt;`controls`&gt;</span></td>
+<td>Displays playback controls (play, pause, volume, etc.).</td>
+</tr>
+<tr>
+<td><span>&lt;`autoplay`&gt;</span></td>
+<td>Automatically plays the audio when the page loads.</td>
+</tr>
+<tr>
+<td><span>&lt;`loop`&gt;</span></td>
+<td>Repeats the audio file when it finishes playing.</td>
+</tr>
+<tr>
+<td><span>&lt;`muted`&gt;</span></td>
+<td>Starts the audio in a muted state.</td>
+</tr>
+<tr>
+<td><span>&lt;`preload`&gt;</span></td>
+<td>Specifies whether the audio file should be loaded when the page loads.</td>
+</tr>
+<tr>
+<td><span>&lt;`src`&gt;</span></td>
+<td>Directly sets the audio file URL (instead of using &lt;source&gt;).</td>
+</tr>
+</tbody>
+</table>
+<h6>Example using <span>`controls`</span> and <span>`loop`</span></h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<audio controls loop>
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h3>
+<li>✔️ This plays the audio <b>automatically and continuously</b>.</li>
+</h3><br>
+<h6>Supported Audio Formats and Browser Compatibility</h6>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>File Extension</th>
+<th>Supported Browsers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP3</td>
+<td><span>`.mp3`</span></td>
+<td>Chrome, Firefox, Safari, Edge, Opera</td>
+</tr>
+<tr>
+<td>Ogg</td>
+<td><span>`.ogg`</span></td>
+<td>Chrome, Firefox, Edge, Opera</td>
+</tr>
+<tr>
+<td>WAV</td>
+<td><span>`.wav`</span></td>
+<td>Chrome, Firefox, Safari, Edge</td>
+</tr>
+</tbody>
+</table><br>
+<h3><strong><b>Best Practice:</b> Provide multiple formats (`MP3`, `OGG`, `WAV`) for <b>maximum browser
+support</b>.</strong></h3><br>
+<h6>Using JavaScript with the <span>&lt;audio&gt;</span> Element</h6>
+<h3>You can control audio playback using JavaScript.</h3>
+<h6>Example: Custom Play/Pause Button</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 710px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<style>
+button{
+background-color: blue;
+color: white;
+font-size: 15px;
+border-radius: 10px;
+padding: 10px 20px;
+border: 1px solid #f4f4f4;
+outline: none;
+float: left;
+}
+</style>
+&lt;/head&gt;
+&lt;body&gt;
+<audio id="myAudio">
+<source src="audio.m4a">
+</audio>
+
+<button onclick="playAudio()">Play</button>
+<button onclick="pauseAudio()">Pause</button>
+
+&lt;script&gt;
+var audio = document.getElementById("myAudio");
+
+function playAudio() {
+audio.play();
+}
+
+function pauseAudio() {
+audio.pause();
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h3><strong>✔️ This allows custom control buttons for audio playback.</strong></h3><br>
+<h6>Limitations of the <span>&lt;audio&gt;</span> Element</h6>
+<h3>
+<li>❌ Browser Compatibility Issues – Not all browsers support all audio formats.</li>
+<li>❌ No Built-In Equalizer – No built-in way to control bass, treble, etc.</li>
+<li>❌ Requires User Interaction for Autoplay – Most browsers prevent autoplay unless the user interacts with the
+page first.</li>
+</h3><br>
+<h3><strong>Solution:</strong> Use JavaScript to detect user interaction before playing audio.</h3><br>
+<h6>Best Practices for Using <span>&lt;audio&gt;</span></h6>
+<h3>
+<li>✔️ Use the <span>&lt;source&gt;</span> tag to provide multiple audio formats.</li>
+<li>✔️ Use the <span>`controls`</span> attribute to make the player user-friendly.</li>
+<li>✔️ Avoid autoplay unless necessary—most browsers block it.</li>
+<li>✔️ Use JavaScript for enhanced playback control.</li>
+<li>✔️ Optimize file size for fast loading and better performance.</li>
+</h3><br>
+<div class="note-box">
+<h3>The HTML &lt;audio&gt; element is a powerful tool for embedding music, podcasts, and other sound effects in web
+pages. It is easy to use, lightweight, and fully supported across modern browsers when multiple formats are
+provided. However, due to autoplay restrictions and format compatibility issues, it is essential to implement best
+practices for a smooth user experience.</h3>
+</div><br>
+<div class="questions-container">
+<a href="html audio quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html audios exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+
+</html>

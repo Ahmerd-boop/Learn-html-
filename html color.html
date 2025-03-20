@@ -1,0 +1,236 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Colors</title>
+</head>
+<body>
+<h1 class="topic">*HTML Colors*</h1><br><br>
+<h3>Colors in HTML are used to enhance the visual appearance of web pages. Colors can be applied to text, backgrounds, borders, and other elements using CSS properties. HTML supports various color formats, including color names, hexadecimal values, RGB, HSL, and opacity levels.</h3>
+<h6>Applying Colors in HTML</h6>
+<h3>Colors can be applied using the `color` and `background-color` properties in CSS.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: blue;">This text is blue.</p>
+<p style="background-color: yellow;">This background is yellow.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Use Cases</h6>
+<h3>
+<li>Highlighting important text.</li>
+<li>Enhancing readability.</li>
+<li>Creating visually appealing web pages.</li>
+</h3><br>
+<h6>Color Names in HTML</h6>
+<h3>HTML supports <b>140 standard color names</b> such as `red`, `blue`, `green`, `yellow`, and `pink`.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: crimson;">This text is crimson.</p>
+<p style="background-color: lightgray;">This background is light gray.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use named colors for simplicity when working with common colors.</li>
+<li>For precise control, use hexadecimal or RGB values.</li>
+</h3><br>
+<h6>Hexadecimal Colors</h6>
+<h3>Hexadecimal colors are represented by a <b>#</b> followed by six characters (0-9, A-F), defining red, green, and blue intensity levels.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: #FF5733;">This text is orange-red.</p>
+<p style="background-color: #ADD8E6;">This background is light blue.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use hex colors for precise color matching.</li>
+<li>Shorten hex codes when possible (e.g., `#FF0000` → `#F00`).</li>
+</h3><br>
+<h6>RGB Colors</h6>
+<h3>RGB (Red, Green, Blue) defines colors using values between `0-255`.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: rgb(255, 99, 71);">This text is tomato-colored.</p>
+<p style="background-color: rgb(173, 216, 230);">This background is light blue.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3><li>Use RGB for precise control over color components.</li>
+<li>Easily modify intensity by adjusting RGB values.</li>
+</h3><br>
+<h6>RGBA (RGB with Opacity)</h6>
+<h3>RGBA adds an <i>alpha channel (A)</i> to set transparency, where `0` is fully transparent and `1` is fully opaque.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: rgba(0, 0, 255, 0.5);">This text is semi-transparent blue.</p>
+<p style="background-color: rgba(255, 165, 0, 0.3);">This background is semi-transparent orange.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3><li>Use RGBA for overlay effects and transparency.</li>
+<li>Avoid extreme transparency for readability.</li>
+</h3><br>
+<h6>HSL Colors</h6>
+<h3>HSL (Hue, Saturation, Lightness) is an alternative color model that is more intuitive for designers.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: hsl(120, 100%, 25%);">This text is dark green.</p>
+<p style="background-color: hsl(240, 100%, 75%);">This background is light blue.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use HSL for easier color adjustments.</li>
+<li>Adjust <i>lightness (%)</i> to create tints and shades.</li>
+</h3><br>
+<h6>HSLA (HSL with Opacity)</h6>
+<h3>HSLA works like HSL but includes an <i>alpha (A) channel</i> for transparency.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: hsla(300, 100%, 50%, 0.7);">This text is semi-transparent magenta.</p>
+<p style="background-color: hsla(60, 100%, 50%, 0.3);">This background is semi-transparent yellow.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3><li>Use HSLA for a combination of color control and transparency.</li></h3>
+<h6>Background Colors</h6>
+<h3>The `background-color` property applies colors to the background of an element.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<div style="background-color: #f0f8ff; padding: 20px;">This div has a light blue background.</div>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3><li>Choose background colors that contrast well with text.</li>
+<li>Avoid harsh or distracting colors.</li>
+</h3>
+<h6>Border Colors</h6>
+<h3>The `border-color` property sets the color of an element’s border.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="border: 2px solid red; padding: 10px;">This paragraph has a red border.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use subtle border colors for a clean design.</li>
+<li>Match borders with the overall theme.</li>
+</h3>
+<h6>Gradient Colors</h6>
+<h3>Gradients create smooth color transitions using `linear-gradient()` and `radial-gradient()`.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<div style="background: linear-gradient(to right, red, yellow); height: 200px;"></div>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li>Use gradients sparingly to avoid visual clutter.</li>
+</h3><br>
+<div class="note-box"><h3><b>HTML Colors</b> are a powerful tool in web design. By understanding different color formats and best practices, developers can create visually appealing and accessible web pages.</h3></div><br>
+<div class="warning"><h3><b>Note:</b> Use beautiful colors and backgrounds for your website, to make it great.</h3></div><br>
+<div class="questions-container">
+<a href="html color quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html color exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Audios</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Audios Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. Which HTML tag is used to embed audio in a webpage?",
+    options: ["<sound>", "<music>", "<audio>", "<media>"],
+    answer: 2
+  },
+
+  {
+    question: "2. What attribute is used to specify multiple audio sources for the `<audio>` element?",
+    options: ["src", "source", "audio-source", "data"],
+    answer: 1
+  },
+
+  {
+    question: "3. Which file format is NOT supported by the `<audio>` element?",
+    options: ["MP3", "WAV", "OGG", "FLV"],
+    answer: 3
+  },
+
+  {
+    question: "4. How do you make an `<audio>` element play automatically when the page loads?",
+    options: ["autoplay", "play", "loop", "start"],
+    answer: 0
+  },
+
+  {
+    question: "5. What attribute is used to show the audio controls to the user?",
+    options: ["player", "show", "controls", "display"],
+    answer: 2
+  },
+
+  {
+    question: "6. Which of the following is a correct way to define an audio element with multiple sources?",
+    options: [
+      "<audio><source src='sound.mp3'><source src='sound.ogg'></audio>",
+      "<audio src='sound.mp3' src='sound.ogg'></audio>",
+      "<audio><source file='sound.mp3'></audio>",
+      "<audio><file src='sound.mp3'></file></audio>"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "7. How do you make an audio file loop continuously?",
+    options: ["loop", "repeat", "cycle", "restart"],
+    answer: 0
+  },
+
+  {
+    question: "8. Which HTML attribute prevents an audio file from playing until the user starts it?",
+    options: ["pause", "controls", "autoplay", "preload"],
+    answer: 3
+  },
+
+  {
+    question: "9. What is the purpose of the `preload` attribute in the `<audio>` tag?",
+    options: [
+      "Specifies if the browser should preload the audio file",
+      "Starts playing the audio automatically",
+      "Loops the audio file",
+      "Hides the audio controls"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "10. What value of `preload` means the browser should load metadata only?",
+    options: ["auto", "metadata", "none", "all"],
+    answer: 1
+  },
+
+  {
+    question: "11. Which JavaScript method is used to play an audio file?",
+    options: ["start()", "play()", "begin()", "launch()"],
+    answer: 1
+  },
+
+  {
+    question: "12. How do you stop an audio file using JavaScript?",
+    options: ["pause()", "stop()", "end()", "close()"],
+    answer: 0
+  },
+
+  {
+    question: "13. Which `<audio>` attribute ensures that the audio starts over after finishing?",
+    options: ["restart", "loop", "repeat", "reload"],
+    answer: 1
+  },
+
+  {
+    question: "14. What does `<audio muted>` do?",
+    options: [
+      "Removes sound from the audio file",
+      "Plays the audio without sound",
+      "Disables the audio element",
+      "Removes background noise"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "15. Which of the following is NOT a valid audio format for `<audio>`?",
+    options: ["MP3", "WAV", "OGG", "MP4"],
+    answer: 3
+  },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html audios.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

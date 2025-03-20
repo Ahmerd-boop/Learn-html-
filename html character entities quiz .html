@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Character Entities</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Character Entities Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What is an HTML character entity?",
+    options: [
+      "A reserved keyword in HTML",
+      "A special symbol that represents characters",
+      "A JavaScript function",
+      "A type of CSS property"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "2. Which HTML entity is used to represent a non-breaking space?",
+    options: ["&nbsp;", "&nbs;", "&space;", "&nspace;"],
+    answer: 0
+  },
+
+  {
+    question: "3. What is the correct HTML entity for the ampersand (`&`) symbol?",
+    options: ["&and;", "&amp;", "&amps;", "&a;"],
+    answer: 1
+  },
+
+  {
+    question: "4. How can you display the less than (`<`) sign in HTML?",
+    options: ["&lt;", "&less;", "&l;", "&lesser;"],
+    answer: 0
+  },
+
+  {
+    question: "5. Which character entity is used to display the greater than (`>`) sign?",
+    options: ["&gt;", "&greater;", "&g;", "&gtg;"],
+    answer: 0
+  },
+
+  {
+    question: "6. What is the correct entity for displaying double quotes (`\"`) in HTML?",
+    options: ["&dq;", "&quot;", "&dquote;", "&qmark;"],
+    answer: 1
+  },
+
+  {
+    question: "7. How do you represent a copyright symbol (`©`) using an HTML entity?",
+    options: ["&copyright;", "&copy;", "&cp;", "&rightcopy;"],
+    answer: 1
+  },
+
+  {
+    question: "8. Which HTML entity represents the registered trademark symbol (`®`)?",
+    options: ["&trademark;", "&reg;", "&tm;", "&rgtm;"],
+    answer: 1
+  },
+
+  {
+    question: "9. What entity is used for the Euro (`€`) currency symbol?",
+    options: ["&eur;", "&euro;", "&eu;", "&e;"],
+    answer: 1
+  },
+
+  {
+    question: "10. Which HTML entity represents the pound (`£`) currency symbol?",
+    options: ["&pound;", "&gbp;", "&lira;", "&pnd;"],
+    answer: 0
+  },
+
+  {
+    question: "11. How do you display the division symbol (`÷`) using an HTML entity?",
+    options: ["&divide;", "&div;", "&division;", "&d;"],
+    answer: 0
+  },
+
+  {
+    question: "12. What is the correct HTML entity for displaying the multiplication (`×`) symbol?",
+    options: ["&multiplication;", "&mult;", "&times;", "&x;"],
+    answer: 2
+  },
+
+  {
+    question: "13. Which HTML entity represents the section (`§`) symbol?",
+    options: ["&sect;", "&section;", "&sc;", "&s;"],
+    answer: 0
+  },
+
+  {
+    question: "14. How do you display an arrow (`→`) using an HTML entity?",
+    options: ["&rarr;", "&rightarrow;", "&arrow;", "&rar;"],
+    answer: 0
+  },
+
+  {
+    question: "15. What is the HTML entity for the middle dot (`·`)?",
+    options: ["&dot;", "&middot;", "&bullet;", "&mdot;"],
+    answer: 1
+  },
+
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html character entities.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

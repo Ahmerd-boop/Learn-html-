@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Blockquote</title>
+</head>
+<body>
+<h1 class="topic">*HTML Blockquote*</h1><br><br>
+<h3>The <span>&lt;blockquote&gt;</span> element in HTML is used to define a section of text that is a block-level quotation from another source. It helps improve readability, structure, and SEO by clearly indicating quoted content.</h3>  
+<h3>By default, most browsers indent <span>&lt;blockquote&gt;</span> elements to visually distinguish them from the surrounding text.</h3><br>
+<h6>Syntax</h6>  
+<h3>The &lt;blockquote&gt; tag is a block-level element and must contain the quoted text inside it. It can optionally include the <span>`cite`</span> attribute to specify the source of the quote.</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<blockquote cite="https://example.com">
+This is a blockquote. It is used to indicate a quotation from another source.
+</blockquote>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 75px;"></iframe>
+</div><br>
+<h6>Usage of <span>&lt;blockquote&gt;</span></h6>  
+<h3><strong>Basic Blockquote Example</strong></h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<blockquote>
+"The only limit to our realization of tomorrow is our doubts of today." — Franklin D. Roosevelt
+</blockquote>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 75px;"></iframe>
+</div><br>
+<div class="warning"><h3>The text appears indented in most browsers.</h3></div><br>
+<h6>Blockquote with a Visible Citation</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<blockquote>
+"The only limit to our realization of tomorrow is our doubts of today."
+<footer>— Franklin D. Roosevelt, <cite>History.com</cite></footer>
+</blockquote>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 85px;"></iframe>
+</div><br>
+<div class="warning"><h3>Using <b>&lt;footer&gt;</b> and <b>&lt;cite&gt;</b> improves readability and SEO.</h3></div><br>
+<h6>Styling <span>&lt;blockquote&gt;</span> with CSS</h6>      
+<h3>The <span>&lt;blockquote&gt;</span> element can be customized using CSS to make it visually appealing.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 450px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;head&gt;
+<style>
+blockquote {
+font-style: italic;
+border-left: 4px solid #4CAF50;
+padding-left: 10px;
+margin: 20px;
+color: #333;
+}
+
+</style>
+&lt;/head&gt;
+<blockquote>
+"Success is not final, failure is not fatal: it is the courage to continue that counts."
+<footer>— Winston Churchill</footer>
+</blockquote>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<div class="warning"><h3>This adds a green left border and italicizes the text.</h3></div><br>
+<h6>Best Practices</h6>
+<h3>  
+<li>✔️ Use <span>&lt;blockquote&gt;</span> only for long quotes, not inline text.</li>  
+<li>✔️ Provide a visible citation using <span>&lt;footer&gt;</span> and <span>&lt;cite&gt;</span>.</li>  
+<li>✔️ Apply CSS styling to improve readability.</li>  
+<li>✔️ Avoid excessive nesting of <span>&lt;blockquote&gt;</span> elements.</li></h3>
+<div class="note-box"><h3>The <b><span style="background-color: transparent;">&lt;blockquote&gt;</span></b> element is a semantic HTML tag that helps structure quoted content properly. By using the <span style="background-color: transparent;">`cite`</span> attribute, <span style="background-color: transparent;">&lt;footer&gt;</span>, and CSS styling, you can make blockquotes more meaningful and visually appealing.</h3></div><br>  
+<div class="questions-container">
+<a href="html blockquote quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html blockquote exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

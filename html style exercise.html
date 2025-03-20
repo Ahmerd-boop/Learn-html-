@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Styles</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { question: "1. Which attribute is used to add inline styles in HTML?", answer: "style" },
+    { question: "2. How do you change the text color of a paragraph using inline CSS? (`&lt;p style='___: blue;'&gt;`)", answer: "color" },
+    { question: "3. What CSS property is used to change the background color of an element? (`___-color`)", answer: "background" },
+    { question: "4. How do you set the font size of a paragraph to 20 pixels using CSS? (`font-size: ___px;`)", answer: "20" },
+    { question: "5. Which CSS property is used to make text bold? (`font-___: bold;`)", answer: "weight" },
+    { question: "6. What CSS property controls the space between lines of text? (`line-___`)", answer: "height" },
+    { question: "7. How do you make text italic using CSS? (`font-___: italic;`)", answer: "style" },
+    { question: "8. What property is used to align text to the center? (`text-___: center;`)", answer: "align" },
+    { question: "9. How do you add a border around an element using CSS? (`border: ___px solid black;`)", answer: "1" },
+    { question: "10. Which CSS property is used to create rounded corners? (`border-___-radius: 10px;`)", answer: "radius" },
+    { question: "11. How do you remove the default margin and padding of an element? (`margin: ___; padding: ___;`)", answer: "0" },
+    { question: "12. What CSS property is used to add shadow to text? (`text-___: 2px 2px 5px gray;`)", answer: "shadow" },
+    { question: "13. How do you change the transparency of an element using CSS? (`opacity: ___;`)", answer: "0.5" },
+    { question: "14. What property is used to change the typeface of text? (`font-___: Arial, sans-serif;`)", answer: "family" },
+    { question: "15. Which CSS property is used to change the spacing between letters? (`letter-___: 2px;`)", answer: "spacing" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "styles.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

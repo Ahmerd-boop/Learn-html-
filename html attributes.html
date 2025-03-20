@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML attributes</title>
+</head>
+<body>
+<h1 class="topic">*HTML Attributes*</h1><br><br>
+<h3>HTML attributes provide additional information about an element, allowing developers to control its behavior, appearance, and interaction. Attributes are always included within the opening tag of an element and are written as name-value pairs.</h3><br>
+<h6>Basic Example/Syntax</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<tagname attribute="value">Content</tagname>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 40px;"></iframe>
+</div><br><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com">Visit Example</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 40px;"></iframe>
+</div><br>
+<h6>Global Attributes</h6>
+<h3>Global attributes are applicable to almost all HTML elements.</h3>
+<h6>Common Global Attributes</h6><br>
+<h3>
+<li><span>`class`</span> – Assigns a class name for CSS styling or JavaScript manipulation.</li>
+<li><span>`id`</span> – Provides a unique identifier for an element.</li>
+<li><span>`style`</span> – Defines inline CSS styles.</li>
+<li><span>`title`</span> – Specifies extra information (appears as a tooltip on hover).</li>
+<li><span>`lang`</span> – Declares the language of the element’s content.</li>
+<li><span>`dir`</span> – Specifies text direction (<span>`ltr`</span>, <span>`rtl`</span>).</li>
+</h3><br>
+<h6>The <span>id</span> and <span>class</span></h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p class="intro" id="paragraph1" style="color:blue;">Hello, world! <br> I love CodeNova</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The <span>href</span> Attribute (For Links)</h6>
+<h3>Used in anchor (<span>&lt;a&gt;</span>) tags to define the URL destination of a hyperlink.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="URL">Link Text</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://www.google.com">Go to Google</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Best Practices</h6><br>
+<h3>
+<li> Use absolute URLs for external links and relative URLs for internal navigation.</li>
+<li> Add <span>`target="_blank"`</span> to open links in a new tab.</li>
+<li> Use <span>`rel="noopener noreferrer"`</span> for security when opening new tabs.</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">Open in New Tab</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>The <span>`src`</span> Attribute (For Media Elements)</h6>
+<h3>The <span>src</span> attribute specifies the source URL for media elements like &lt;img&gt;, &lt;audio&gt;, and &lt;video&gt;.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<img src="Girlimage.jpg" alt="A beautiful girl image" style="width: 100%; height: 250;">
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 270px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<audio src="audio.mp3" controls></audio>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<video src="video.mp4" style="width: 100%; height: auto;" controls></video>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<h6>Best Practices</h6><br>
+<h3>
+<li> Always provide an <span>alt</span> attribute for images for accessibility.</li>
+<li> Use relative URLs for local resources.</li>
+<li> Optimize media files for faster loading times.</li>
+</h3>
+<h6>Attribute <span>'style'</span></h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;p style="font-size: 30px; color: orange; font-weight: bold;"&gt;Hi! I am a paragraph with 30 pixels font-size, orange color, and bold&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 130px;"></iframe>
+</div><br>
+<div class="note-box"><h3>Understanding <b>HTML attributes</b> is essential for writing clean, efficient, and accessible code. By using attributes correctly, developers can enhance functionality, improve user experience, and optimize accessibility and SEO.</h3></div><br>
+<div class="questions-container">
+<a href="html attribute quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html attribute exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

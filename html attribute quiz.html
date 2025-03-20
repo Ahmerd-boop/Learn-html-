@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Attributes</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Attributes Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "What is an HTML attribute?",
+        options: [
+            "A property that provides additional information about an element",
+            "A function in JavaScript",
+            "A type of HTML tag",
+            "A CSS property"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which HTML attribute is used to define inline styles?",
+        options: ["class", "id", "style", "src"],
+        answer: 2
+    },
+    {
+        question: "What is the purpose of the 'href' attribute in an <a> tag?",
+        options: [
+            "It specifies the destination URL",
+            "It changes the font color",
+            "It sets the background image",
+            "It defines the text alignment"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify an image source in an <img> tag?",
+        options: ["href", "src", "alt", "link"],
+        answer: 1
+    },
+    {
+        question: "What does the 'alt' attribute in an <img> tag define?",
+        options: [
+            "The image height",
+            "The alternative text if the image cannot be displayed",
+            "The image source",
+            "The border color of the image"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which HTML attribute is used to specify a unique ID for an element?",
+        options: ["class", "style", "id", "name"],
+        answer: 2
+    },
+    {
+        question: "What is the correct usage of the 'title' attribute?",
+        options: [
+            "<p title='Hello'>Hover over me</p>",
+            "<p name='Hello'>Hover over me</p>",
+            "<p href='Hello'>Hover over me</p>",
+            "<p style='Hello'>Hover over me</p>"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to disable an input field?",
+        options: ["readonly", "disable", "hidden", "disabled"],
+        answer: 3
+    },
+    {
+        question: "What does the 'placeholder' attribute do in an <input> field?",
+        options: [
+            "Sets the background color",
+            "Shows text inside the input field before the user types",
+            "Makes the input field required",
+            "Sets the font size of the text"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to make an input field mandatory?",
+        options: ["required", "validate", "mandatory", "must"],
+        answer: 0
+    },
+    {
+        question: "Which attribute specifies the maximum number of characters allowed in an <input> field?",
+        options: ["maxlength", "max", "length", "limit"],
+        answer: 0
+    },
+    {
+        question: "What does the 'checked' attribute do in a checkbox input?",
+        options: [
+            "Makes the checkbox larger",
+            "Pre-selects the checkbox when the page loads",
+            "Disables the checkbox",
+            "Removes the checkbox"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to specify multiple file selections in a file input field?",
+        options: ["multi", "multiple", "many", "files"],
+        answer: 1
+    },
+    {
+        question: "What is the purpose of the 'download' attribute in an <a> tag?",
+        options: [
+            "It forces the file to be downloaded instead of opening in the browser",
+            "It creates a pop-up window",
+            "It changes the link color",
+            "It adds an animation to the link"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify the width of an image?",
+        options: ["size", "width", "dimension", "scale"],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to open a link in a new tab?",
+        options: ["target='_self'", "target='_parent'", "target='_top'", "target='_blank'"],
+        answer: 3
+    },
+    {
+        question: "Which attribute specifies a tooltip text when hovering over an element?",
+        options: ["alt", "title", "tooltip", "hover"],
+        answer: 1
+    },
+    {
+        question: "Which attribute hides an element but keeps it in the DOM?",
+        options: ["hidden", "display", "style", "invisible"],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to group radio buttons together?",
+        options: ["name", "id", "group", "radio"],
+        answer: 0
+    },
+    {
+        question: "What does the 'autofocus' attribute do in an input field?",
+        options: [
+            "Automatically focuses the input field when the page loads",
+            "Changes the text color",
+            "Enables autocomplete",
+            "Pre-fills the field with a value"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute prevents a form from being submitted when an input field is empty?",
+        options: ["required", "mandatory", "validate", "no-submit"],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify an email input field?",
+        options: ["type='text'", "type='email'", "type='mail'", "type='contact'"],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to set a default value in an input field?",
+        options: ["value", "placeholder", "default", "text"],
+        answer: 0
+    },
+    {
+        question: "Which attribute controls the visibility of a video’s player controls?",
+        options: ["autoplay", "controls", "play", "visible"],
+        answer: 1
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html attributes.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>
