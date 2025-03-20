@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Superscript</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Superscript Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to display superscript text?", answer: "sup" },
+
+{ question: "2. How do you write the mathematical expression x² using HTML?", answer: "x<sup>2</sup>" },
+
+{ question: "3. What is the main purpose of the &lt;sup&gt; tag in HTML?", answer: "To display text above the normal text baseline" },
+
+{ question: "4. What is the opposite of the &lt;sup&gt; tag?", answer: "sub" },
+
+{ question: "5. How does superscript text appear compared to normal text?", answer: "Higher and smaller" },
+
+{ question: "6. Can the &lt;sup&gt; tag be used inside a paragraph?", answer: "Yes" },
+
+{ question: "7. How do you correctly display a footnote reference like this¹ using HTML?", answer: "¹" },
+
+{ question: "8. Which tag is used for subscript text?", answer: "sub" },
+
+{ question: "9. Does the &lt;sup&gt; tag affect text semantics or just appearance?", answer: "Appearance" },
+
+{ question: "10. In which type of content is &lt;sup&gt; commonly used?", answer: "Mathematical expressions, footnotes, and ordinal numbers" },
+
+{ question: "11. Can you nest a &lt;sup&gt; tag inside another &lt;sup&gt; tag?", answer: "Yes, but it may not display correctly in all browsers" },
+
+{ question: "12. How can you change the appearance of superscript text using CSS? (`vertical-align: ___;`)", answer: "super" },
+
+{ question: "13. Which default styling does &lt;sup&gt; apply to text?", answer: "Smaller font size and raised position" },
+
+{ question: "14. How can you style superscript text to be larger using CSS? (`font-size: ___;`)", answer: "larger" },
+
+{ question: "15. Does &lt;sup&gt; have any effect when used inside a &lt;title&gt; tag?", answer: "No" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html superscript.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

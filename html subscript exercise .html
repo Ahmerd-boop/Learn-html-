@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Subscript</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Subscript Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to display subscript text?", answer: "sub" },
+
+{ question: "2. How do you write the chemical formula for water (H₂O) using HTML?", answer: "H<sub>2</sub>O" },
+
+{ question: "3. What is the main purpose of the &lt;sub&gt; tag in HTML?", answer: "To display text lower than the normal text baseline" },
+
+{ question: "4. What is the opposite of the &lt;sub&gt; tag?", answer: "sup" },
+
+{ question: "5. How does subscript text appear compared to normal text?", answer: "Lower and smaller" },
+
+{ question: "6. Can the &lt;sub&gt; tag be used inside a paragraph?", answer: "Yes" },
+
+{ question: "7. What is the correct way to write a mathematical equation like x₂ in HTML?", answer: "x<sub>2</sub>" },
+
+{ question: "8. Which tag is used for superscript text?", answer: "sup" },
+
+{ question: "9. Does the &lt;sub&gt; tag affect text semantics or just appearance?", answer: "Appearance" },
+
+{ question: "10. In which type of content is &lt;sub&gt; commonly used?", answer: "Chemical formulas, math expressions, footnotes" },
+
+{ question: "11. Can you nest a &lt;sub&gt; tag inside another &lt;sub&gt; tag?", answer: "Yes, but it may not display correctly in all browsers" },
+
+{ question: "12. How can you change the appearance of subscript text using CSS? (`vertical-align: ___;`)", answer: "sub" },
+
+{ question: "13. Which default styling does &lt;sub&gt; apply to text?", answer: "Smaller font size and lowered position" },
+
+{ question: "14. How can you style subscript text to be larger using CSS? (`font-size: ___;`)", answer: "larger" },
+
+{ question: "15. Does &lt;sub&gt; have any effect when used inside a &lt;title&gt; tag?", answer: "No" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html subscript.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

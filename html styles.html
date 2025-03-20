@@ -1,0 +1,241 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Styles</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Styles*</h1><br><br>
+<h3>HTML styles are used to enhance the appearance of web pages. Styles allow developers to control colors, fonts, layouts, and overall aesthetics. While HTML provides structure, styles (typically applied via CSS) define how elements look.</h3><br>
+<h6>Methods of Applying Styles in HTML</h6>
+<h3>There are three main ways to apply styles in HTML:</h3><br>
+<h3>
+<ol>
+<li><b>Inline Styles</b> (using the <span>`style`</span> attribute within an element)</li>
+<li><b>Internal Styles</b> (using a <span>&lt;style&gt;</span> block inside the section)</li>
+<li><b>External Styles</b> (linking to a separate CSS file using <span>&lt;link&gt;</span>)</li>
+</ol></h3>
+<h6>Inline Styles</h6>
+<h3>Inline styles apply directly to an element using the `style` attribute. They override any other styles.</h3><br>
+<h3>Syntax</h3><br>
+<span>&lt;tag style="property: value;"&gt;Content&lt;/tag&gt;</span><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: red; font-size: 16px;">This is a styled paragraph.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Use Cases</h6>
+<h3><li>Quick style adjustments.</li>
+<li>Overriding external styles temporarily.</li></h3>
+<h6>Best Practices</h6>
+<h3>
+<li> Avoid using inline styles for large projects (use CSS instead).</li>
+<li> Keep inline styles minimal to maintain readability.</li></h3>
+<h6>Internal Styles</h6>
+<h3>Internal styles are defined within a <span>&lt;style&gt;</span> block inside the <span>&lt;head&gt;</span> section. These styles apply to the entire document.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+p {
+color: blue;
+font-size: 18px;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<p>This paragraph is styled using internal CSS.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Use Cases</h6>
+<h3>
+<li> Styling a single HTML document.</li>
+<li> Small projects without multiple pages.</li>
+</h3>
+<h6>Best Practices</h6>
+<h3>
+<li> Use internal styles only when necessary.</li>
+<li> Avoid mixing too many styles in the <span>&lt;style&gt;</span> block.</li></h3>
+<h6>External Styles</h6>
+<h3>External styles are written in a separate CSS file and linked to an HTML document.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+<head>
+<link rel="stylesheet" href="styles.css">
+</head>
+&lt;body&gt;
+&lt;p&gt;This is the first line.<br>This is the second line.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h3>(CSS File - `styles.css`)</h3>
+<h3>p {
+color: green;
+font-size: 20px;
+}
+</h3>
+<h6>Use Cases</h6>
+<h3>
+<li> Large projects with multiple pages.</li>
+<li> Maintaining consistent styling across a website.</li>
+</h3>
+<h6>Best Practices</h6>
+<h3>
+<li> Use external styles for better organization.</li>
+<li> Minimize CSS file size for faster loading.</li>
+</h3>
+<h6>CSS Selectors in HTML Styles</h6>
+<h3>CSS selectors target specific elements for styling.</h3>
+<h6>Common Selectors</h6>
+<h3>
+<li><b>Element Selector:</b> Styles all instances of an element.</li>
+<li><b>Class Selector:</b> Styles elements with a specific class.</li>
+<li><b>ID Selector:</b> Styles a unique element with a specific ID.</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 380px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+/* Element Selector */
+p {
+color: blue;
+}
+/* Class Selector */
+.highlight {
+background-color: yellow;
+}
+/* ID Selector */
+#unique {
+font-weight: bold;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+<p>This is a normal paragraph.</p>
+<p class="highlight">This paragraph has a yellow background.</p>
+<p id="unique">This paragraph is bold.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <b>class selectors</b> for reusable styles.</li>
+<li> Use <b>ID selectors</b> sparingly to avoid specificity conflicts.</li>
+</h3>
+<h6>Applying Multiple Styles</h6>
+<h3>You can apply multiple styles to an element by separating properties with semicolons (`;`).</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p style="color: red; font-size: 20px; background-color: lightgray;">Styled paragraph</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Keep styles organized.</li>
+<li> Avoid too many styles inline; use CSS files instead.</li>
+</h3>
+<h6>Overriding Styles (CSS Specificity)</h6>
+<h3>When multiple styles apply to the same element, the browser follows a hierarchy</h3>
+<h3>
+<ol>
+<li><b>Inline styles (highest priority)</b></li>
+<li><b>ID selectors</b></li>
+<li><b>Class selectors</b></li>
+<li><b>Element selectors</b></li>
+<li><b>External stylesheets (lowest priority)</b></li>
+</ol></h3>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+<head>
+<style>
+p {
+color: blue; /* Element selector */
+}
+.text {
+color: green; /* Class selector */
+}
+#main {
+color: red; /* ID selector */
+}
+</style>
+</head>
+<body>
+<p id="main" class="text">Which color will this be?</p>
+</body>
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="note-box"><h3><b>Result:</b> The text will be <b>red</b> because the ID selector has higher specificity.</h3></div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use classes instead of IDs for styling unless necessary.</li>
+<li> Avoid `!important` unless absolutely required.</li>
+</h3>
+<h6>Best Practices for HTML Styling</h6>
+<h3>
+<li><b>Use External CSS</b> – Keep styles separate from HTML.</li>
+<li><b>Follow a Naming Convention</b> – Use meaningful class names (`.btn-primary` instead of `.blue-button`).</li>
+<li><b>Minimize Inline Styles</b> – Use CSS files for maintainability.</li>
+<li><b>Use CSS Variables</b> – Define reusable values for colors and spacing.</li>
+<li><b>Optimize for Performance</b> – Minify CSS and avoid redundant rules.</li>
+</h3><br>
+<div class="note-box"><h3>Understanding <b>HTML styles</b> is essential for creating visually appealing and responsive web pages. By applying styles correctly, using best practices, and organizing CSS efficiently, developers can ensure clean, maintainable, and scalable web designs.</h3></div><br>
+<div class="questions-container">
+<a href="html style quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html style exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

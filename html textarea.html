@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Textarea</title>
+</head>
+<body>
+<h1 class="topic">*HTML Textarea*</h1><br><br>
+<h3>The <span>&lt;textarea&gt;</span> element in HTML is used to create multi-line text input fields in a form. Unlike the <span>&lt;input&gt;</span> element with <span>type="text"</span>, which allows users to enter only a single line of text, the <span>&lt;textarea&gt;</span> element lets users input multiple lines of text, making it ideal for:</h3><br>
+<h3>
+<li>Comments or feedback sections</li>
+<li>Message boxes</li>
+<li>Code editors</li>
+<li>Long-form user inputs</li></h3>
+<h6>Basic Syntax of <span>&lt;textarea&gt;</span></h6>
+<h3>The <span>&lt;textarea&gt;</span> element is a container tag, meaning it has an opening and closing tag.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="message">Your Message:</label>
+&lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h3>The <span>&lt;label&gt;</span> element associates the textarea with a description.</h3>
+<h3>The id attribute connects the label to the textarea for better accessibility.</h3>
+<h3>The name attribute is used to identify the input data when submitting the form.</h3>
+<h3>By default, a <span>&lt;textarea&gt;</span> is small and only a few lines tall, but you can control its size using attributes like rows and cols, or with CSS styling.</h3>
+<h6>The rows and cols Attributes</h6>
+<h3>The rows and cols attributes define the height (number of text lines) and width (number of characters per line) of the <span>&lt;textarea&gt;</span>.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="feedback">Feedback:</label>
+&lt;textarea id="feedback" name="feedback" rows="5" cols="30"&gt;&lt;/textarea&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 120px;"></iframe>
+</div><br>
+<h3><span>rows="5"</span> → The textarea will have 5 visible rows (height).</h3>
+<h3><span>cols="30"</span> → The textarea will have 30 character spaces per line (width).</h3>
+<h3>However, using rows and cols is not always ideal. Instead, CSS styling with width and height is more flexible.</h3>
+<h6>Placeholder Text in <span>&lt;textarea&gt;</span></h6>
+<h3>The placeholder attribute displays temporary text inside the textarea, which disappears when the user starts typing.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="feedback">Feedback:</label>
+<label for="comment">Leave a Comment:</label>
+&lt;textarea id="comment" name="comment" placeholder="Write your comment here..."&gt;&lt;/textarea&gt;
+<p>The placeholder guides users on what to enter.</p>
+<p>It disappears when the user starts typing.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 150px;"></iframe>
+</div><br>
+<h6>Styling the <span>&lt;textarea&gt;</span> with CSS</h6>
+<h3>The default <span>&lt;textarea&gt;</span> design is plain. You can style it with CSS to make it more attractive.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 400px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<style>
+textarea {
+width: 100%;
+height: 150px;
+padding: 10px;
+border: 2px solid #007BFF;
+border-radius: 5px;
+font-size: 16px;
+font-family: Arial, sans-serif;
+}
+</style>
+&lt;/head&gt;
+&lt;body&gt;
+<label for="styled-textarea">Your Message:</label>
+&lt;textarea id="styled-textarea" name="styled-textarea" placeholder="Type your message here..."&gt;&lt;/textarea&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 250px;"></iframe>
+</div><br>
+<div class="note-box"><strong>
+<h3>width: 100% → Makes it responsive.</h3>
+<h3>border: 2px solid #007BFF → Gives it a blue border.</h3>
+<h3>border-radius: 5px → Rounds the corners.</h3>
+<h3>font-size: 16px → Makes the text easier to read.</h3></strong></div><br>
+<div class="questions-container">
+<a href="html textarea quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html textarea exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

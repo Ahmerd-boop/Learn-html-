@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Textarea</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Textarea Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  { question: "1. Which HTML tag is used to create a multi-line text input field?", answer: "textarea" },
+
+  { question: "2. What attribute defines the number of visible rows in a &lt;textarea&gt;? (`&lt;textarea ___='5'&gt;`)", answer: "rows" },
+
+  { question: "3. How do you specify the number of columns (width) of a &lt;textarea&gt;? (`<textarea ___='40'>`)", answer: "cols" },
+
+  { question: "4. Which attribute prevents users from editing the text inside a &lt;textarea&gt;?", answer: "readonly" },
+
+  { question: "5. How do you disable a &lt;textarea&gt; so users cannot interact with it? (`&lt;textarea ___&gt;`)", answer: "disabled" },
+
+  { question: "6. What attribute allows you to set default text inside a &lt;textarea&gt;?", answer: "value" },
+
+  { question: "7. Which CSS property can be used to control the resize behavior of a &lt;textarea&gt;?", answer: "resize" },
+
+  { question: "8. How do you ensure a &lt;textarea&gt; is required before submitting the form? (`&lt;textarea ___&gt;`)", answer: "required" },
+
+  { question: "9. What attribute helps associate a &lt;label&gt; with a &lt;textarea&gt;?", answer: "for" },
+
+  { question: "10. How do you apply a placeholder inside a &lt;textarea&gt;? (`&lt;textarea ___='Enter your message'&gt;`)", answer: "placeholder" },
+
+  { question: "11. What attribute links a &lt;textarea&gt; to a specific form? (`&lt;textarea ___='form1'&gt;`)", answer: "form" },
+
+  { question: "12. How do you auto-focus a &lt;textarea&gt; when the page loads? (&lt;textarea____&gt;)", answer: "autofocus" },
+
+  { question: "13. What CSS property would you use to set a maximum width for a &lt;textarea&gt;?", answer: "max-width" },
+
+  { question: "14. How do you ensure that users enter a minimum of 50 characters inside a &lt;textarea&gt;? (`<textarea ___='50'>`)", answer: "minlength" },
+
+  { question: "15. Which attribute prevents users from resizing a &lt;textarea&gt;? (`&lt;textarea style='___: none;'&gt;`)", answer: "resize" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html textarea.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

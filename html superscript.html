@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Superscript</title>
+</head>
+<body>
+<h1 class="topic">*HTML Superscript*</h1><br><br>
+<h3>The <span>&lt;sup&gt;</span> element in HTML is used to display text as superscript, meaning the text appears slightly above the normal line and is usually smaller in size than regular text. It is commonly used for:</h3><br> 
+<h3>
+<li>✔️ Mathematical expressions (e.g., x² + y² = z²)</li> 
+<li>✔️ Scientific notations (e.g., 1.23 × 10¹²) </li>
+<li>✔️ Ordinal numbers (e.g., 1st, 2nd, 3rd)  </li>
+<li>✔️ Footnotes and references (e.g., Note<sup>1</sup>) </li></h3><br> 
+<div class="warning"><h3>The <span>&lt;sup&gt;</span> tag is a pair tag, meaning it requires both an opening and a closing tag</h3></div><br>  
+<h1 class="topic">Usage of <span>&lt;sup&gt;</span></h1> 
+<h6>Mathematical Expressions</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>The Pythagorean theorem: a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Scientific Notation</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>The speed of light is approximately 3.0 × 10<sup>8</sup> m/s.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Ordinal Numbers</h6> 
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>My birthday is on the 25<sup>th</sup> of December.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Footnotes and References</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>According to the report<sup>1</sup>, climate change is accelerating.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="warning"><h3>The <span>&lt;sup&gt;</span> element is fully supported in all major browsers.</h3></div><br>
+<h6>Limitations of <span>&lt;sup&gt;</span></h6>
+<h3>
+<li>The <span>&lt;sup&gt;</span> element only changes the visual position of text and does not affect semantic meaning for screen readers.</li>  
+<li>Overusing <span>&lt;sup&gt;</span> can reduce readability if applied to large portions of text.</li>  
+<li>If styling adjustments are needed, CSS should be used.</li></h3>
+<h6>Best Practices</h6>
+<h3>  
+<li>✔️ Use <span>&lt;sup&gt;</span> only when necessary, such as for exponents, scientific notation, and footnotes.</li>  
+<li>✔️ Avoid using <span>&lt;sup&gt;</span> for styling or layout purposes—use CSS instead.</li>  
+<li>✔️ If screen readers need to interpret superscript content correctly, consider using ARIA attributes.</li></h3>
+<h6>CSS Styling for <span>&lt;sup&gt;</span></h6>
+<h3>To adjust the position and size of superscript text, use CSS:</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 310px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<style>
+sup {
+font-size: 80%;
+vertical-align: super;
+color: green;
+}
+</style>
+&lt;/head&gt;
+&lt;body&gt;
+<p>According to the report<sup>1</sup>, climate change is accelerating.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="note-box"><h3>The <span>&lt;sup&gt;</span> element is a simple yet useful tag in HTML for displaying superscript text, often used in scientific, mathematical, and typographical contexts. It should be used only for its intended purpose and styled with CSS if necessary.</h3></div><br>  
+<div class="questions-container">
+<a href="html superscript quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html superscript exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa -Introduction Quiz</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<style>
+
+
+</style>
+<body>
+
+    <div class="quiz-container">
+        <h1>Introduction Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "Hyper Transfer Markup Language", "High Tech Modern Language", "Home Tool Markup Language"],
+        answer: 0
+    },
+    {
+        question: "Is HTML the backbone of websites?",
+        options: ["Never", "Yes", "No", "Thinking...."],
+        answer: 1
+    },
+    {
+        question: "HTML is a programming language.",
+        options: ["Agreed", "Disagreed"],
+        answer: 1
+    },
+    {
+        question: "What is the current version of HTML?",
+        options: ["HTML", "HTML2", "HTML3", "HTML5"],
+        answer: 3
+    },
+    {
+        question: "When did HTML history begin?",
+        options: ["1980's", "1981's", "1740's", "2025's"],
+        answer: 0
+    },
+    {
+        question: "Who is the inventor of HTML?",
+        options: ["Bill Gates", "Tim Berners-Lee", "Mark Zuckerberg", "Elon Musk"],
+        answer: 1
+    },
+    {
+        question: "Which of the following is NOT an HTML tag?",
+        options: ["<h1>", "<div>", "<span>", "<execute>"],
+        answer: 3
+    },
+    {
+        question: "What is the basic structure of an HTML document?",
+        options: ["Head and Body", "Header and Footer", "Head and Paragraph", "Title and Links"],
+        answer: 0
+    },
+    {
+        question: "Which of these is a correct HTML5 doctype declaration?",
+        options: ["<!DOCTYPE html>", "<html doctype='5'>", "<doctype html5>", "<!DOCTYPE>"],
+        answer: 0
+    },
+    {
+        question: "Which HTML tag is used for the main content of the page?",
+        options: ["<content>", "<main>", "<div>", "<section>"],
+        answer: 1
+    },
+    {
+        question: "What tag is used to create a hyperlink?",
+        options: ["<link>", "<a>", "<href>", "<url>"],
+        answer: 1
+    },
+    {
+        question: "Which HTML tag is used for creating an unordered list?",
+        options: ["<ol>", "<ul>", "<li>", "<list>"],
+        answer: 1
+    },
+    {
+        question: "What does the `<p>` tag represent?",
+        options: ["Paragraph", "Page", "Picture", "Popup"],
+        answer: 0
+    },
+    {
+        question: "What is the default display behavior of the `<div>` element?",
+        options: ["Inline", "Block", "Flex", "Hidden"],
+        answer: 1
+    },
+    {
+        question: "Which tag is used to insert an image in HTML?",
+        options: ["<img>", "<picture>", "<image>", "<src>"],
+        answer: 0
+    },
+    {
+        question: "Which of the following tags is used for creating a table?",
+        options: ["<table>", "<tr>", "<td>", "All of the above"],
+        answer: 3
+    },
+    {
+        question: "Which of these elements is used for adding metadata to an HTML document?",
+        options: ["<header>", "<meta>", "<title>", "<body>"],
+        answer: 1
+    },
+    {
+        question: "What tag is used to define a clickable button?",
+        options: ["<click>", "<button>", "<press>", "<input>"],
+        answer: 1
+    },
+    {
+        question: "What does the `<title>` tag define?",
+        options: ["The page's main heading", "The page's title in the browser tab", "A subtitle", "The website’s name"],
+        answer: 1
+    },
+    {
+        question: "Which tag is used to create a numbered list?",
+        options: ["<list>", "<ul>", "<ol>", "<numlist>"],
+        answer: 2
+    },
+    {
+        question: "Which of the following tags is used to create a form?",
+        options: ["<form>", "<input>", "<submit>", "<fieldset>"],
+        answer: 0
+    },
+    {
+        question: "Which tag is used to define an input field in a form?",
+        options: ["<form>", "<input>", "<entry>", "<textbox>"],
+        answer: 1
+    },
+    {
+        question: "Which HTML element is used to define important text?",
+        options: ["<strong>", "<important>", "<highlight>", "<bold>"],
+        answer: 0
+    },
+    {
+        question: "What is the purpose of the `<footer>` tag?",
+        options: ["Defines a section at the bottom of a page", "Creates a navigation menu", "Adds an image", "Styles a page"],
+        answer: 0
+    }
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "introduction.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

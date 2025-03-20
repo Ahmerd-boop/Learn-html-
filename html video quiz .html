@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Videos</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Videos Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. Which HTML tag is used to embed a video in a webpage?",
+    options: ["<media>", "<video>", "<movie>", "<embed>"],
+    answer: 1
+  },
+
+  {
+    question: "2. Which attribute is used to add a video file to the `<video>` element?",
+    options: ["src", "file", "href", "data"],
+    answer: 0
+  },
+
+  {
+    question: "3. What attribute is used to display playback controls for the user?",
+    options: ["display", "controls", "player", "toolbar"],
+    answer: 1
+  },
+
+  {
+    question: "4. Which attribute makes the video start automatically when the page loads?",
+    options: ["autoplay", "loop", "start", "play"],
+    answer: 0
+  },
+
+  {
+    question: "5. What is the purpose of the `poster` attribute in the `<video>` element?",
+    options: [
+      "Specifies an image to be shown before the video starts",
+      "Adds a caption to the video",
+      "Defines a video title",
+      "Sets a background color for the video"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "6. Which HTML element is used inside `<video>` to specify multiple video sources?",
+    options: ["<source>", "<media>", "<track>", "<stream>"],
+    answer: 0
+  },
+
+  {
+    question: "7. How do you make a video play in a continuous loop?",
+    options: ["loop", "repeat", "cycle", "restart"],
+    answer: 0
+  },
+
+  {
+    question: "8. What is the default behavior if multiple `<source>` elements are provided inside `<video>`?",
+    options: [
+      "The browser tries them in order until it finds a supported format",
+      "All sources play simultaneously",
+      "Only the first source plays",
+      "The browser ignores multiple sources"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "9. Which attribute prevents a video from playing until the user starts it?",
+    options: ["pause", "controls", "autoplay", "preload"],
+    answer: 3
+  },
+
+  {
+    question: "10. What does the `muted` attribute do in the `<video>` element?",
+    options: [
+      "Removes sound from the video file",
+      "Plays the video without sound",
+      "Disables the video element",
+      "Hides the video controls"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "11. Which of the following is NOT a valid video format for `<video>`?",
+    options: ["MP4", "WEBM", "OGG", "JPEG"],
+    answer: 3
+  },
+
+  {
+    question: "12. What JavaScript method is used to play an HTML video?",
+    options: ["start()", "play()", "begin()", "launch()"],
+    answer: 1
+  },
+
+  {
+    question: "13. How do you stop a video using JavaScript?",
+    options: ["pause()", "stop()", "end()", "close()"],
+    answer: 0
+  },
+
+  {
+    question: "14. What does the `preload` attribute control in `<video>`?",
+    options: [
+      "Whether the video file should be loaded when the page loads",
+      "Starts playing the video automatically",
+      "Loops the video continuously",
+      "Enables full-screen mode"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "15. Which JavaScript method is used to restart a video from the beginning?",
+    options: ["video.reset()", "video.play(0)", "video.currentTime = 0", "video.restart()"],
+    answer: 2
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html videos.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

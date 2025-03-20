@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Tag</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { question: "1. What tag is used to create a paragraph in HTML? <___>This is a paragraph</___>", answer: "p" },
+    { question: "2. Which tag defines the largest heading? <___>Title</___>", answer: "h1" },
+    { question: "3. What is the correct tag for inserting an image? <___ src='image.jpg'>", answer: "img" },
+    { question: "4. Which tag is used for a hyperlink? <___ href='index.html'>Click here</___>", answer: "a" },
+    { question: "5. What tag is used to create a table row? <___><td>Data</td></___>", answer: "tr" },
+    { question: "6. Which tag is used to create an unordered list? <___><li>Item</li></___>", answer: "ul" },
+    { question: "7. Which tag is used to create an ordered list? <___><li>Item</li></___>", answer: "ol" },
+    { question: "8. What is the correct tag for creating a form? <___ action='submit.php'>", answer: "form" },
+    { question: "9. What tag is used to input text in a form? <___ type='text'>", answer: "input" },
+    { question: "10. Which tag defines a division or section in an HTML document? <___>Content here</___>", answer: "div" },
+    { question: "11. What tag is used to define a button in HTML? <___>Click me</___>", answer: "button" },
+    { question: "12. Which tag is used to add a line break? <___>", answer: "br" },
+    { question: "13. What tag is used to define table headers? <tr><___>Heading</___></tr>", answer: "th" },
+    { question: "14. Which tag is used to define the metadata of an HTML document? <___>", answer: "meta" },
+    { question: "15. What tag is used to define a navigation section in HTML5? <___>Links</___>", answer: "nav" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "your-lesson-page.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>
+

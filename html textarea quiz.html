@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Textarea</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Textarea Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{
+  question: "Which HTML element is used to create a multi-line text input field?",
+  options: ["<input>", "<textarea>", "<textbox>", "<text>"],
+  answer: 1
+},
+
+{
+  question: "What attribute is used to specify the number of visible rows in a `<textarea>`?",
+  options: ["rows", "cols", "height", "size"],
+  answer: 0
+},
+
+{
+  question: "What attribute is used to specify the width (number of characters) of a `<textarea>`?",
+  options: ["rows", "cols", "width", "size"],
+  answer: 1
+},
+
+{
+  question: "How do you set placeholder text inside a `<textarea>`?",
+  options: ["placeholder", "default", "hint", "value"],
+  answer: 0
+},
+
+{
+  question: "Which attribute prevents users from modifying the text inside a `<textarea>`?",
+  options: ["readonly", "disabled", "locked", "static"],
+  answer: 0
+},
+
+{
+  question: "Which attribute disables a `<textarea>` so users can't interact with it?",
+  options: ["readonly", "disabled", "inactive", "hidden"],
+  answer: 1
+},
+
+{
+  question: "How do you pre-fill text inside a `<textarea>`?",
+  options: ["Use the 'value' attribute", "Use inner text inside the `<textarea>`", "Use 'default'", "Use 'preload'"],
+  answer: 1
+},
+
+{
+  question: "Which CSS property allows a `<textarea>` to automatically expand as users type?",
+  options: ["resize", "auto-expand", "expandable", "height-auto"],
+  answer: 0
+},
+
+{
+  question: "What happens if you omit the `rows` and `cols` attributes in a `<textarea>`?",
+  options: ["It will not be visible", "It will have a default size", "It will take the full width of the page", "It will cause an error"],
+  answer: 1
+},
+
+{
+  question: "Which event is triggered when a user types inside a `<textarea>`?",
+  options: ["onchange", "oninput", "onkeydown", "onfocus"],
+  answer: 1
+},
+
+{
+  question: "What will happen if you place a `<textarea>` inside a `<label>` element?",
+  options: ["It will not work", "It will be linked to the label automatically", "It will cause an error", "It will be ignored by the browser"],
+  answer: 1
+},
+
+{
+  question: "Which attribute sets a character limit for a `<textarea>`?",
+  options: ["maxlength", "charlimit", "length", "limit"],
+  answer: 0
+},
+
+{
+  question: "Which attribute allows a `<textarea>` to be resizable only vertically?",
+  options: ["resize: vertical", "resize: both", "resize: horizontal", "resize: none"],
+  answer: 0
+},
+
+{
+  question: "Which HTML tag should be used to wrap a `<textarea>` inside a form?",
+  options: ["<div>", "<section>", "<form>", "<label>"],
+  answer: 2
+},
+
+{
+  question: "What will happen if you add `required` to a `<textarea>`?",
+  options: ["Nothing", "It will make the field mandatory before form submission", "It will display a warning message on focus", "It will limit the text length"],
+  answer: 1
+}
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html textarea.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

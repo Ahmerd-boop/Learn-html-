@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Certificate Quiz</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<style>
+    .quiz-body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f4f4f4;
+    }
+    .quiz-container, #certificate-container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: 20px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    button:hover {
+        background: #0056b3;
+    }
+    .correct { background: #28a745 !important; }
+    .wrong { background: #dc3545 !important; }
+</style>
+<body class="quiz-body">
+
+    <div class="quiz-container">
+        <h1>Learn HTML Quiz</h1>
+        <div id="notification" style="color: red; font-weight: bold; margin-bottom: 10px;">
+            ⚠️ You must answer all questions correctly to claim a certificate!
+        </div>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled style="display: none;">Next</button>
+        <button id="restart-btn" style="display: none;">Restart</button>
+        <div id="result"></div>
+    </div>
+
+    <div id="certificate-container" style="display: none;">
+        <h2><b><i>Congratulations! 🎉</i></b></h2>
+        <p>Enter your name for the certificate:</p>
+        <input type="text" id="username" placeholder="Your Name">
+        <button id="generate-btn">Generate Certificate</button>
+        <button id="download-btn" style="display: none; background: red;">Download Certificate</button>
+    </div>
+
+    <canvas id="certificateCanvas" style="display: none;"></canvas>
+
+    <script>
+        const questions = [
+    {
+        "question": "What does HTML stand for?",
+        "options": ["Hyper Text Markup Language", "Hyper Transfer Markup Language", "High Tech Modern Language", "Home Tool Markup Language"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used to define the main content of an HTML document?",
+        "options": ["<main>", "<content>", "<div>", "<body>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used to create hyperlinks in HTML?",
+        "options": ["<link>", "<a>", "<href>", "<h1>"],
+        "answer": 1
+    },
+    {
+        "question": "Which attribute is used to specify the alternative text for an image?",
+        "options": ["alt", "src", "title", "desc"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used to create an ordered list?",
+        "options": ["<ul>", "<ol>", "<li>", "<list>"],
+        "answer": 1
+    },
+    {
+        "question": "Which HTML tag is used to define emphasized text?",
+        "options": ["<strong>", "<i>", "<mark>", "<em>"],
+        "answer": 3
+    },
+    {
+        "question": "Which tag is used for displaying an inline frame?",
+        "options": ["<iframe>", "<frame>", "<embed>", "<object>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used for defining metadata in an HTML document?",
+        "options": ["<meta>", "<head>", "<data>", "<info>"],
+        "answer": 0
+    },
+    {
+        "question": "Which attribute is used to open a link in a new tab?",
+        "options": ["target='_self'", "target='_blank'", "newTab='true'", "open='new'"],
+        "answer": 1
+    },
+    {
+        "question": "Which tag is used for defining an interactive widget?",
+        "options": ["<details>", "<summary>", "<dialog>", "<widget>"],
+        "answer": 2
+    },
+    {
+        "question": "Which tag is used to create a text input field in an HTML form?",
+        "options": ["<input>", "<textfield>", "<text>", "<textarea>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used for a drop-down list in HTML?",
+        "options": ["<dropdown>", "<select>", "<option>", "<list>"],
+        "answer": 1
+    },
+    {
+        "question": "Which HTML tag is used to define a footer in a document?",
+        "options": ["<bottom>", "<footer>", "<end>", "<section>"],
+        "answer": 1
+    },
+    {
+        "question": "Which tag is used to define the title of an HTML document?",
+        "options": ["<title>", "<head>", "<meta>", "<header>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used to define a navigation menu?",
+        "options": ["<menu>", "<nav>", "<ul>", "<header>"],
+        "answer": 1
+    },
+    {
+        "question": "Which HTML tag is used to insert a horizontal line?",
+        "options": ["<br>", "<hr>", "<line>", "<divider>"],
+        "answer": 1
+    },
+    {
+        "question": "Which tag is used to define a client-side script?",
+        "options": ["<script>", "<style>", "<code>", "<link>"],
+        "answer": 0
+    },
+    {
+        "question": "Which HTML tag is used for defining a progress bar?",
+        "options": ["<progress>", "<bar>", "<meter>", "<status>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used to group header information in a table?",
+        "options": ["<thead>", "<th>", "<header>", "<group>"],
+        "answer": 0
+    },
+    {
+        "question": "Which HTML element is used for marking up a citation?",
+        "options": ["<cite>", "<blockquote>", "<quote>", "<reference>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used for embedding a YouTube video?",
+        "options": ["<video>", "<iframe>", "<embed>", "<source>"],
+        "answer": 1
+    },
+    {
+        "question": "Which tag is used to define the author of an HTML document?",
+        "options": ["<meta name='author'>", "<title>", "<footer>", "<info>"],
+        "answer": 0
+    },
+    {
+        "question": "Which HTML tag is used for defining an abbreviation or acronym?",
+        "options": ["<abbr>", "<acronym>", "<short>", "<def>"],
+        "answer": 0
+    },
+    {
+        "question": "Which tag is used for defining a quotation in HTML?",
+        "options": ["<quote>", "<q>", "<blockquote>", "<cite>"],
+        "answer": 2
+    },
+    {
+        "question": "Which attribute is used to specify the width of an image in HTML?",
+        "options": ["width", "size", "length", "img-width"],
+        "answer": 0
+    },
+    {
+        question: "What is an HTML attribute?",
+        options: [
+            "A property that provides additional information about an element",
+            "A function in JavaScript",
+            "A type of HTML tag",
+            "A CSS property"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which HTML attribute is used to define inline styles?",
+        options: ["class", "id", "style", "src"],
+        answer: 2
+    },
+    {
+        question: "What is the purpose of the 'href' attribute in an <a> tag?",
+        options: [
+            "It specifies the destination URL",
+            "It changes the font color",
+            "It sets the background image",
+            "It defines the text alignment"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify an image source in an <img> tag?",
+        options: ["href", "src", "alt", "link"],
+        answer: 1
+    },
+    {
+        question: "What does the 'alt' attribute in an <img> tag define?",
+        options: [
+            "The image height",
+            "The alternative text if the image cannot be displayed",
+            "The image source",
+            "The border color of the image"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which HTML attribute is used to specify a unique ID for an element?",
+        options: ["class", "style", "id", "name"],
+        answer: 2
+    },
+    {
+        question: "What is the correct usage of the 'title' attribute?",
+        options: [
+            "<p title='Hello'>Hover over me</p>",
+            "<p name='Hello'>Hover over me</p>",
+            "<p href='Hello'>Hover over me</p>",
+            "<p style='Hello'>Hover over me</p>"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to disable an input field?",
+        options: ["readonly", "disable", "hidden", "disabled"],
+        answer: 3
+    },
+    {
+        question: "What does the 'placeholder' attribute do in an <input> field?",
+        options: [
+            "Sets the background color",
+            "Shows text inside the input field before the user types",
+            "Makes the input field required",
+            "Sets the font size of the text"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to make an input field mandatory?",
+        options: ["required", "validate", "mandatory", "must"],
+        answer: 0
+    },
+    {
+        question: "Which attribute specifies the maximum number of characters allowed in an <input> field?",
+        options: ["maxlength", "max", "length", "limit"],
+        answer: 0
+    },
+    {
+        question: "What does the 'checked' attribute do in a checkbox input?",
+        options: [
+            "Makes the checkbox larger",
+            "Pre-selects the checkbox when the page loads",
+            "Disables the checkbox",
+            "Removes the checkbox"
+        ],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to specify multiple file selections in a file input field?",
+        options: ["multi", "multiple", "many", "files"],
+        answer: 1
+    },
+    {
+        question: "What is the purpose of the 'download' attribute in an <a> tag?",
+        options: [
+            "It forces the file to be downloaded instead of opening in the browser",
+            "It creates a pop-up window",
+            "It changes the link color",
+            "It adds an animation to the link"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify the width of an image?",
+        options: ["size", "width", "dimension", "scale"],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to open a link in a new tab?",
+        options: ["target='_self'", "target='_parent'", "target='_top'", "target='_blank'"],
+        answer: 3
+    },
+    {
+        question: "Which attribute specifies a tooltip text when hovering over an element?",
+        options: ["alt", "title", "tooltip", "hover"],
+        answer: 1
+    },
+    {
+        question: "Which attribute hides an element but keeps it in the DOM?",
+        options: ["hidden", "display", "style", "invisible"],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to group radio buttons together?",
+        options: ["name", "id", "group", "radio"],
+        answer: 0
+    },
+    {
+        question: "What does the 'autofocus' attribute do in an input field?",
+        options: [
+            "Automatically focuses the input field when the page loads",
+            "Changes the text color",
+            "Enables autocomplete",
+            "Pre-fills the field with a value"
+        ],
+        answer: 0
+    },
+    {
+        question: "Which attribute prevents a form from being submitted when an input field is empty?",
+        options: ["required", "mandatory", "validate", "no-submit"],
+        answer: 0
+    },
+    {
+        question: "Which attribute is used to specify an email input field?",
+        options: ["type='text'", "type='email'", "type='mail'", "type='contact'"],
+        answer: 1
+    },
+    {
+        question: "Which attribute is used to set a default value in an input field?",
+        options: ["value", "placeholder", "default", "text"],
+        answer: 0
+    },
+    {
+        question: "Which attribute controls the visibility of a video’s player controls?",
+        options: ["autoplay", "controls", "play", "visible"],
+        answer: 1
+    },
+    {
+        question: "What is the purpose of an opening tag in HTML?",
+        options: ["to end an element", "to start an element", "to define an attribute", "to add a comment"],
+        answer: 1
+    },
+    {
+        question: "Which of the following is an example of an closing tag?",
+        options: ["<p>", "</p>", "<img>", "<span>"],
+        answer: 1
+    },
+    {
+        question: "What happens if you forget to include a closing tag in your code?",
+        options: ["the browser will ignore the element", "the browser will display an error message", "the element will not displayed correctly.", "the HTML code will not validate."],
+        answer: 2
+    },
+    {
+    question: "1. Which HTML tag is used to embed a video in a webpage?",
+    options: ["<media>", "<video>", "<movie>", "<embed>"],
+    answer: 1
+  },
+
+  {
+    question: "2. Which attribute is used to add a video file to the `<video>` element?",
+    options: ["src", "file", "href", "data"],
+    answer: 0
+  },
+
+  {
+    question: "3. What attribute is used to display playback controls for the user?",
+    options: ["display", "controls", "player", "toolbar"],
+    answer: 1
+  },
+
+  {
+    question: "4. Which attribute makes the video start automatically when the page loads?",
+    options: ["autoplay", "loop", "start", "play"],
+    answer: 0
+  },
+
+  {
+    question: "5. What is the purpose of the `poster` attribute in the `<video>` element?",
+    options: [
+      "Specifies an image to be shown before the video starts",
+      "Adds a caption to the video",
+      "Defines a video title",
+      "Sets a background color for the video"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "6. Which HTML element is used inside `<video>` to specify multiple video sources?",
+    options: ["<source>", "<media>", "<track>", "<stream>"],
+    answer: 0
+  },
+
+  {
+    question: "7. How do you make a video play in a continuous loop?",
+    options: ["loop", "repeat", "cycle", "restart"],
+    answer: 0
+  },
+
+  {
+    question: "8. What is the default behavior if multiple `<source>` elements are provided inside `<video>`?",
+    options: [
+      "The browser tries them in order until it finds a supported format",
+      "All sources play simultaneously",
+      "Only the first source plays",
+      "The browser ignores multiple sources"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "9. Which attribute prevents a video from playing until the user starts it?",
+    options: ["pause", "controls", "autoplay", "preload"],
+    answer: 3
+  },
+
+  {
+    question: "10. What does the `muted` attribute do in the `<video>` element?",
+    options: [
+      "Removes sound from the video file",
+      "Plays the video without sound",
+      "Disables the video element",
+      "Hides the video controls"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "11. Which of the following is NOT a valid video format for `<video>`?",
+    options: ["MP4", "WEBM", "OGG", "JPEG"],
+    answer: 3
+  },
+
+  {
+    question: "12. What JavaScript method is used to play an HTML video?",
+    options: ["start()", "play()", "begin()", "launch()"],
+    answer: 1
+  },
+
+  {
+    question: "13. How do you stop a video using JavaScript?",
+    options: ["pause()", "stop()", "end()", "close()"],
+    answer: 0
+  },
+
+  {
+    question: "14. What does the `preload` attribute control in `<video>`?",
+    options: [
+      "Whether the video file should be loaded when the page loads",
+      "Starts playing the video automatically",
+      "Loops the video continuously",
+      "Enables full-screen mode"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "15. Which JavaScript method is used to restart a video from the beginning?",
+    options: ["video.reset()", "video.play(0)", "video.currentTime = 0", "video.restart()"],
+    answer: 2
+  },
+  {
+        question: "1. Which attribute is used to apply inline styles in HTML?",
+        options: ["style", "css", "class", "design"],
+        answer: 0
+    },
+    {
+        question: "2. What is the correct syntax to set a red text color using inline CSS?",
+        options: [
+            "<p style='color: red;'>Text</p>",
+            "<p css='color: red;'>Text</p>",
+            "<p design='color: red;'>Text</p>",
+            "<p class='color: red;'>Text</p>"
+        ],
+        answer: 0
+    },
+    {
+        question: "3. Which HTML element is used to define internal CSS styles?",
+        options: ["<style>", "<script>", "<css>", "<head>"],
+        answer: 0
+    },
+    {
+        question: "4. How do you link an external CSS file to an HTML document?",
+        options: [
+            "<css href='style.css'>",
+            "<link rel='stylesheet' href='style.css'>",
+            "<style src='style.css'>",
+            "<stylesheet>style.css</stylesheet>"
+        ],
+        answer: 1
+    },
+    {
+        question: "5. Where in an HTML document is the best place to link an external stylesheet?",
+        options: ["In the <body>", "At the end of the document", "Inside the <head>", "Inside the <footer>"],
+        answer: 2
+    },
+    {
+        question: "6. Which CSS property is used to change the background color?",
+        options: ["background-color", "bgcolor", "color", "background"],
+        answer: 0
+    },
+    {
+        question: "7. Which CSS property is used to change text color?",
+        options: ["font-color", "text-color", "color", "text-style"],
+        answer: 2
+    },
+    {
+        question: "8. How can you make text bold using CSS?",
+        options: ["font-weight: bold;", "text-bold: true;", "bold: yes;", "font-style: bold;"],
+        answer: 0
+    },
+    {
+        question: "9. Which property is used to set the font size in CSS?",
+        options: ["font-size", "text-size", "size", "font"],
+        answer: 0
+    },
+    {
+        question: "10. What is the default text alignment in HTML?",
+        options: ["Left", "Center", "Right", "Justify"],
+        answer: 0
+    },
+    {
+        question: "11. Which CSS property is used to change the font of text?",
+        options: ["font-family", "text-font", "font-style", "font"],
+        answer: 0
+    },
+    {
+        question: "12. Which HTML tag is used to apply styles to multiple elements using a class?",
+        options: ["id", "class", "style", "css"],
+        answer: 1
+    },
+    {
+        question: "13. How do you make text italic using CSS?",
+        options: ["font-italic: true;", "font-style: italic;", "italic: yes;", "text-decoration: italic;"],
+        answer: 1
+    },
+    {
+        question: "14. How can you create a border around an element in CSS?",
+        options: [
+            "border: 1px solid black;",
+            "outline: 1px solid black;",
+            "border-width: 1px; border-color: black;",
+            "frame: 1px black;"
+        ],
+        answer: 0
+    },
+    {
+        question: "15. Which CSS property controls the spacing between lines of text?",
+        options: ["letter-spacing", "text-spacing", "line-height", "text-height"],
+        answer: 2
+    },
+    {
+        "question": "Which tag is used to create a collapsible content section?",
+        "options": ["<details>", "<collapse>", "<dropdown>", "<panel>"],
+        "answer": 0
+    },
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 30;
+        let timer;
+
+        const timerElement = document.getElementById("timer");
+        const questionElement = document.getElementById("question");
+        const optionsContainer = document.getElementById("options");
+        const nextButton = document.getElementById("next-btn");
+        const restartButton = document.getElementById("restart-btn");
+        const resultElement = document.getElementById("result");
+        const certificateContainer = document.getElementById("certificate-container");
+        const usernameInput = document.getElementById("username");
+        const generateButton = document.getElementById("generate-btn");
+        const downloadButton = document.getElementById("download-btn");
+
+        function loadQuestion() {
+            clearInterval(timer);
+            timeLeft = 30;
+            timerElement.textContent = `⏳ ${timeLeft}s`;
+
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+            optionsContainer.innerHTML = "";
+            resultElement.textContent = "";
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.addEventListener("click", () => selectAnswer(index));
+                optionsContainer.appendChild(button);
+            });
+
+            nextButton.disabled = true;
+            nextButton.style.display = "none";
+
+            timer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `⏳ ${timeLeft}s`;
+                if (timeLeft === 0) {
+                    clearInterval(timer);
+                    moveToNextQuestion();
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(selectedIndex) {
+            clearInterval(timer);
+            const currentQuestion = questions[currentQuestionIndex];
+
+            document.querySelectorAll("#options button").forEach((button, index) => {
+                button.classList.add(index === currentQuestion.answer ? "correct" : "wrong");
+                button.disabled = true;
+            });
+
+            if (selectedIndex === currentQuestion.answer) score++;
+
+            if (currentQuestionIndex < questions.length - 1) {
+                nextButton.disabled = false;
+                nextButton.style.display = "block";
+            } else {
+                setTimeout(showFinalResult, 1000);
+            }
+        }
+
+        nextButton.addEventListener("click", moveToNextQuestion);
+
+        function moveToNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showFinalResult();
+            }
+        }
+
+        function showFinalResult() {
+            questionElement.textContent = "Quiz Completed!";
+            optionsContainer.innerHTML = "";
+            timerElement.textContent = "";
+            resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+            if (score === questions.length) {
+                certificateContainer.style.display = "block";
+            } else {
+                resultElement.innerHTML += `<br>⚠️ You must answer all questions correctly to get a certificate!`;
+            }
+
+            nextButton.style.display = "none";
+            restartButton.style.display = "block";
+        }
+
+        restartButton.addEventListener("click", () => {
+            currentQuestionIndex = 0;
+            score = 0;
+            certificateContainer.style.display = "none";
+            restartButton.style.display = "none";
+            loadQuestion();
+        });
+
+        generateButton.addEventListener("click", generateCertificate);
+
+        function generateCertificate() {
+            const username = usernameInput.value.trim();
+            if (!username) return alert("Please enter your name!");
+
+            const canvas = document.getElementById("certificateCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = 800;
+            canvas.height = 600;
+
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "#000";
+            ctx.fillText("Certificate of Completion", 250, 100);
+            ctx.font = "20px Arial";
+            ctx.fillText(`This is to certify that`, 300, 200);
+            ctx.font = "25px Arial";
+            ctx.fillText(username, 350, 250);
+            ctx.font = "20px Arial";
+            ctx.fillText(`has successfully completed HTML course`, 240, 300);
+            ctx.fillText(`Date of Completion: ${new Date().toLocaleDateString()}`, 250, 350);
+            ctx.fillText(`Created by CodeNova`, 250, 450);
+
+            downloadButton.style.display = "block";
+            downloadButton.addEventListener("click", () => {
+                const link = document.createElement("a");
+                link.download = "Certificate.png";
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

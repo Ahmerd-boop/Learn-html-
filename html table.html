@@ -1,0 +1,265 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Tables</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<style>
+.table-container {
+overflow-x: auto;
+width: 100%;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+text-align: center; /* Ensures everything is centered */
+margin: 3px;
+}
+
+table th, table td {
+border: 1px solid #333;
+padding: 10px;
+font-weight: bold;
+}
+
+table th {
+background-color: lightgray;
+font-family: cursive;
+text-align: center;
+}
+</style>  
+<body>
+<h1 class="topic">*HTML Tables*</h1><br><br>
+<h3>HTML tables allow you to organize and display data in a structured format using rows and columns. The <span>&lt;table&gt;</span> element is used to create tables in HTML, containing various child elements for rows, headers, and data.</h3>
+<h6>Basic Table Structure</h6>
+<h3>A simple HTML table consists of the following elements:</h3><br>
+<h3>
+<li> <span>&lt;table&gt;</span>: Defines the table.</li>
+<li> <span>&lt;tr&gt;</span> (Table Row): Represents a row in the table.</li>
+<li> <span>&lt;th&gt;</span> (Table Header): Defines header cells.</li>
+<li> <span>&lt;td&gt;</span> (Table Data): Represents data cells.</li></h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 400px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Age</th>
+<th>Country</th>
+</tr>
+<tr>
+<td>Ahmad</td>
+<td>20</td>
+<td>Nigeria</td>
+</tr>
+<tr>
+<td>Fateema</td>
+<td>18</td>
+<td>Nigeria</td>
+</tr>
+</table>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Table Rows and Cells</h6>
+<h3>Each <span>&lt;tr&gt;</span> element represents a row, while <span>&lt;td&gt;</span> represents individual data cells.</h3>
+<h6>Table Headers (<span>&lt;th&gt;</span>) vs Table Data (<span>&lt;td&gt;</span>)</h6>
+<h3>
+<li><span>&lt;th&gt;</span> elements make text bold and center-aligned by default.</li>
+<li><span>&lt;td&gt;</span> elements contain regular data.</li>
+</h3>
+<h6>Table Borders</h6>
+<h3>To add a border, use the <span>`border`</span> attribute or CSS</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 250px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<table style="border-collapse: collapse; width: 100%;">
+<tr>
+<th style="border: 1px solid black; padding: 10px;">Header</th>
+<td style="border: 1px solid black; padding: 10px;">Data</td>
+</tr>
+</table>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 70px;"></iframe>
+</div><br>
+<h6>Merging Cells: <span>`colspan`</span> and <span>`rowspan`</span></h6>
+<h3>
+<li><span>`colspan`</span> merges columns.</li>
+<li><span>`rowspan`</span> merges rows.</li></h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 600px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+table {
+width: 100%;
+border-collapse: collapse;
+}
+th, td {
+border: 1px solid black;
+padding: 10px;
+text-align: left;
+}
+th {
+background-color: lightgray;
+}
+&lt;/style&gt;
+&lt;body&gt;
+<table border="1">
+<tr>
+<th colspan="2">Merged Column</th>
+</tr>
+<tr>
+<td rowspan="2">Merged Row</td>
+<td>Data 1</td>
+</tr>
+<tr>
+<td>Data 2</td>
+</tr>
+</table>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Table Sections</h6>
+<h3>
+<li> <span>&lt;thead&gt;</span> Groups header content.</li>
+<li> <span>&lt;tbody&gt;</span>: Groups table body.</li>
+<li> <span>&lt;tfoot&gt;</span>: Groups footer.</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 500px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<table border="1">
+<thead>
+<tr>
+<th>Name</th>
+<th>Age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abdullahi</td>
+<td>25</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">Total: 2 entries</td>
+</tr>
+</tfoot>
+</table>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Responsive Tables</h6>
+<h3>Use <span>`overflow-x: auto;`</span> to make tables scrollable on small screens</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 420px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;style&gt;
+.table-container {
+overflow-x: auto;
+}
+&lt;/style&gt;
+<div class="table-container">
+<table>
+<tr>
+<th>Item</th>
+<th>Price</th>
+</tr>
+<tr>
+<td>Phone</td>
+<td>$500</td>
+</tr>
+</table>
+</div>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <span>&lt;th&gt;</span> for headers.</li>
+<li> Use <span>`border-collapse: collapse;`</span> for a clean look.</li>
+<li> Use <span>`colspan`</span> and <span>`rowspan`</span> for complex structures.</li>
+<li> Make tables responsive for smaller screens.</li>
+</h3><br>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th colspan="8">Days of the Week</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>English</b></td>
+<td>Saturday</td>
+<td>Sunday</td>
+<td>Monday</td>
+<td>Tuesday</td>
+<td>Wednesday</td>
+<td>Thursday</td>
+<td>Friday</td>
+</tr>
+<tr>
+<td><b>Hausa</b></td>
+<td>Asabar</td>
+<td>Lahadi</td>
+<td>Litinin</td>
+<td>Talata</td>
+<td>Laraba</td>
+<td>Alhamis</td>
+<td>Juma'a</td>
+</tr>
+</tbody>
+</table>
+</div><br>
+<div class="note-box"><h3>Can you try it?</h3></div><br>
+<div class="questions-container">
+<a href="html tables quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html tables exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

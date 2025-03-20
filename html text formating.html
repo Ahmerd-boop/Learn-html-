@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Text Formatting</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Text Formatting*</h1><br><br>
+<h3>HTML provides various text formatting tags to change the appearance and structure of text. These tags help define important, emphasized, or structured content, making it more readable and meaningful.</h3>
+<h6>Basic Text Formatting Tags</h6>
+<h3>HTML includes several tags for formatting text, such as making text bold, italic, underlined, or highlighted.</h3>
+<h6>Bold Text (<span>&lt;b&gt;</span> and <span>&lt;strong&gt;</span>)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is <b>bold</b> text.</p>
+<p>This is <strong>important</strong> text.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li> <span>&lt;b&gt;</span> makes text bold but does not convey importance.</li>
+<li> <span>&lt;b&gt;</span> makes text bold and signifies importance (SEO and screen readers recognize it as emphasized content).</li></h3>
+<h6>Italicized Text (<span>&lt;i&gt;</span> and <span>&lt;em&gt;</span>)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is <i>italic</i> text.</p>
+<p>This is <em>emphasized</em> text.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li><span>&lt;i&gt;</span> makes text italic for stylistic purposes.</li>
+<li><span>&lt;em&gt;</span> makes text italic and conveys emphasis (screen readers stress it).</li>
+</h3>
+<h6>Underlined and Marked Text (<span>&lt;u&gt;</span> and <span>&lt;mark&gt;</span>)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is <u>underlined</u> text.</p>
+<p>This is <mark>highlighted</mark> text.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li> <span>&lt;u&gt;</span> underlines text, usually for stylistic purposes.</li>
+<li> <span>&lt;mark&gt;</span> highlights text with a background color (useful for emphasis).</li>
+</h3>
+<h6>Small, Deleted, and Inserted Text (<span>&lt;small&gt;</span>, <span>&lt;del&gt;</span>, <span>&lt;ins&gt;</span>)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is <small>smaller</small> text.</p>
+<p>This is <del>deleted</del> text.</p>
+<p>This is <ins>inserted</ins> text.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 120px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li> <span>&lt;small&gt;</span> reduces text size.</li>
+<li> <span>&lt;del&gt;</span> represents deleted text (often strikethrough).</li>
+<li> <span>&lt;ins&gt;</span> represents inserted text (usually underlined).</li>
+</h3>
+<h6>Subscript and Superscript Text (<span>&lt;sub&gt;</span> and <span>&lt;sup&gt;</span>)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>H<sub>2</sub>O (Water formula)</p>
+<p>10<sup>2</sup> = 100</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li> <span>&lt;sub&gt;</span> makes text smaller and lowers it (used in chemical formulas).</li>
+<li> <span>&lt;sup&gt;</span> makes text smaller and raises it (used in exponents or footnotes).</li>
+</h3>
+<h6>Combining Formatting Tags</h6>
+<h3>You can combine multiple formatting tags to enhance text styling.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p><strong><em>This text is bold and italic</em></strong></p>
+<p><mark><u>Highlighted and underlined</u></mark></p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 90px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <span>&lt;strong&gt;</span> and <span>&lt;em&gt;</span> for emphasis, not just for styling.</li>
+<li> Avoid excessive formatting, as it can make text difficult to read.</li>
+<li> Use <span>&lt;mark&gt;</span> sparingly to highlight important content.</li>
+<li> <span>&lt;b&gt;</span> and <span>&lt;i&gt;</span> should be used when emphasis is not semantically important.</li>
+<li> Keep formatting consistent throughout your webpage.</li>
+</h3><br>
+<div class="questions-container">
+<a href="html text formating quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html text formating exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Video</title>
+</head>
+<body>
+<h1 class="topic">*HTML Video*</h1><br><br>
+<h3>The HTML <span>&lt;video&gt;</span> element allows embedding video content into a webpage. It provides built-in controls, supports multiple formats, and allows features like autoplay, looping, and subtitles.</h3><br>  
+<h3>
+<li>✔️ No need for external plugins (e.g., Flash)</li>  
+<li>✔️ Supports multiple video formats</li>
+<li>✔️ Customizable with JavaScript & CSS</li></h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<video controls width="100%" height="250">
+<source src="video 2.mp4">
+</video>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 270px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>  
+<li>✔️ <span>&lt;video&gt;</span> creates the video player.</li>  
+<li>✔️ <span>&lt;source&gt;</span> provides multiple formats for browser compatibility.</li>  
+<li>✔️ <span>&lt;controls&gt;</span> adds play, pause, volume, and fullscreen options.</li>  
+<li>✔️ Fallback text appears if the browser doesn't support <span>&lt;video&gt;</span>. </li></h3> 
+<h6>Attributes of the <span>&lt;video&gt;</span> Element</h6>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>`controls`</span></td>
+<td>Displays play, pause, and volume controls.</td>
+</tr>
+<tr>
+<td><span>`autoplay`</span></td>
+<td>Starts playing the video automatically.</td>
+</tr>
+<tr>
+<td><span>`loop`</span></td>
+<td>Repeats the video when it ends.</td>
+</tr>
+<tr>
+<td><span>`muted`</span></td>
+<td>Starts the video muted.</td>
+</tr>
+<tr>
+<td><span>`poster`</span></td>
+<td>Displays an image before the video plays.</td>
+</tr>
+<tr>
+<td><span>`preload`</span></td>
+<td>Defines how the browser loads the video (<span>`auto`</span>, <span>`metadata`</span>, <span>`none`</span>).</td>
+</tr>
+<tr>
+<td><span>`width`</span> & <span>`height`</span></td>
+<td>Specifies the size of the video player.</td>
+</tr>
+</tbody>
+</table><br>
+<h6>Example using <span>autoplay</span>, <span>loop</span>, and <span>poster</span></h6>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<video autoplay loop muted poster="developer.jpeg" width="100%" height="250">
+<source src="video.mp4" type="video/mp4">
+</video>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 270px;"></iframe>
+</div><br>
+<div class="note-box"><h3><li>✔️ This automatically plays the video, loops it, and starts muted.</li>  
+<li>✔️ The <span>`poster`</span> attribute shows a thumbnail before playing.</li></h3></div><br>  
+<h6>Supported Video Formats and Browser Compatibility</h6>  
+<table>
+<thead>
+<tr>
+<th>format</th>
+<th>File Extension</th>
+<th>Supported Browsers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP4</td>
+<td><span>`.mp4`</span></td>
+<td>Chrome, Firefox, Safari, Edge, Opera</td>
+</tr>
+<tr>
+<td>WebM</td>
+<td><span>`.webm`</span></td>
+<td>Chrome, Firefox, Edge, Opera</td>
+</tr>
+<tr>
+<td>Ogg</td>
+<td><span>`.ogg`</span></td>
+<td>Chrome, Firefox, Edge, Opera</td>
+</tr>
+</tbody>
+</table><br>
+<div class="warning"><h3><strong>Best Practice:</strong> Provide multiple formats (<span>`MP4`</span>, <span>`WebM`</span>, <span>`Ogg`</span>) for better browser support.</h3></div><br>  
+<h6>Adding Captions & Subtitles</h6>
+<h3>Captions improve accessibility and SEO. Use the <span>&lt;track&gt;</span> element for subtitles.</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<video controls width="100% height250">
+<source src="video 2.mp4" type="video/mp4">
+<track src="subtitles.vtt" kind="subtitles" srclang="en" label="English">
+</video>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 270px;"></iframe>
+</div><br>
+<div class="note-box"><h3>
+<li>✔️ <span>&lt;track&gt;</span> loads subtitles from a <span>`.vtt`</span> file.</li>  
+<li>✔️ <span>`kind="subtitles"`</span> specifies subtitle text.  </li></h3></div><br>
+<h6>Example <span>`.vtt`</span> file (e.g, subtitles.vtt)</h6>  
+<h3>
+WEBVTT <br>
+
+00:00:00.000 --> 00:00:05.000 <br>
+Welcome to the HTML video tutorial. <br>
+
+00:00:05.000 --> 00:00:10.000 <br>
+Here, you will learn how to use the video element. <br>
+</h3><br>
+<div class="warning"><h3><strong>Remember:</strong> My Video already has it's subtitle</h3></div><br>
+<h6>Using JavaScript with <span>&lt;video&gt;</span></h6>
+<h3>JavaScript provides custom controls for videos.</h3>  
+<h6>Example: Custom Play/Pause Button</h6>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 470px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<video id="myVideo" width="100%" height="250">
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<button onclick="playVideo()">Play</button>
+<button onclick="pauseVideo()">Pause</button>
+
+<script>
+var video = document.getElementById("myVideo");
+
+function playVideo() {
+video.play();
+}
+
+function pauseVideo() {
+video.pause();
+}
+</script>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<h6>Applications of the <span>&lt;video&gt;</span> Element</h6>
+<h3>
+<li>✔️ Online Streaming – Used for video platforms like YouTube.</li>  
+<li>✔️ Tutorials & Courses – Embed educational videos.  </li>
+<li>✔️ Product Demonstrations – Show product features interactively.</li>  
+<li>✔️ Background Videos – Create dynamic website backgrounds.  </li></h3><br>
+<h6>Best Practices for Using <span>&lt;video&gt;</span></h6>
+<h3>
+<li>✔️ Use the <span>&lt;source&gt;</span> tag for multiple video formats.</li>  
+<li>✔️ Optimize file size using compression tools like HandBrake.</li>  
+<li>✔️ Always provide a <span>&lt;pastor&gt;</span> image for better user experience.</li>  
+<li>✔️ Use captions (<span>&lt;track&gt;</span>) to improve accessibility.</li>  
+<li>✔️ Use JavaScript for enhanced playback control.</li></h3><br>  
+<div class="note-box"><h3>The HTML <span>&lt;video&gt;</span> element is a powerful and efficient way to add videos to websites. It provides native playback controls, supports multiple formats, and integrates well with JavaScript & CSS. However, to ensure smooth performance, it is essential to optimize file sizes, provide multiple formats, and implement best practices.</h3></div><br>  
+<div class="questions-container">
+<a href="html video quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html videos exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

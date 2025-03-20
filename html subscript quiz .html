@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Subscript</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Subscript Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. Which HTML tag is used to display subscript text?",
+    options: ["<sub>", "<sup>", "<small>", "<subscript>"],
+    answer: 0
+  },
+
+  {
+    question: "2. What is the main purpose of the `<sub>` tag?",
+    options: ["To make text bold", "To display text in a smaller font", "To position text slightly below the baseline", "To position text slightly above the baseline"],
+    answer: 2
+  },
+
+  {
+    question: "3. Which of the following correctly uses the `<sub>` tag?",
+    options: [
+      "<p>H<sub>2</sub>O</p>",
+      "<p>H[sub]2[/sub]O</p>",
+      "<p>H2<sub>O</p>",
+      "<sub>H2O</sub>"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "4. In which scenarios is the `<sub>` tag commonly used?",
+    options: ["Mathematical equations", "Chemical formulas", "Footnotes", "All of the above"],
+    answer: 3
+  },
+
+  {
+    question: "5. What is the difference between `<sub>` and `<sup>`?",
+    options: [
+      "`<sub>` makes text smaller, `<sup>` makes text bigger",
+      "`<sub>` places text below baseline, `<sup>` places text above baseline",
+      "`<sub>` adds spaces, `<sup>` removes spaces",
+      "Both tags do the same thing"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "6. How does the browser render text inside a `<sub>` tag?",
+    options: ["Bold", "Italic", "Smaller and lower than normal text", "Bigger than normal text"],
+    answer: 2
+  },
+
+  {
+    question: "7. Which of the following is an incorrect usage of `<sub>`?",
+    options: [
+      "<p>CO<sub>2</sub></p>",
+      "<p>x<sub>2</sub> + y<sub>2</sub> = z</p>",
+      "<p><sub>Text</sub></p>",
+      "<p><sub>Water</sup></p>"
+    ],
+    answer: 3
+  },
+
+  {
+    question: "8. Does the `<sub>` tag affect screen readers?",
+    options: ["Yes, screen readers may announce subscript text differently", "No, screen readers ignore `<sub>`", "Only in HTML4", "Only in mobile browsers"],
+    answer: 0
+  },
+
+  {
+    question: "9. Can CSS be used to style `<sub>` elements?",
+    options: ["Yes", "No", "Only in HTML4", "Only in tables"],
+    answer: 0
+  },
+
+  {
+    question: "10. What happens when you use `<sub>` inside a heading tag?",
+    options: [
+      "It makes the text disappear",
+      "It creates a new line",
+      "It still works but may not be as visible due to heading size",
+      "It breaks the HTML page"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "11. How do you change the color of `<sub>` text using CSS?",
+    options: [
+      "sub { text-color: red; }",
+      "sub { color: red; }",
+      "<sub style='text-color: red;'>",
+      "<sub color='red'>"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "12. What is the default font size of `<sub>` text?",
+    options: ["Same as normal text", "Smaller than normal text", "Larger than normal text", "Hidden"],
+    answer: 1
+  },
+
+  {
+    question: "13. How do you make `<sub>` text bold?",
+    options: [
+      "<b><sub>Text</sub></b>",
+      "<sub style='font-weight: bold;'>Text</sub>",
+      "Both A and B",
+      "You cannot make subscript text bold"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "14. What happens if you nest a `<sub>` tag inside another `<sub>` tag?",
+    options: [
+      "It creates a smaller and lower subscript",
+      "It creates a superscript instead",
+      "It makes the text disappear",
+      "It causes an error"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "15. Which of the following is a valid use case for `<sub>`?",
+    options: [
+      "Displaying footnotes",
+      "Displaying chemical formulas",
+      "Displaying math equations",
+      "All of the above"
+    ],
+    answer: 3
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html subscript.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>
