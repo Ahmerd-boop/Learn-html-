@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Pre</title>
+</head>
+<body>
+<h1 class="topic">*HTML Pre Element*</h1><br><br>
+<h3>The HTML <span>&lt;pre&gt;</span> element stands for preformatted text. It preserves white spaces, line breaks, and indentation exactly as written in the HTML file. This is useful for:</h3><br>  
+<h3>    
+<li>✔️ Displaying code snippets</li>  
+<li>✔️ Keeping formatted text intact</li>  
+<li>✔️ Showing ASCII art or structured content</li></h3><br>  
+<h3>The <span>&lt;pre&gt;</span> element is a block-level tag, meaning it takes up the full width available. It requires both an opening and closing tag:</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 220px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<pre>
+This is preformatted text.
+Indentation and spaces    are preserved.
+</pre>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 70px;"></iframe>
+</div><br>
+<h1 class="topic">Usage of <span>&lt;pre&gt;</span></h1>
+<h6>Displaying Code Snippets</h6>
+<h3>The <span>&lt;pre&gt;</span> element is often combined with <span>&lt;code&gt;</span> for displaying programming code:</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 230px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<pre>
+<code>
+function greet() {
+console.log("Hello, world!");
+}
+</code>
+</pre>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 110px;"></iframe>
+</div><br>
+<h6>Keeping Text Formatting</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 210px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<pre>
+Line 1: Keep formatting
+Line 2:     Spaces are not removed
+Line 3: Line breaks are kept
+</pre>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>ASCII Art Representation</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 210px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<pre>
+/\_/\
+( o.o )
+> ^_^ <
+</pre>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<div class="warning"><h3>ASCII art is displayed correctly because spaces and alignment are maintained.</h3></div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;pre&gt;</span> element is fully supported in all modern browsers.</h3></div><br>
+<h6>Limitations of <span>&lt;pre&gt;</span></h6>
+<h3> 
+<li> The text inside <span>&lt;pre&gt;</span> does not wrap by default, causing horizontal scrolling for long lines.</li>  
+<li> It cannot be styled effectively for large amounts of text.</li>  
+<li> Not ideal for mobile-friendly designs without additional CSS.</li></h3><br>  
+<h6>Best Practices</h6>  
+<h3>Use CSS to handle text wrapping: <br>  
+pre {
+white-space: pre-wrap;  /* Allows text to wrap */
+word-wrap: break-word;  /* Ensures long words break properly */
+}
+</h3><br>
+<h3>Use <span>&lt;code&gt;</span> inside <span>&lt;pre&gt;</span> when displaying code:  <br>
+<code>
+let x = 10;
+console.log(x);
+</code>
+</h3><br>
+<div class="warning"><h3>Avoid using <span>&lt;pre&gt;</span> for large amounts of text, as it affects readability.</h3></div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;pre&gt;</span> element is essential for preserving text formatting, making it useful for displaying code, structured text, and ASCII art. However, it should be used carefully in responsive designs, and CSS should be applied to improve usability.</h3></div><br>  
+<div class="questions-container">
+<a href="html pre element quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html pre element exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

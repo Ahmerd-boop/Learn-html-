@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Images</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Images*</h1><br><br>
+<h3>Images play a vital role in web development, improving the visual appeal and user experience of websites. In HTML, images are embedded using the <span>&lt;img&gt;</span> tag.</h3><br>
+<h6>Attributes of the <span>&lt;img&gt;</span> Tag</h6><br>
+<table>
+<tr>
+<th><b>Attribute</b></th>
+<th><b>Description</b></th>
+</tr>
+<tbody>
+<tr>
+<td><b>`src`</b></td>
+<td>Specifies the image source (URL or file path).</td>
+</tr>
+<tr>
+<td><b>`alt`</b></td>
+<td>Provides alternative text for accessibility and SEO.</td>
+</tr>
+<tr>
+<td><b>`width`</b></td>
+<td>Defines the image width (in pixels or percentage).</td>
+</tr>
+<tr>
+<td><b>`height`</b></td>
+<td>Defines the image height (in pixels or percentage).</td>
+</tr>
+<tr>
+<td><b>`title`</b></td>
+<td>Displays a tooltip when hovered over.</td>
+</tr>
+<tr>
+<td><b>`loading`</b></td>
+<td>Defines how the image should be loaded (`lazy` or `eager`).</td>
+</tr>
+</tbody>
+</table><br>
+<h6>Example</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<img src="assests/images/gidan sarki.jpg" alt="Relative path example" height="250" width="100%"><br>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 270px;"></iframe>
+</div><br>
+<h6>Responsive Images</h6>
+<h3>To make images responsive, use CSS or the `width` attribute</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<img src="developer.jpeg" alt="Responsive image" style="max-width: 100%; height: auto;">
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 350px;"></iframe>
+</div><br>
+<h6>Lazy Loading Images</h6>
+<h3>To improve page performance, use the <span>`loading="lazy"`</span> attribute</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<img src="kofar guga katsina.jpg" alt="Lazy loading example" loading="lazy" width="100%" height="300">
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<h6>Image Formats</h6>
+<table>
+<tr>
+<th><b>Format</b></th>
+<th><b>Description</b></th>
+</tr>
+<tbody>
+<tr>
+<td>JPEG</td>
+<td>Best for photographs, supports compression.</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>Supports transparency, better for logos.</td>
+</tr>
+<tr>
+<td>GIF</td>
+<td>Supports animation, limited colors.</td>
+</tr>
+<tr>
+<td>SVG</td>
+<td>Scalable vector format, best for icons and graphics.</td>
+</tr>
+<tr>
+<td>WebP</td>
+<td>Modern format with better compression and quality.</td>
+</tr>
+</tbody>
+</table><br>
+<h6>Adding Links to Images</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com">
+<img src="Girlimage.jpg" alt="Clickable image" width="100%" height="280">
+</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<h6>Background Images Using CSS</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+body {
+background-image: url('kofar guga katsina.jpg');
+background-size: cover;
+background-position: center;
+}
+p{
+color: white;
+font-size: 30px;
+font-family: monospace;
+}
+&lt;/style&gt;
+&lt;body&gt;
+&lt;p&gt;Kofar Guga, Katsina, Katsina State, Nigeria.&lt;/p&gt;
+&lt;p&gt;Kofar Guga, Katsina, Katsina State, Nigeria.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<h6>Accessibility Considerations</h6>
+<h3>
+<li> Always use the `alt` attribute to describe the image.</li>
+<li> Use descriptive filenames for images.</li>
+<li> Avoid using images for text content.</li>
+</h3>
+<h6>Best Practices</h6>
+<h3>
+<li>✔️Use responsive images for better user experience.</li>
+<li>✔️Optimize images to reduce file size without losing quality.</li>
+<li>✔️Use modern formats like WebP for better compression.</li>
+<li>✔️Avoid using unnecessary large images that slow down page load time.</li>
+<li>❌Do not use images without the `alt` attribute.</li>
+</h3><br>
+<div class="note-box"><h3>Understanding how to properly use images in HTML enhances the design and usability of web pages. By following best practices, you can ensure optimized, accessible, and responsive images on your website.</h3></div><br>
+<div class="questions-container">
+<a href="html images quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html images exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

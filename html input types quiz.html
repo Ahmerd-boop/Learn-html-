@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Input Types</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Input Types Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{
+  question: "Which attribute is used to specify the type of an input field in HTML?",
+  options: ["name", "type", "id", "value"],
+  answer: 1
+},
+
+{
+  question: "What is the default type of an `<input>` element if the `type` attribute is omitted?",
+  options: ["text", "password", "submit", "number"],
+  answer: 0
+},
+
+{
+  question: "Which input type is used for entering a password?",
+  options: ["text", "password", "secure", "hidden"],
+  answer: 1
+},
+
+{
+  question: "Which input type allows users to select a single option from multiple choices?",
+  options: ["checkbox", "radio", "select", "button"],
+  answer: 1
+},
+
+{
+  question: "Which input type allows users to upload a file?",
+  options: ["text", "file", "image", "upload"],
+  answer: 1
+},
+
+{
+  question: "Which input type allows users to enter only numeric values?",
+  options: ["text", "number", "range", "tel"],
+  answer: 1
+},
+
+{
+  question: "What does the `email` input type do?",
+  options: ["Formats text as an email", "Validates that input is a proper email format", "Encrypts input for security", "Sends an email when clicked"],
+  answer: 1
+},
+
+{
+  question: "Which input type is used to select a date?",
+  options: ["text", "datetime", "date", "time"],
+  answer: 2
+},
+
+{
+  question: "Which input type is used for a slider control?",
+  options: ["number", "range", "slider", "progress"],
+  answer: 1
+},
+
+{
+  question: "Which input type hides its value from the user but still submits data?",
+  options: ["hidden", "password", "text", "none"],
+  answer: 0
+},
+
+{
+  question: "Which input type allows users to select multiple options?",
+  options: ["radio", "checkbox", "select", "toggle"],
+  answer: 1
+},
+
+{
+  question: "Which input type is used for selecting a color?",
+  options: ["text", "color", "picker", "palette"],
+  answer: 1
+},
+
+{
+  question: "Which input type is used to enter a phone number?",
+  options: ["text", "number", "tel", "mobile"],
+  answer: 2
+},
+
+{
+  question: "Which input type is used to submit a form?",
+  options: ["button", "submit", "send", "enter"],
+  answer: 1
+},
+
+{
+  question: "Which input type creates an image button?",
+  options: ["image", "picture", "file", "icon"],
+  answer: 0
+}
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html input types.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

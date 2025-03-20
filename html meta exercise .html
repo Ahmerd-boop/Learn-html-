@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Meta</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Meta Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+
+{ question: "1. What is the purpose of the `&lt;meta&gt;` tag in HTML?", answer: "To provide metadata about the document" },
+
+{ question: "2. Where is the `&lt;meta&gt;` tag placed in an HTML document?", answer: "Inside the `&lt;head&gt;` section" },
+
+{ question: "3. Which `&lt;meta&gt;` attribute is used to specify the character encoding of a webpage? (`&lt;meta ___='UTF-8'&gt;`)", answer: "charset" },
+
+{ question: "4. What is the default character encoding for modern HTML documents?", answer: "UTF-8" },
+
+{ question: "5. How do you set the viewport for responsive design in HTML? (`&lt;meta name='viewport' ___='width=device-width, initial-scale=1.0'&gt;`)", answer: "content" },
+
+{ question: "6. Which `&lt;meta&gt;` tag is used to define a description for SEO? (`&lt;meta name='___' content='This is a description.'&gt;`)", answer: "description" },
+
+{ question: "7. What is the purpose of the `&lt;meta name='keywords'&gt;` tag?", answer: "To specify keywords for search engines" },
+
+{ question: "8. How do you set the author of a webpage using a `&lt;meta&gt;` tag? (`&lt;meta name='___' content='John Doe'&gt;`)", answer: "author" },
+
+{ question: "9. What is the purpose of the `&lt;meta http-equiv='refresh'&gt;` tag?", answer: "To refresh or redirect a webpage automatically" },
+
+{ question: "10. How do you refresh a webpage every 5 seconds using a `&lt;meta&gt;` tag? (`&lt;meta http-equiv='refresh' content='___'&gt;`)", answer: "5" },
+
+{ question: "11. How can you set a `&lt;meta&gt;` tag to prevent search engines from indexing a page? (`&lt;meta name='robots' content='___'&gt;`)", answer: "noindex" },
+
+{ question: "12. What is the purpose of the `&lt;meta http-equiv='X-UA-Compatible' content='IE=edge'&gt;` tag?", answer: "To force Internet Explorer to use the latest rendering engine" },
+
+{ question: "13. Which `&lt;meta&gt;` tag is used to control how a page appears when shared on social media?", answer: "Open Graph (og) meta tags" },
+
+{ question: "14. How do you specify a specific language for an HTML document using `&lt;meta&gt;`? (`&lt;meta http-equiv='Content-Language' content='___'&gt;`)", answer: "en" },
+
+{ question: "15. What does `&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;` do?", answer: "Makes the page responsive for mobile devices" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html meta.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

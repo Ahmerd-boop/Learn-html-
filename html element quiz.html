@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Element Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. Which HTML element defines the largest heading?",
+    options: ["<head>", "<h6>", "<h1>", "<header>"],
+    answer: 2
+  },
+  {
+    question: "2. Which HTML element is used to create a paragraph?",
+    options: ["<div>", "<p>", "<span>", "<br>"],
+    answer: 1
+  },
+  {
+    question: "3. Which HTML element inserts a line break?",
+    options: ["<lb>", "<break>", "<br>", "<line>"],
+    answer: 2
+  },
+  {
+    question: "4. Which HTML element creates a hyperlink?",
+    options: ["<link>", "<href>", "<a>", "<anchor>"],
+    answer: 2
+  },
+  {
+    question: "5. Which HTML element defines bold text (presentational)?",
+    options: ["<strong>", "<b>", "<em>", "<bold>"],
+    answer: 1
+  },
+  {
+    question: "6. Which HTML element defines emphasized (italic) text?",
+    options: ["<em>", "<italic>", "<i>", "<it>"],
+    answer: 0
+  },
+  {
+    question: "7. Which HTML element is used to insert an image?",
+    options: ["<image>", "<img>", "<pic>", "<src>"],
+    answer: 1
+  },
+  {
+    question: "8. Which HTML element is used to create a table row?",
+    options: ["<td>", "<th>", "<tr>", "<table>"],
+    answer: 2
+  },
+  {
+    question: "9. Which HTML element is used to create an unordered list?",
+    options: ["<list>", "<ul>", "<ol>", "<li>"],
+    answer: 1
+  },
+  {
+    question: "10. Which HTML element is used for an ordered list?",
+    options: ["<list>", "<ul>", "<ol>", "<li>"],
+    answer: 2
+  },
+  {
+    question: "11. Which HTML element is used to define a section or division in a document?",
+    options: ["<div>", "<section>", "<aside>", "<span>"],
+    answer: 0
+  },
+  {
+    question: "12. Which HTML element is used to define a navigation menu?",
+    options: ["<nav>", "<menu>", "<header>", "<link>"],
+    answer: 0
+  },
+  {
+    question: "13. Which HTML element is used to define the document’s metadata (like title, meta tags)?",
+    options: ["<head>", "<header>", "<title>", "<body>"],
+    answer: 0
+  },
+  {
+    question: "14. Which HTML element is used to define the document’s body (main content)?",
+    options: ["<content>", "<main>", "<body>", "<section>"],
+    answer: 2
+  },
+  {
+    question: "15. Which HTML element defines a table header cell?",
+    options: ["<tr>", "<td>", "<th>", "<thead>"],
+    answer: 2
+  },
+  {
+    question: "16. Which HTML element is used for the document’s title in the browser tab?",
+    options: ["<title>", "<head>", "<header>", "<h1>"],
+    answer: 0
+  },
+  {
+    question: "17. Which HTML element is used for the footer of a document or section?",
+    options: ["<bottom>", "<footer>", "<section>", "<aside>"],
+    answer: 1
+  },
+  {
+    question: "18. Which HTML element represents a self-contained composition, like a blog post?",
+    options: ["<article>", "<section>", "<main>", "<aside>"],
+    answer: 0
+  },
+  {
+    question: "19. Which HTML element is used to define a heading group, like a banner?",
+    options: ["<header>", "<hgroup>", "<banner>", "<aside>"],
+    answer: 0
+  },
+  {
+    question: "20. Which HTML element is used to define contact information for the author/owner?",
+    options: ["<footer>", "<address>", "<cite>", "<contact>"],
+    answer: 1
+  }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html element.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

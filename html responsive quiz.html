@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Responsive Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. What does responsive web design mean?",
+        options: [
+            "A website that adapts to different screen sizes",
+            "A website that loads faster",
+            "A website with animations",
+            "A website with only text"
+        ],
+        answer: 0
+    },
+    {
+        question: "2. Which tag is used to ensure proper responsive behavior on mobile devices?",
+        options: [
+            "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+            "<meta charset='UTF-8'>",
+            "<meta name='description' content='responsive site'>",
+            "<meta name='mobile' content='yes'>"
+        ],
+        answer: 0
+    },
+    {
+        question: "3. What CSS property is used to make an element flexible and adjust its size dynamically?",
+        options: ["grid", "flex", "float", "inline-block"],
+        answer: 1
+    },
+    {
+        question: "4. Which unit is best for creating responsive font sizes?",
+        options: ["px", "em", "rem", "%"],
+        answer: 2
+    },
+    {
+        question: "5. What is the purpose of the 'media queries' in CSS?",
+        options: [
+            "To apply styles based on screen size",
+            "To store user data",
+            "To load external fonts",
+            "To make images smaller"
+        ],
+        answer: 0
+    },
+    {
+        question: "6. How do you create a media query that applies styles for screens smaller than 768px?",
+        options: [
+            "@media screen and (max-width: 768px) { ... }",
+            "@media screen and (min-width: 768px) { ... }",
+            "@media (screen-width: 768px) { ... }",
+            "@media only-mobile { ... }"
+        ],
+        answer: 0
+    },
+    {
+        question: "7. Which CSS property makes an image scale and fit within its container?",
+        options: ["object-fit", "max-width", "overflow", "position"],
+        answer: 1
+    },
+    {
+        question: "8. What is the best way to make a navigation menu responsive?",
+        options: [
+            "Use a fixed layout",
+            "Use a <table> for the menu",
+            "Use a hamburger menu for smaller screens",
+            "Hide the menu completely"
+        ],
+        answer: 2
+    },
+    {
+        question: "9. Which of the following is a mobile-first design approach?",
+        options: [
+            "Designing for desktop first, then adjusting for mobile",
+            "Using desktop-only styles",
+            "Designing for mobile first, then scaling up for larger screens",
+            "Hiding content on smaller screens"
+        ],
+        answer: 2
+    },
+    {
+        question: "10. How can you prevent horizontal scrolling issues on mobile devices?",
+        options: [
+            "Set overflow: hidden on the body",
+            "Use larger font sizes",
+            "Set a fixed width for all elements",
+            "Ignore small screens"
+        ],
+        answer: 0
+    },
+    {
+        question: "11. Which of these CSS properties helps to make text responsive?",
+        options: ["font-size", "line-height", "letter-spacing", "All of the above"],
+        answer: 3
+    },
+    {
+        question: "12. Which of the following is an advantage of responsive web design?",
+        options: [
+            "Better user experience",
+            "Improved SEO rankings",
+            "Cost-effective maintenance",
+            "All of the above"
+        ],
+        answer: 3
+    },
+    {
+        question: "13. What is the primary goal of responsive web design?",
+        options: [
+            "To make websites look the same on all devices",
+            "To adjust content layout based on screen size",
+            "To use only fixed-width elements",
+            "To create multiple versions of a website"
+        ],
+        answer: 1
+    },
+    {
+        question: "14. How do you make an element take up the full width of its parent container?",
+        options: ["width: 100%;", "height: auto;", "display: inline;", "position: absolute;"],
+        answer: 0
+    },
+    {
+        question: "15. Which of the following is NOT a best practice for responsive design?",
+        options: [
+            "Using flexible grid layouts",
+            "Using large fixed-width images",
+            "Applying media queries",
+            "Using relative units like em or rem"
+        ],
+        answer: 1
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html responsive.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

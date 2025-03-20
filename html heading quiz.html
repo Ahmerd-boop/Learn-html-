@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Headings Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. How many heading levels are available in HTML?",
+        options: ["4", "5", "6", "7"],
+        answer: 2
+    },
+    {
+        question: "2. Which HTML tag is used for the largest heading?",
+        options: ["<h6>", "<h3>", "<h1>", "<head>"],
+        answer: 2
+    },
+    {
+        question: "3. Which heading tag represents the smallest heading size?",
+        options: ["<h1>", "<h2>", "<h5>", "<h6>"],
+        answer: 3
+    },
+    {
+        question: "4. Are HTML headings block-level elements?",
+        options: ["Yes", "No"],
+        answer: 0
+    },
+    {
+        question: "5. What is the correct syntax for an HTML heading?",
+        options: ["<heading>Title</heading>", "<h1>Title</h1>", "<head>Title</head>", "<h>Title</h>"],
+        answer: 1
+    },
+    {
+        question: "6. Can we apply CSS styles to heading elements?",
+        options: ["Yes", "No"],
+        answer: 0
+    },
+    {
+        question: "7. What is the default margin applied to an `<h1>` tag in most browsers?",
+        options: ["0px", "8px", "16px", "24px"],
+        answer: 3
+    },
+    {
+        question: "8. Which heading tag should be used for the main title of a webpage?",
+        options: ["<h6>", "<h3>", "<h1>", "<h4>"],
+        answer: 2
+    },
+    {
+        question: "9. Can you use multiple `<h1>` tags on a single webpage?",
+        options: ["Yes, but it's not recommended", "No, only one `<h1>` per page"],
+        answer: 0
+    },
+    {
+        question: "10. Which heading tag is the most commonly used for subheadings?",
+        options: ["<h1>", "<h3>", "<h6>", "<h5>"],
+        answer: 1
+    },
+    {
+        question: "11. What is the primary purpose of using heading tags?",
+        options: ["To format text only", "To structure content and improve SEO", "To add color to text", "To create a navigation bar"],
+        answer: 1
+    },
+    {
+        question: "12. What happens if you forget to close an `<h1>` tag?",
+        options: ["The browser will close it automatically", "The webpage will crash", "It will display an error message", "The text will not be visible"],
+        answer: 0
+    },
+    {
+        question: "13. What is the best practice for using multiple headings on a page?",
+        options: ["Use `<h1>` for every section", "Use `<h1>` for the main title and `<h2>` to `<h6>` for subheadings", "Use only `<h3>` and `<h4>`", "Use `<h6>` for all headings"],
+        answer: 1
+    },
+    {
+        question: "14. Which of the following is true about headings?",
+        options: ["They should be used in a logical order", "They can be used randomly", "They are always italicized", "They cannot be styled"],
+        answer: 0
+    },
+    {
+        question: "15. Which heading is best suited for the title of a blog post?",
+        options: ["<h6>", "<h4>", "<h1>", "<h3>"],
+        answer: 2
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html headings.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

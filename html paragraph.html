@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Paragraph</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Paragraph*</h1><br><br>
+<h3>HTML paragraphs are an essential part of structuring text content on a webpage. The <span>&lt;p&gt;</span> element is used to define a paragraph in HTML, helping to organize information and improve readability.</h3>
+<h6>What is an HTML Paragraph?</h6>
+<h3>A paragraph in HTML is a block-level element used to group text together in a meaningful way. It automatically adds space before and after the text to improve readability.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is a paragraph in HTML.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li><span>&lt;p&gt;</span>: The opening tag that starts the paragraph.</li>
+<li> Content: The text inside the paragraph.</li>
+<li><span>&lt;p&gt;</span>: The closing tag that ends the paragraph.</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 170px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<h1>Welcome to My Website</h1>
+<p>This is the first paragraph, providing an introduction.</p>
+<p>This is another paragraph with additional information.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 140px;"></iframe>
+</div><br>
+<h6>Multiple Paragraphs</h6>
+<h3>You can use multiple <span>&lt;p&gt;</span> elements to separate different sections of text.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>This is the first paragraph.</p>
+<p>This is the second paragraph.</p>
+<p>This is the third paragraph.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 120px;"></iframe>
+</div><br>
+<div class="note-box"><h3>Each paragraph will appear on a new line with default spacing.</h3></div>
+<h6>Styling Paragraphs with CSS</h6>
+<h3>You can customize the appearance of paragraphs using CSS.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 250px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+<style>
+p {
+color: blue;
+font-size: 18px;
+text-align: justify;
+line-height: 1.5;
+}
+</style>    
+&lt;body&gt;
+&lt;p&gt;This is the first line.<br>This is the second line.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Explanation:</h6>
+<h3>
+<li> <span>`color: blue;`</span> → Changes text color to blue.</li>
+<li> <span>`font-size: 18px;`</span> → Increases font size.</li>
+<li> <span>`text-align: justify;`</span> → Aligns text for better readability.</li>
+<li> <span>`line-height: 1.5;`</span> → Adds space between lines for improved clarity.</li>
+</h3>
+<h6>Best Practices for Using Paragraphs</h6>
+<h3>
+<li>✔️Use <span>&lt;p&gt;</span> for textual content to maintain proper structure.</li>
+<li>✔️Avoid excessive <span>&lt;br&gt;</span> tags for spacing; use CSS instead.</li>  
+<li>✔️Keep paragraphs concise and meaningful.</li>
+<li>✔️Use semantic HTML to improve accessibility and SEO.</li>
+</h3>
+<div class="note-box"><h3><b>HTML paragraphs</b> help structure content on a webpage, making it more readable and visually appealing. By using <span>&lt;p&gt;</span> correctly and styling it effectively, you can enhance the user experience on your website.</h3></div><br>
+<div class="questions-container">
+<a href="html paragraph quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html paragraph exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

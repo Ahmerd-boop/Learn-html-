@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Iframe</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Iframe Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What does the `<iframe>` tag in HTML stand for?",
+    options: ["Inline Frame", "Internet Frame", "Image Frame", "Interactive Frame"],
+    answer: 0
+  },
+
+  {
+    question: "2. What is the purpose of an `<iframe>` in HTML?",
+    options: [
+      "To insert an image",
+      "To embed another HTML document inside a webpage",
+      "To create a popup window",
+      "To display a tooltip",
+    ],
+    answer: 1
+  },
+
+  {
+    question: "3. Which attribute of `<iframe>` is used to define the URL of the embedded document?",
+    options: ["href", "src", "link", "url"],
+    answer: 1
+  },
+
+  {
+    question: "4. How can you set the width and height of an `<iframe>`?",
+    options: [
+      "Using the `size` attribute",
+      "Using the `dimensions` attribute",
+      "Using the `width` and `height` attributes",
+      "Using the `frameSize` attribute",
+    ],
+    answer: 2
+  },
+
+  {
+    question: "5. What does the `frameborder='0'` attribute do in an `<iframe>`?",
+    options: [
+      "Hides the border around the iframe",
+      "Adds a thick border to the iframe",
+      "Changes the border color",
+      "Makes the iframe fullscreen",
+    ],
+    answer: 0
+  },
+
+  {
+    question: "6. What happens if the `src` attribute of an `<iframe>` is missing?",
+    options: [
+      "The `<iframe>` will display an empty frame",
+      "The `<iframe>` will show an error message",
+      "The browser will crash",
+      "The `<iframe>` will automatically load the home page",
+    ],
+    answer: 0
+  },
+
+  {
+    question: "7. Which HTML attribute is used to disable the ability to interact with an `<iframe>`?",
+    options: ["disable", "sandbox", "readonly", "noaccess"],
+    answer: 1
+  },
+
+  {
+    question: "8. How do you allow an `<iframe>` to display fullscreen?",
+    options: [
+      "Using `allowfullscreen` attribute",
+      "Using `fullscreen` attribute",
+      "Using `allow='fullscreen'` attribute",
+      "Using `framezoom` attribute",
+    ],
+    answer: 0
+  },
+
+  {
+    question: "9. Which of the following is a security concern when using `<iframe>`?",
+    options: [
+      "The iframe can change the website's theme",
+      "The iframe can be used for clickjacking attacks",
+      "The iframe slows down the website",
+      "Iframes require additional plugins to work",
+    ],
+    answer: 1
+  },
+
+  {
+    question: "10. What does the `sandbox` attribute do in an `<iframe>`?",
+    options: [
+      "Loads the iframe in full screen",
+      "Allows the iframe to modify the parent page",
+      "Applies security restrictions to the embedded content",
+      "Makes the iframe border rounded",
+    ],
+    answer: 2
+  },
+
+  {
+    question: "11. How can you set an iframe to automatically resize based on its content?",
+    options: [
+      "Using `resize: auto;` in CSS",
+      "Using JavaScript to adjust the height dynamically",
+      "Using `autosize` attribute",
+      "Iframes always resize automatically",
+    ],
+    answer: 1
+  },
+
+  {
+    question: "12. What is the `referrerpolicy` attribute used for in an `<iframe>`?",
+    options: [
+      "To specify how the iframe loads",
+      "To define what referrer information should be sent to the iframe",
+      "To allow cookies inside the iframe",
+      "To change the background color of the iframe",
+    ],
+    answer: 1
+  },
+
+  {
+    question: "13. How do you prevent an `<iframe>` from loading external content?",
+    options: [
+      "By using the `src='internal'` attribute",
+      "By setting `sandbox` restrictions",
+      "By setting `allow: internal-only`",
+      "By using `forbid-external` attribute",
+    ],
+    answer: 1
+  },
+
+  {
+    question: "14. Which JavaScript property allows access to an iframe’s document?",
+    options: ["contentWindow", "iframeDoc", "documentFrame", "getFrame"],
+    answer: 0
+  },
+
+  {
+    question: "15. What is the best way to improve iframe security?",
+    options: [
+      "Avoid using iframes completely",
+      "Use `sandbox` and `CSP` (Content Security Policy)",
+      "Use an iframe inside a `<div>`",
+      "Add more JavaScript events to monitor iframe activity",
+    ],
+    answer: 1
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html iframe.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

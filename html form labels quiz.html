@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Form Labels</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Form Labels Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{
+  question: "What is the purpose of the `<label>` tag in an HTML form?",
+  options: ["To create an input field", "To define a form", "To associate text with an input field", "To submit the form"],
+  answer: 2
+},
+
+{
+  question: "Which attribute is used to associate a `<label>` with an input field?",
+  options: ["id", "name", "for", "value"],
+  answer: 2
+},
+
+{
+  question: "Which input types commonly use labels for accessibility?",
+  options: ["button and reset", "text and password", "image and submit", "file and hidden"],
+  answer: 1
+},
+
+{
+  question: "Where should the `<label>` tag be placed in relation to an input field?",
+  options: ["Before the input field", "After the input field", "Wrapped around the input field", "Any of the above"],
+  answer: 3
+},
+
+{
+  question: "What happens when you click on a `<label>` associated with a checkbox?",
+  options: ["It submits the form", "It checks or unchecks the checkbox", "It clears the checkbox", "It does nothing"],
+  answer: 1
+},
+
+{
+  question: "What is the benefit of using the `<label>` tag in forms?",
+  options: ["It makes the form look better", "It improves accessibility and usability", "It adds styling to the form", "It makes forms responsive"],
+  answer: 1
+},
+
+{
+  question: "Which `<label>` syntax correctly associates with an input field?",
+  options: [
+    "`<label name='username'>Username:</label>`",
+    "`<label for='username'>Username:</label> <input id='username'>`",
+    "`<label>Username: <input name='username'></label>`",
+    "`Both B and C`"
+  ],
+  answer: 3
+},
+
+{
+  question: "Can a `<label>` be used with radio buttons?",
+  options: ["No, radio buttons do not need labels", "Yes, it helps users select options easily", "Only if the radio button is required", "Only if the form has multiple radio buttons"],
+  answer: 1
+},
+
+{
+  question: "What is the correct way to associate a `<label>` with a checkbox?",
+  options: [
+    "`<label for='subscribe'>Subscribe</label> <input type='checkbox' id='subscribe'>`",
+    "`<label>Subscribe <input type='checkbox' id='subscribe'></label>`",
+    "`<input type='checkbox' id='subscribe'> <label for='subscribe'>Subscribe</label>`",
+    "`All of the above`"
+  ],
+  answer: 3
+},
+
+{
+  question: "What happens if a `<label>` does not have a `for` attribute?",
+  options: ["It still works the same way", "It cannot be clicked to activate the input", "It makes the form invalid", "It disables the input field"],
+  answer: 1
+},
+
+{
+  question: "Why is the `for` attribute important in a `<label>`?",
+  options: ["It makes the form submit faster", "It allows users to interact with form elements more easily", "It helps browsers ignore the label", "It is required by HTML"],
+  answer: 1
+},
+
+{
+  question: "Which input type benefits the most from labels?",
+  options: ["Hidden", "Password", "Number", "All visible input types"],
+  answer: 3
+},
+
+{
+  question: "Can a `<label>` be used for multiple input fields?",
+  options: ["Yes", "No", "Only for checkboxes", "Only for radio buttons"],
+  answer: 1
+},
+
+{
+  question: "Which form elements commonly use `<label>` tags?",
+  options: ["Buttons and links", "Tables and images", "Text inputs, checkboxes, radio buttons, and selects", "Divs and spans"],
+  answer: 2
+},
+
+{
+  question: "Which input type does NOT typically require a `<label>`?",
+  options: ["Text", "Checkbox", "Submit", "Radio"],
+  answer: 2
+}
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html form labels.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

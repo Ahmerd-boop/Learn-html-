@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML nbsp</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML nbsp Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. What does `&amp;nbsp;` stand for in HTML?", answer: "Non-breaking space" },
+
+{ question: "2. What is the main purpose of using `&amp;nbsp;` in HTML?", answer: "To create extra spaces that are not collapsed by the browser" },
+
+{ question: "3. How do you write a non-breaking space in HTML?", answer: "&nbsp;" },
+
+{ question: "4. How many `&amp;nbsp;` codes are needed to create two spaces between words?", answer: "2" },
+
+{ question: "5. What problem does `&amp;nbsp;` help solve in text formatting?", answer: "Prevents automatic line breaks between words or elements" },
+
+{ question: "6. Can `&amp;nbsp;` be used inside an HTML attribute like `placeholder`?", answer: "No" },
+
+{ question: "7. How is `&amp;nbsp;` different from a regular space in HTML?", answer: "It prevents line breaks and is not collapsed by the browser" },
+
+{ question: "8. In which situations is `&amp;nbsp;` commonly used?", answer: "To prevent text wrapping, align text, or add extra spacing" },
+
+{ question: "9. Can `&amp;nbsp;` be used multiple times in a row for larger spaces?", answer: "Yes" },
+
+{ question: "10. Which HTML entity represents a normal space?", answer: "There is no entity for a normal space" },
+
+{ question: "11. What is the numeric code equivalent of `&amp;nbsp;`?", answer: "&#160;" },
+
+{ question: "12. Is `&amp;nbsp;` considered a valid character in an HTML document?", answer: "Yes" },
+
+{ question: "13. Can `&amp;nbsp;` be used inside a `&lt;pre&gt;` tag?", answer: "Yes, but unnecessary since `<pre>` preserves spaces" },
+
+{ question: "14. Does `&amp;nbsp;` work in all HTML elements?", answer: "Yes, but it is mostly used in text elements" },
+
+{ question: "15. How can you remove excessive `&amp;nbsp;` spaces using CSS? (`white-space: ___;`)", answer: "normal" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html nbsp.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

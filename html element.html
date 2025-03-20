@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Elements</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Elements*</h1><br><br>
+<h3>HTML (HyperText Markup Language) is the standard language for creating web pages. HTML consists of various <b>elements</b>, which are building blocks that define the structure and content of a webpage.</h3>
+<h3>An HTML element typically consists of an ✔️opening tag, ✔️content, and a ✔️closing tag</h3><br><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;This is an element content&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h3>The example HTML Element above is composed of the following:</h3> 
+<h3><li> <span>&lt;p&gt;</span> is the opening tag.</li></h3>
+<h3><li> `This is a paragraph.` is the content.</li></h3>
+<h3><li> <span>&lt;/p&gt;</span> is the closing tag.</li></h3><br>
+<h6>Nested HTML Elements</h6>
+<h3>There are cases that an HTML element can contain one or more HTML elements, for you to better understand it, look at the code below.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;p&gt;&lt;b&gt;This is a paragraph with bolded text&lt;/b&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>All the followings are called HTML Elements</h6>
+<h3>
+<li>&lt;html&gt; – The root element of an HTML document.</li>
+<li>&lt;head&gt; – Contains metadata, links to stylesheets, and scripts.</li>
+<li>&lt;title&gt; – Specifies the title of the page.</li>
+<li>&lt;body&gt; – Contains the content displayed on the webpage.</li>
+<li>&lt;header&gt; – Defines a section header.</li>
+<li>&lt;footer&gt; – Defines a footer for a section or page.</li>
+<li>&lt;section&gt; – Defines a standalone section of a document.</li>
+<li>&lt;article&gt; – Represents a self-contained piece of content.</li>
+<li>&lt;aside&gt; – Contains related content (e.g., a sidebar).</li>
+<li>&lt;nav&gt; – Defines navigation links.</li>
+<li>&lt;main&gt; – Represents the main content of a page.</li>
+<li>&lt;div&gt; – A container used for styling and layout.</li>
+<li>&lt;h1&gt; to &lt;h6&gt; – Headings (&lt;h1&gt; is the largest, &lt;h6&gt; is the smallest).</li>
+<li>&lt;p&gt; – Paragraph.</li>
+<li>&lt;strong&gt; – Bold text (important).</li>
+<li>&lt;em&gt; – Italic text (emphasized).</li>
+<li>&lt;mark&gt; – Highlighted text.</li>
+<li>&lt;u&gt; – Underlined text.</li>
+<li>&lt;mark&gt; – Highlighted text.</li>
+<li>&lt;small&gt; – Smaller text.</li>
+<li>&lt;del&gt; – Deleted text (strikethrough).</li>
+<li>&lt;ins&gt; – Inserted text (underline by default).</li>
+<li>&lt;blockquote&gt; – A block quotation.</li>
+<li>&lt;cite&gt; – Citation reference.</li>
+<li>&lt;ul&gt; – Unordered list (bullets).</li>
+<li>&lt;ol&gt; – Ordered list (numbers).</li>
+<li>&lt;li&gt; – List item.</li>
+<li>&lt;dl&gt; – Description list.</li>
+<li>&lt;dt&gt; – Description term.</li>
+<li>&lt;dd&gt; – Description definition.</li>
+<li>&lt;a&gt; – Defines a hyperlink.</li>
+<li>&lt;nav&gt; – Groups navigation links.</li>
+<li>&lt;img&gt; – Embeds an image.</li>
+<li>&lt;audio&gt; – Embeds audio content.</li>
+<li>&lt;video&gt; – Embeds video content.</li>
+<li>&lt;source&gt; – Specifies media sources.</li>
+<li>&lt;table&gt; – Defines a table.</li>
+<li>&lt;tr&gt; – Table row.</li>
+<li>&lt;th&gt; – Table header.</li>
+<li>&lt;td&gt; – Table data.</li>
+<li>&lt;caption&gt; – Table title.</li>
+<li>&lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt; – Table sections.</li>
+<li>&lt;form&gt; – Defines a form.</li>
+<li>&lt;input&gt; – User input field.</li>
+<li>&lt;textarea&gt; – Multiline input field.</li>
+<li>&lt;select&gt; – Dropdown list.</li>
+<li>&lt;option&gt; – Dropdown options.</li>
+<li>&lt;button&gt; – Clickable button.</li>
+<li>&lt;details&gt; – Expandable details.</li>
+<li>&lt;summary&gt; – Summary for &lt;details&gt;.</li>
+<li>&lt;dialog&gt; – Modal dialog.</li>
+</h3><br><br>
+<div class="questions-container">
+<a href="html element quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html element exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

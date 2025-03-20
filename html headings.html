@@ -1,0 +1,138 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Headings</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+
+<body>
+<h1 class="topic">*HTML Headings*</h1><br><br>
+<h3>Headings in HTML are used to define the structure of a webpage and provide a hierarchical way to present
+content. HTML provides six levels of headings, ranging from &lt;h1&gt; to &lt;h6&gt;, where &lt;h1&gt; is the
+largest and most important heading, and &lt;h6&gt; is the smallest and least important.</h3>
+<h6>Importance of Headings</h6>
+<h3>Headings play a crucial role in web accessibility, SEO (Search Engine Optimization), and content organization.
+Proper use of headings helps both users and search engines understand the structure of a page.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<h1>This is a Heading 1</h1>
+<h2>This is a Heading 2</h2>
+<h3>This is a Heading 3</h3>
+<h4>This is a Heading 4</h4>
+<h5>This is a Heading 5</h5>
+<h6>This is a Heading 6</h6>  
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li><span>&lt;h1&gt;</span>: The most important heading, typically used for the main title of the page.</li>
+<li><span>&lt;h2&gt;</span>: Used for subheadings that are slightly less important than <span>&lt;h1&gt;</span>.
+</li>
+<li><span>&lt;h3&gt;</span> - <span>&lt;h6&gt;</span>: Used for further subsections, decreasing in importance as
+the number increases.</li>
+</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 300px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;HTML Headings Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<h1>Main Title of the Page</h1>
+<h2>Section 1</h2>
+<p>This is a paragraph under section 1.</p>
+<h3>Subsection 1.1</h3>
+<p>Details about subsection 1.1.</p>
+<h2>Section 2</h2>
+<p>This is another section with more content.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 340px;"></iframe>
+</div><br>
+<h6>Styling Headings with CSS</h6>
+<h3>Headings can be styled using CSS to improve their appearance.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 340px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;HTML Headings Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;style&gt;
+h1 {
+color: blue;
+font-size: 2em;
+text-align: center;
+}
+h2 {
+color: darkred;
+}
+h3 {
+font-style: italic;
+}
+&lt;/style&gt;
+&lt;body&gt;
+<h1>Main Title of the Page</h1>
+<h2>Section 1</h2>
+<p>This is a paragraph under section 1.</p>
+<h3>Subsection 1.1</h3>
+<p>Details about subsection 1.1.</p>
+<h2>Section 2</h2>
+<p>This is another section with more content.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 340px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <span>&lt;h1&gt;</span> only once per page for the main title.</li>
+<li> Maintain a logical heading hierarchy (e.g., do not jump from <span>&lt;h1&gt;</span> to
+<span>&lt;h4&gt;</span> directly).</li>
+<li> Use headings to improve accessibility and readability.</li>
+<li> Avoid using headings just for styling; instead, use CSS.</li>
+</h3><br>
+<h6>Use Cases</h6>
+<h3>
+<li> Organizing blog articles.</li>
+<li> Structuring documentation.</li>
+<li> Enhancing webpage readability.</li>
+</h3><br>
+<div class="note-box">
+<h3><b>HTML headings</b> are essential for structuring web pages properly. Using them correctly improves both
+user experience and SEO. By following best practices, you can create well-organized and accessible content.
+</h3>
+</div><br>
+<div class="questions-container">
+<a href="html heading quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html  heading exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+
+</html>

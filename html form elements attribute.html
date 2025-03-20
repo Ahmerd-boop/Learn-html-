@@ -1,0 +1,292 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Form Elements Attributes</title>
+</head>
+
+<body>
+<h1 class="topic">*HTML Form Elements Attributes*</h1><br><br>
+<h3>Forms are an essential part of web development, allowing users to input and submit data. HTML provides various
+form elements, each with its own attributes that define behavior, validation, and styling.</h3>
+<h3>In this guide, we will explore all the important attributes used in HTML form elements, including input, textarea,
+select, button, and more.</h3>
+<h1 class="topic">Common Attributes for Form Elements</h1>
+<h3>Most form elements share some common attributes that control their behavior.</h3>
+<h6>The name Attribute</h6>
+<h3>The name attribute specifies a unique identifier for the input field when submitting form data.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 220px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<form action="submit.php" method="POST">
+<label for="username">Username:</label>
+<input type="text" id="username" name="username">
+<input type="submit" value="Submit">
+</form>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h3>The name="username" attribute ensures the input value is sent as username=value when the form is submitted.</h3>
+<h6>The <span>id</span> and <span>for</span> Attributes</h6>
+<h3>The id attribute gives a unique identifier to the input field.</h3>
+<h3>The for attribute in <span>&lt;label&gt;</span> links the label to the input, improving accessibility.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+<p>Clicking the label focuses the input field because for="email" matches id="email".</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>The value Attribute</h6>
+<h3>The value attribute sets the default value for an input field.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="country" value="Nigeria">
+<p>This input field is pre-filled with "Nigeria".</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The placeholder Attribute</h6>
+<h3>The placeholder attribute displays temporary text inside an input field before the user types anything.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="fullname" placeholder="Enter your full name">
+<p>The text "Enter your full name" disappears when the user starts typing.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The required Attribute</h6>
+<h3>The required attribute makes an input field mandatory. The form cannot be submitted if the field is empty.</h3>
+<br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="email" name="email" required>
+<p>The user must enter an email address before submitting.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The readonly Attribute</h6>
+<h3>The readonly attribute prevents users from editing the input field but still allows them to copy the value.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="username" value="Ahmad" readonly>
+<p>Users cannot change "Ahmad", but they can copy it.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The disabled Attribute</h6>
+<h3>The disabled attribute disables an input field, making it unclickable and preventing it from being submitted.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="promo-code" value="DISCOUNT2025" disabled>
+<p>Users cannot interact with the input field.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The maxlength and minlength Attributes</h6>
+<h3>maxlength limits the maximum number of characters.</h3>
+<h3>minlength ensures a minimum number of characters is entered.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="phone" minlength="10" maxlength="15" placeholder="Enter your phone number">
+<p>Users must enter at least 10 characters but no more than 15.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The autofocus Attribute</h6>
+<h3>The autofocus attribute makes an input field automatically focused when the page loads.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="text" name="username" autofocus>
+<p>When the page loads, the cursor is placed in this field automatically.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>The multiple Attribute</h6>
+<h3>The multiple attribute allows users to select multiple values in <span>&lt;input&gt;</span> and <span>&lt;select&gt;</span>.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<input type="file" name="documents" multiple>
+<p>Users can upload multiple files at once.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h1 class="topic">Attributes for <span>&lt;textarea&gt;</span></h1>
+<h6>The rows and cols Attributes</h6>
+<h3>Control the height and width of the <span>&lt;textarea&gt;</span>.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;textarea name="comment" rows="5" cols="40"&gt;&lt;/textarea&gt;
+<p>This creates a larger text box for user input.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>The wrap Attribute</h6>
+<h3>Defines how text wraps inside the <span>&lt;textarea&gt;</span>.</h3> 
+<h3><span>wrap="soft"</span> → Text does not wrap; scrolls horizontally.</h3>
+<h3><span>wrap="hard"</span> → Text wraps automatically.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 160px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;textarea name="notes" wrap="hard"&gt&lt;/textarea&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h1 class="topic">Attributes for <span>&lt;select&gt;</span> and <span>&lt;option&gt;</span></h1>
+<h6>The selected Attribute</h6>
+<h3>Pre-selects an option in a dropdown.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 200px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<select name="country">
+<option value="us">USA</option>
+<option value="ng" selected>Nigeria</option>
+<option value="uk">UK</option>
+</select>
+<p>"Nigeria" is selected by default.</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 80px;"></iframe>
+</div><br>
+<h6>The multiple Attribute</h6>
+<h3>Allows users to select more than one option.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 230px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+select {width: 100%; padding: 5px; margin: 5px;}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<select name="skills" multiple>
+<option value="html">HTML</option>
+<option value="css">CSS</option>
+<option value="js">JavaScript</option>
+</select>
+<p>Users can select multiple skills by holding Ctrl (Windows) or Cmd (Mac).</p>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 160px;"></iframe>
+</div><br>
+<div class="questions-container">
+<a href="html form elements attribute quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html form elements attribute exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

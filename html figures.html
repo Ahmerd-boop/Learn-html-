@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Figure</title>
+</head>
+<body>
+<h1 class="topic">*HTML Figure*</h1><br><br>
+<h3>The HTML <span>&lt;figure&gt;</span> element is used to group media content (like images, videos, or diagrams) with a related caption. It is semantic, meaning it helps search engines and assistive technologies understand that the media and caption are related.</h3> <br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<figure>
+<img src="kofar guga katsina.jpg" width="100%" height="250px">
+<figcaption>Kofar Guga, Katsina, Katsina, Nigeria.</figcaption>
+</figure>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<h6>Displaying Images with Captions</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<figure>
+<img src="developer.jpeg" width="100%" height="250px">
+<figcaption>A developer infront of his computer.</figcaption>
+</figure>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<h3>
+<li>✔️ The caption explains the image’s context.</li>
+<li>✔️ SEO benefits as search engines recognize image context.</li></h3><br> 
+<h6>Using <span>&lt;figure&gt;</span> for Videos</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 300px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<figure>
+<video controls width="100%" height="260px">
+<source src="video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<figcaption>2017_Global_Networking_Event_Opening_Video.</figcaption>
+</figure>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 330px;"></iframe>
+</div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;figcaption&gt;</span> describes the video content.</h3></div><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<figure>
+<blockquote>
+"The only limit to our realization of tomorrow is our doubts of today."
+</blockquote>
+<figcaption>— Franklin D. Roosevelt</figcaption>
+</figure>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 130px;"></iframe>
+</div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;figure&gt;</span> element is well-supported in modern browsers.</h3></div><br>
+<h6>Styled Pigcaption</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 470px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+<style>
+figure, figcaption {
+font-style: italic;
+text-align: center;
+color: #555;
+}
+</style>
+&lt;/head&gt;
+&lt;body&gt;
+<figure>
+<blockquote>
+"The only limit to our realization of tomorrow is our doubts of today."
+</blockquote>
+<figcaption>— Franklin D. Roosevelt</figcaption>
+</figure>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 130px;"></iframe>
+</div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;figure&gt;</span> element improves accessibility, structure, and readability for images, videos, charts, and blockquotes. It works best with <span style="background-color: transparent;">&lt;figcaption&gt;</span> to give meaningful descriptions and enhance SEO. Proper CSS styling ensures a professional layout.</h3></div><br> 
+<div class="questions-container">
+<a href="html figures quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html figures exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - Horizantal Rule</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to create a horizontal line?", answer: "<hr>" },
+
+{ question: "2. Is the `&lt;hr&gt;` tag a self-closing tag? (Yes/No)", answer: "Yes" },
+
+{ question: "3. What is the default appearance of the `&lt;hr&gt;` tag in most browsers?", answer: "A horizontal line" },
+
+{ question: "4. Is the `&lt;hr&gt;` tag a block-level element? (Yes/No)", answer: "Yes" },
+
+{ question: "5. What is the purpose of the `&lt;hr&gt;` tag?", answer: "It creates a thematic break between sections" },
+
+{ question: "6. Can the `&lt;hr&gt;` tag be styled using CSS? (Yes/No)", answer: "Yes" },
+
+{ question: "7. What CSS property is commonly used to change the color of an `&lt;hr&gt;`?", answer: "color" },
+
+{ question: "8. What CSS property is used to change the thickness of an `&lt;hr&gt;` tag?", answer: "height" },
+
+{ question: "9. How do you center an `&lt;hr&gt;` tag using CSS? (`margin: ___ auto;`)", answer: "0" },
+
+{ question: "10. How do you make an `&lt;hr&gt;` tag dotted using CSS? (`border-style: ___;`)", answer: "dotted" },
+
+{ question: "11. How do you make an `&lt;hr&gt;` tag invisible? (`visibility: ___;`)", answer: "hidden" },
+
+{ question: "12. What CSS property is used to increase or decrease the length of an `&lt;hr&gt;`? (`___: 50%;`)", answer: "width" },
+
+{ question: "13. How do you give an `&lt;hr&gt;` a gradient effect in CSS? (`background: linear-gradient(___);`)", answer: "to right" },
+
+{ question: "14. What default width does an `&lt;hr&gt;` tag have in most browsers?", answer: "100%" },
+
+{ question: "15. Can you add text inside an `&lt;hr&gt;` tag directly? (Yes/No)", answer: "No" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "horizantal rule.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Pre Element</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Pre Element Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What does the `<pre>` tag do in HTML?",
+    options: [
+      "Displays text in a preformatted way",
+      "Increases text size",
+      "Adds paragraph spacing",
+      "Centers text"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "2. What does 'preformatted text' mean in HTML?",
+    options: [
+      "Text that is automatically bold",
+      "Text that maintains spaces, line breaks, and indentation",
+      "Text that is styled with CSS",
+      "Text that has a fixed background color"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "3. Which tag is used to define preformatted text in HTML?",
+    options: ["<code>", "<pre>", "<p>", "<text>"],
+    answer: 1
+  },
+
+  {
+    question: "4. What is the default font used in `<pre>` elements?",
+    options: [
+      "Serif",
+      "Sans-serif",
+      "Monospace",
+      "Cursive"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "5. Does the `<pre>` tag respect multiple spaces and line breaks?",
+    options: ["Yes", "No", "Only spaces", "Only line breaks"],
+    answer: 0
+  },
+
+  {
+    question: "6. How can you apply styling to a `<pre>` element?",
+    options: [
+      "Using the `style` attribute",
+      "By wrapping it inside a `<p>` tag",
+      "Using `<format>` tags",
+      "It cannot be styled"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "7. Which HTML tag is often used inside `<pre>` for displaying code?",
+    options: ["<script>", "<code>", "<text>", "<kbd>"],
+    answer: 1
+  },
+
+  {
+    question: "8. What is the key difference between `<pre>` and `<p>`?",
+    options: [
+      "`<pre>` preserves spaces and line breaks, `<p>` does not",
+      "`<p>` is for bold text, `<pre>` is for italic text",
+      "`<pre>` is only used for images",
+      "There is no difference"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "9. Can you use CSS to change the font of a `<pre>` element?",
+    options: ["Yes", "No", "Only in HTML4", "Only with JavaScript"],
+    answer: 0
+  },
+
+  {
+    question: "10. How do you add a border around a `<pre>` element using CSS?",
+    options: [
+      "pre { border: 1px solid black; }",
+      "pre { outline: 1px solid black; }",
+      "pre { text-border: 1px black; }",
+      "pre { frame: 1px solid black; }"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "11. What happens if you use `<pre>` inside a `<div>`?",
+    options: [
+      "It works normally and keeps formatting",
+      "It removes all line breaks",
+      "It breaks the HTML layout",
+      "It turns the text bold"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "12. What is the best use case for `<pre>`?",
+    options: [
+      "Displaying formatted code snippets",
+      "Writing large paragraphs",
+      "Centering text",
+      "Making text colorful"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "13. Can `<pre>` be used to display ASCII art?",
+    options: ["Yes", "No", "Only in HTML5", "Only with CSS"],
+    answer: 0
+  },
+
+  {
+    question: "14. Which HTML entity can be used inside `<pre>` to create a tab space?",
+    options: [
+      "&nbsp;",
+      "&#9;",
+      "&tab;",
+      "&#160;"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "15. How can you prevent text inside `<pre>` from overflowing?",
+    options: [
+      "Using CSS property `white-space: pre-wrap;`",
+      "Using `<nowrap>` tag",
+      "Adding `<br>` at every line",
+      "It cannot be prevented"
+    ],
+    answer: 0
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html pre element.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

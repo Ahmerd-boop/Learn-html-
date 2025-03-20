@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Paragraphs</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { question: "1. Which HTML tag is used to define a paragraph? <___>This is a paragraph</___>", answer: "p" },
+    { question: "2. What is the default display property of a &lt;p&gt; tag? (block/inline)", answer: "block" },
+    { question: "3. Can a paragraph tag contain inline elements like &lt;b&gt; and &lt;i&gt;? (yes/no)", answer: "yes" },
+    { question: "4. How do you break a line inside a paragraph without starting a new one? Use `<___>`", answer: "br" },
+    { question: "5. Which attribute is commonly used to style a paragraph with CSS? (class/id)", answer: "class" },
+    { question: "6. What happens if you use multiple `&lt;p&gt;` tags without closing them properly?", answer: "browser fixes it" },
+    { question: "7. Can you nest a `&lt;p&gt;` tag inside another `&lt;p&gt;` tag? (yes/no)", answer: "no" },
+    { question: "8. What is the correct way to align a paragraph to the center using CSS? (text-___: center;)", answer: "align" },
+    { question: "9. Which HTML tag is used to create preformatted text that maintains spaces and line breaks?", answer: "pre" },
+    { question: "10. What is the default margin applied to a paragraph in most browsers? (0px / 16px / 8px)", answer: "16px" },
+    { question: "11. What does the `&lt;p&gt;` tag stand for?", answer: "paragraph" },
+    { question: "12. Can a paragraph contain a `&lt;div&gt;` tag inside it? (yes/no)", answer: "no" },
+    { question: "13. What is the purpose of using paragraphs in HTML?", answer: "organize text" },
+    { question: "14. How do you change the text color of a paragraph using inline CSS? (`&lt;p style='___: red;'&gt;`)", answer: "color" },
+    { question: "15. What will happen if you write text in HTML without using a `&lt;p&gt;` tag?", answer: "still displayed" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html paragraph.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

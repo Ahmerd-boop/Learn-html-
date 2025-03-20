@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Link Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. Which HTML tag is used to create a hyperlink?",
+        options: ["<link>", "<a>", "<href>", "<h1>"],
+        answer: 1
+    },
+    {
+        question: "2. What attribute specifies the URL of a hyperlink?",
+        options: ["src", "href", "link", "target"],
+        answer: 1
+    },
+    {
+        question: "3. What is the default behavior of a hyperlink when clicked?",
+        options: ["Opens in new tab", "Opens in same tab", "Downloads the file", "Does nothing"],
+        answer: 1
+    },
+    {
+        question: "4. How do you make a link open in a new tab?",
+        options: ["target='_self'", "target='_parent'", "target='_blank'", "target='_top'"],
+        answer: 2
+    },
+    {
+        question: "5. Which HTML element is used to define a link to an external CSS file?",
+        options: ["<a>", "<css>", "<style>", "<link>"],
+        answer: 3
+    },
+    {
+        question: "6. What attribute specifies an alternate text for a hyperlink?",
+        options: ["alt", "title", "tooltip", "text"],
+        answer: 1
+    },
+    {
+        question: "7. What is the correct way to create a link to an email address?",
+        options: ["<a href='email:example@mail.com'>", "<a mail='example@mail.com'>", "<a href='mailto:example@mail.com'>", "<a email='example@mail.com'>"],
+        answer: 2
+    },
+    {
+        question: "8. How do you create a link that jumps to a specific section of the same page?",
+        options: ["<a href='#section'>", "<a section='id'>", "<a name='section'>", "<a jump='section'>"],
+        answer: 0
+    },
+    {
+        question: "9. Which protocol is used for secure hyperlinks?",
+        options: ["http", "ftp", "https", "smtp"],
+        answer: 2
+    },
+    {
+        question: "10. How do you make a phone number clickable in HTML?",
+        options: ["<a href='phone:+1234567890'>", "<a href='tel:+1234567890'>", "<a call='+1234567890'>", "<a dial='+1234567890'>"],
+        answer: 1
+    },
+    {
+        question: "11. How can you create a download link in HTML?",
+        options: ["<a href='file.pdf' target='_download'>", "<a href='file.pdf' download>", "<a download='file.pdf'>", "<a href='file.pdf' save>"],
+        answer: 1
+    },
+    {
+        question: "12. What attribute is used to prevent a hyperlink from being followed?",
+        options: ["nofollow", "disabled", "no-follow", "prevent"],
+        answer: 0
+    },
+    {
+        question: "13. How do you style a link in CSS?",
+        options: ["a:link", "a-style", "link-a", "a-href"],
+        answer: 0
+    },
+    {
+        question: "14. Which pseudo-class is used to change the style of a visited link?",
+        options: ["a:active", "a:visited", "a:focus", "a:hover"],
+        answer: 1
+    },
+    {
+        question: "15. What does the 'rel' attribute in a link specify?",
+        options: ["Relationship between the document and linked resource", "The target location", "Alternate text", "The CSS class"],
+        answer: 0
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html links.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

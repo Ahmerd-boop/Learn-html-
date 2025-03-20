@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Links</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Links*</h1><br><br>
+<h3><b>HTML links</b> (or hyperlinks) are essential for navigation on the web. They allow users to move between pages, sections, or external websites.</h3>
+<h6>A basic HTML link is created using the <span>&lt;a&gt;</span> (anchor) tag.</h6><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com">Visit Example</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 50px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li><span>&lt;a&gt;</span>: Defines the hyperlink.</li>
+<li>`href`: Specifies the URL.</li>
+<li>Text between <span>&lt;a&gt;</span> and <span>&lt;/a&gt;</span> is the clickable part of the link.</li>
+</h3>
+<h6>Absolute vs. Relative URLs</h6>
+<h6>Absolute URL</h6>
+<h3>An absolute URL includes the full web address</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://www.google.com">Google</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Relative URL</h6>
+<h3>A relative URL links to another page within the same website</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="index.html">Home</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Opening Links in a New Tab</h6>
+<h3>Use the `target="_blank"` attribute to open links in a new tab</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com" target="_blank">Open in New Tab</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="warning"><h3><b>Security Note:</b> Add <span style="color: white;">`rel="noopener noreferrer"`</span> for security when using <span style="color: white;">`_blank`</span></h3></div><br>
+<h6>Example</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">Secure New Tab Link</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 70px;"></iframe>
+</div><br>
+<h6>Linking to an Email Address</h6>
+<h3>You can create a link to an email using <span>`mailto:`</span></h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="mailto:someone@example.com">Email Us</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Linking to a Phone Number</h6>
+<h3>Use <span>`tel:`</span> to create a phone call link (useful for mobile users)</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<a href="tel:+234567891011">Call Us</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Image as a Link</h6>
+<h3>You can use an image instead of text as a link</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+a {
+color: blue;
+text-decoration: none;
+}
+a:hover {
+color: red;
+text-decoration: underline;
+}
+&lt;/style&gt;
+&lt;body&gt;
+<a href="https://example.com">
+<img src="Girlimage.jpg" alt="Example Image" width="100%" height="300">
+</a>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<h6>Button as a Link</h6>
+<h3>You can make a button act as a link</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<button onclick="location.href='https://example.com'">Go to Example</button>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Always use descriptive link text (avoid "Click here").</li>
+<li> Use <span>`target="_blank"`</span> carefully and add <span>`rel="noopener noreferrer"`</span> for security.</li>
+<li> Ensure links are accessible (keyboard-friendly and screen-reader compatible).</li>
+</h3><br>
+<div class="questions-container">
+<a href="html link quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html link exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

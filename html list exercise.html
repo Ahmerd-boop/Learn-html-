@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML List</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to create an unordered list? <br> <...>", answer: "ul" },
+
+{ question: "2. Which HTML tag is used to create an ordered list? <br> <...>", answer: "ol" },
+
+{ question: "3. What tag is used to define each list item in an ordered or unordered list? <br> <...>", answer: "li" },
+
+{ question: "4. Which attribute is used to specify the type of numbering in an ordered list? (`&lt;ol ___='1'&gt;`)", answer: "type" },
+
+{ question: "5. What value of the `type` attribute sets an ordered list to use Roman numerals? (`&lt;ol type='___'&gt;`)", answer: "I" },
+
+{ question: "6. How do you create a list with bullets in HTML? (`&lt;___&gt; &lt;li&gt;Item 1&lt;/li&gt; &lt;li&gt;Item 2&lt;/li&gt; &lt;/___&gt;`)", answer: "ul" },
+
+{ question: "7. How do you create a list with numbers in HTML? (`&lt;___&gt; &lt;li&gt;First&lt;/li&gt; &lt;li&gt;Second&lt;/li&gt; &lt;/___&gt;`)", answer: "ol" },
+
+{ question: "8. How do you create a nested list inside another list? (`&lt;ul&gt; &lt;li&gt;Item 1 &lt;___&gt; &lt;li&gt;Subitem&lt;/li&gt; &lt;/___&gt; &lt;/li&gt; &lt;/ul&gt;`)", answer: "ul" },
+
+{ question: "9. Which CSS property is used to change the style of list bullets or numbering?", answer: "list-style" },
+
+{ question: "10. How do you remove the default bullets from an unordered list using CSS? (`ul { list-style-___: none; }`)", answer: "type" },
+
+{ question: "11. What attribute is used to reverse the numbering in an ordered list? (`&lt;ol ___&gt;`)", answer: "reversed" },
+
+{ question: "12. What tag is used to define a description list in HTML?", answer: "<dl>" },
+
+{ question: "13. Which tag is used to define a term inside a description list?", answer: "<dt>" },
+
+{ question: "14. What tag is used to define a description of a term in a description list?", answer: "<dd>" },
+
+{ question: "15. Which attribute allows you to start an ordered list from a specific number? (`&lt;ol ___='5'&gt;`)", answer: "start" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html list.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

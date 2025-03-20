@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Figures</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Figure Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+
+{ question: "1. Which HTML tag is used to group media content like images with a caption?", answer: "figure" },
+
+{ question: "2. Which HTML tag is used to define a caption inside a `&lt;figure&gt;` element?", answer: "figcaption" },
+
+{ question: "3. Can the `&lt;figure&gt;` element contain multiple images?", answer: "Yes" },
+
+{ question: "4. Is the `&lt;figcaption&gt;` element required inside a `&lt;figure&gt;` element?", answer: "No" },
+
+{ question: "5. Where should the `&lt;figcaption&gt;` be placed inside a `&lt;figure&gt;`?", answer: "Before or after the media content" },
+
+{ question: "6. What is the main purpose of the `&lt;figure&gt;` element?", answer: "To group self-contained media content with captions" },
+
+{ question: "7. Can `&lt;figure&gt;` be used for content other than images?", answer: "Yes, it can contain videos, audio, and illustrations" },
+
+{ question: "8. Does the `&lt;figure&gt;` element affect the layout of an image by default?", answer: "No" },
+
+{ question: "9. Which CSS property is commonly used to center a `&lt;figure&gt;` element? (`text-___: center;`)", answer: "align" },
+
+{ question: "10. Can a `&lt;figcaption&gt;` exist without a `&lt;figure&gt;` element?", answer: "No" },
+
+{ question: "11. Does the `&lt;figure&gt;` element have any default margin or padding?", answer: "No" },
+
+{ question: "12. Can multiple `&lt;figcaption&gt;` elements be used inside a single `&lt;figure&gt;`?", answer: "No" },
+
+{ question: "13. Is the `&lt;figure&gt;` element block-level or inline-level?", answer: "Block-level" },
+
+{ question: "14. Which semantic HTML5 feature does `&lt;figure&gt;` enhance?", answer: "Improved accessibility and structure of media content" },
+
+{ question: "15. Can the `&lt;figure&gt;` element be used inside a `&lt;section&gt;` or `&lt;article&gt;`?", answer: "Yes" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html figures.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Figures</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Figure Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What is the purpose of the `<figure>` element in HTML?",
+    options: [
+      "To display mathematical equations",
+      "To group self-contained content like images and captions",
+      "To create a table",
+      "To format blockquotes"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "2. Which HTML element is commonly used inside `<figure>` to provide a caption?",
+    options: ["<figcaption>", "<caption>", "<legend>", "<description>"],
+    answer: 0
+  },
+
+  {
+    question: "3. Can a `<figure>` element contain multiple images?",
+    options: ["Yes", "No", "Only in HTML5", "Only with CSS"],
+    answer: 0
+  },
+
+  {
+    question: "4. Is `<figcaption>` required inside a `<figure>` element?",
+    options: ["Yes", "No", "Only when using an image", "Only with text"],
+    answer: 1
+  },
+
+  {
+    question: "5. What type of content can be placed inside a `<figure>` element?",
+    options: [
+      "Only images",
+      "Images, videos, and other media",
+      "Only text",
+      "Only hyperlinks"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "6. Where should the `<figcaption>` element be placed inside `<figure>`?",
+    options: [
+      "Only before the content",
+      "Only after the content",
+      "Either before or after the content",
+      "It must be outside `<figure>`"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "7. What is the main advantage of using `<figure>` instead of a regular `<div>`?",
+    options: [
+      "It provides better semantic meaning for related media",
+      "It makes images responsive",
+      "It adds automatic styling",
+      "It centers the content by default"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "8. Can a `<figure>` element contain text along with an image?",
+    options: ["Yes", "No", "Only with a `<p>` tag", "Only inside `<figcaption>`"],
+    answer: 0
+  },
+
+  {
+    question: "9. What happens if a `<figcaption>` is not included inside `<figure>`?",
+    options: [
+      "The `<figure>` will not display",
+      "The content will still work but without a caption",
+      "The browser will throw an error",
+      "The content inside `<figure>` becomes hidden"
+    ],
+    answer: 1
+  },
+
+  {
+    question: "10. Can `<figure>` be nested inside another `<figure>`?",
+    options: ["Yes", "No", "Only with CSS", "Only in HTML4"],
+    answer: 1
+  },
+
+  {
+    question: "11. Which of the following is a correct example of a `<figure>` element?",
+    options: [
+      "`<figure><img src='image.jpg'></figure>`",
+      "`<figure><figcaption>Caption</figcaption></figure>`",
+      "`<figure><img src='image.jpg'><figcaption>Caption</figcaption></figure>`",
+      "`<figure><p>Figure Content</p></figure>`"
+    ],
+    answer: 2
+  },
+
+  {
+    question: "12. Does the `<figcaption>` element have any default styling?",
+    options: ["Yes", "No", "Only in some browsers", "It is always italicized"],
+    answer: 1
+  },
+
+  {
+    question: "13. What is the best practice for using `<figure>`?",
+    options: [
+      "Use it for grouping media content with captions",
+      "Use it for structuring navigation links",
+      "Use it only for images without captions",
+      "Use it to add paragraphs in an article"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "14. Can `<figure>` be used to display videos?",
+    options: ["Yes", "No", "Only in HTML4", "Only with JavaScript"],
+    answer: 0
+  },
+
+  {
+    question: "15. How do you add an image with a caption inside a `<figure>` element?",
+    options: [
+      "`<figure><img src='image.jpg'><figcaption>Caption</figcaption></figure>`",
+      "`<figure><caption>Caption</caption><img src='image.jpg'></figure>`",
+      "`<figure><img src='image.jpg'><p>Caption</p></figure>`",
+      "`<figure><img src='image.jpg'></figure>`"
+    ],
+    answer: 0
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html figures.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

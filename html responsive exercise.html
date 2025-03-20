@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Responsive</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    { question: "1. What meta tag is essential for making a webpage responsive? (`&lt;meta name='___' content='width=device-width, initial-scale=1.0'&gt;`)", answer: "viewport" },
+    { question: "2. How do you make an image responsive using CSS? (`max-___: 100%; height: auto;`)", answer: "width" },
+    { question: "3. Which CSS unit is recommended for responsive font sizes? (`___` or `rem`)", answer: "em" },
+    { question: "4. What is the CSS rule to apply styles only when the screen width is less than 600px? (`@media (___-width: 600px) { ... }`)", answer: "max" },
+    { question: "5. Which CSS property allows an element to resize and adjust its size dynamically? (`___: flex;`)", answer: "display" },
+    { question: "6. What CSS property is used to arrange elements in a flexible row or column layout? (`___-box`)", answer: "flex" },
+    { question: "7. How do you prevent horizontal scrolling on small screens? (`overflow-___: hidden;`)", answer: "x" },
+    { question: "8. Which CSS property makes text wrap inside a container? (`word-___: break-word;`)", answer: "wrap" },
+    { question: "9. What is the purpose of using percentages (`%`) in width instead of `px` in responsive design? (`To make elements ___`)", answer: "flexible" },
+    { question: "10. How do you make a navigation menu responsive? (`Use a ___ menu for smaller screens`)", answer: "hamburger" },
+    { question: "11. Which CSS framework is commonly used for responsive design? (`___`)", answer: "Bootstrap" },
+    { question: "12. What is the approach of designing for small screens first, then adding styles for larger screens? (`___-first design`)", answer: "mobile" },
+    { question: "13. Which HTML5 element helps create flexible layouts by defining sections of a page? (`<___>`)", answer: "section" },
+    { question: "14. What CSS property is used to scale elements based on screen width? (`___: scale(1.2);`)", answer: "transform" },
+    { question: "15. How do you center a div both vertically and horizontally using Flexbox? (`display: ___; justify-content: center; align-items: center;`)", answer: "flex" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html responsive.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

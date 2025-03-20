@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Form Labels</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Form Labels Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  { question: "1. Which HTML element is used to define a label for an input field?", answer: "label" },
+
+  { question: "2. What attribute connects a `&lt;label&gt;` element to a specific input field?", answer: "for" },
+
+  { question: "3. Why should we use a `&lt;label&gt;` element in forms?", answer: "accessibility" },
+
+  { question: "4. How do you associate a `&lt;label&gt;` with an input field using the `for` attribute? (`&lt;label for='___'&gt;Name&lt;/label&gt;`)", answer: "input-id" },
+
+  { question: "5. What happens when you click a `&lt;label&gt;` that is associated with an input field?", answer: "focuses-input" },
+
+  { question: "6. Can a `&lt;label&gt;` element wrap an input field instead of using the `for` attribute?", answer: "yes" },
+
+  { question: "7. What is the main benefit of using labels in forms?", answer: "better-user-experience" },
+
+  { question: "8. Should a `&lt;label&gt;` always be placed before an input field?", answer: "no" },
+
+  { question: "9. How do you make a form field required while using a label?", answer: "required" },
+
+  { question: "10. Which input types benefit the most from labels?", answer: "all" },
+
+  { question: "11. What HTML attribute gives a label an explicit link to an input field?", answer: "for" },
+
+  { question: "12. Can a single label be associated with multiple input fields?", answer: "no" },
+
+  { question: "13. What is a common mistake when using labels in HTML forms?", answer: "missing-for-attribute" },
+
+  { question: "14. Which HTML elements should always have an associated `&lt;label&gt;` for accessibility?", answer: "input select textarea" },
+
+  { question: "15. How does a screen reader interpret a label connected to an input field?", answer: "reads-label-first" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html form labels.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

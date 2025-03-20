@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Images Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. Which HTML tag is used to display an image?",
+        options: ["<image>", "<img>", "<picture>", "<src>"],
+        answer: 1
+    },
+    {
+        question: "2. What attribute is used to specify the image source in an `<img>` tag?",
+        options: ["href", "src", "link", "source"],
+        answer: 1
+    },
+    {
+        question: "3. Which attribute provides alternative text for an image?",
+        options: ["alt", "title", "description", "text"],
+        answer: 0
+    },
+    {
+        question: "4. What happens if an image file specified in the `<img>` tag is not found?",
+        options: [
+            "The page will not load",
+            "A broken image icon will be displayed",
+            "The browser will replace it with another image",
+            "Nothing happens"
+        ],
+        answer: 1
+    },
+    {
+        question: "5. Which attribute is used to set the width of an image?",
+        options: ["height", "size", "width", "dimension"],
+        answer: 2
+    },
+    {
+        question: "6. What is the correct way to set an image height to 200 pixels in HTML?",
+        options: [
+            "<img src='image.jpg' height='200'>",
+            "<img src='image.jpg' style='h:200px;'>",
+            "<img src='image.jpg' length='200'>",
+            "<img src='image.jpg' h='200'>"
+        ],
+        answer: 0
+    },
+    {
+        question: "7. Which element is used to define multiple sources for an image?",
+        options: ["<img>", "<source>", "<picture>", "<figure>"],
+        answer: 2
+    },
+    {
+        question: "8. What does the `alt` attribute in an `<img>` tag do?",
+        options: [
+            "Specifies the image's width",
+            "Defines the alternative text for accessibility and SEO",
+            "Sets the image as a background",
+            "Adds a caption below the image"
+        ],
+        answer: 1
+    },
+    {
+        question: "9. What file formats are commonly supported by the `<img>` tag?",
+        options: ["PNG, JPEG, GIF", "PDF, DOCX, XLS", "MP3, MP4, WAV", "TXT, JSON, CSV"],
+        answer: 0
+    },
+    {
+        question: "10. How do you make an image responsive using HTML?",
+        options: [
+            "By using the `src` attribute",
+            "By setting `width='100%'` or using CSS",
+            "By adding `alt='responsive'`",
+            "By using `<div>` instead of `<img>`"
+        ],
+        answer: 1
+    },
+    {
+        question: "11. What is the purpose of the `<figure>` and `<figcaption>` elements?",
+        options: [
+            "To create an image gallery",
+            "To group an image and its caption",
+            "To define an image as a background",
+            "To insert videos"
+        ],
+        answer: 1
+    },
+    {
+        question: "12. What is the default display behavior of the `<img>` tag?",
+        options: ["Block-level", "Inline-block", "Inline", "Flex"],
+        answer: 2
+    },
+    {
+        question: "13. Which of the following is true about image optimization?",
+        options: [
+            "Large images improve loading speed",
+            "Using compressed images reduces page load time",
+            "Images should always be in BMP format",
+            "SEO doesn't consider image file size"
+        ],
+        answer: 1
+    },
+    {
+        question: "14. How do you link an image to a webpage?",
+        options: [
+            "<a href='page.html'><img src='image.jpg'></a>",
+            "<img href='page.html' src='image.jpg'>",
+            "<a src='image.jpg' href='page.html'></a>",
+            "<link src='image.jpg' href='page.html'>"
+        ],
+        answer: 0
+    },
+    {
+        question: "15. How can you set a background image in HTML?",
+        options: [
+            "Using the `<img>` tag",
+            "Using the `background-image` property in CSS",
+            "By setting `src='background.jpg'` in `<body>`",
+            "Using `<background>` tag"
+        ],
+        answer: 1
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html images.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

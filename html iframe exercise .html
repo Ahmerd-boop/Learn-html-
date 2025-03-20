@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Hausa - HTML Iframe</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>HTML Iframe Exercise</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to embed another webpage inside a webpage?", answer: "`&lt;iframe&gt;`" },
+
+{ question: "2. Which attribute of `&lt;iframe&gt;` specifies the URL of the page to embed?", answer: "src" },
+
+{ question: "3. How do you set the width of an `&lt;iframe&gt;` in pixels? (`&lt;iframe width='___'&gt;`)", answer: "value (e.g., 600)" },
+
+{ question: "4. How do you set the height of an `&lt;iframe&gt;` in pixels? (`&lt;iframe height='___'&gt;`)", answer: "value (e.g., 400)" },
+
+{ question: "5. Which attribute is used to remove the default border of an `&lt;iframe&gt;`?", answer: "style='border: none;'" },
+
+{ question: "6. How do you allow an `&lt;iframe&gt;` to display content in fullscreen mode?", answer: "allowfullscreen" },
+
+{ question: "7. Which attribute is used to prevent an `&lt;iframe&gt;` from interacting with the rest of the page?", answer: "sandbox" },
+
+{ question: "8. How can you allow an `&lt;iframe&gt;` to execute scripts from another origin?", answer: "allow-scripts in sandbox" },
+
+{ question: "9. What is the default border width of an `&lt;iframe&gt;` if no styles are applied?", answer: "2 pixels" },
+
+{ question: "10. Which security attribute restricts an `&lt;iframe&gt;` from accessing the parent page's JavaScript?", answer: "sandbox" },
+
+{ question: "11. How can you make an `&lt;iframe&gt;` responsive using CSS?", answer: "Use `width: 100%; height: auto;`" },
+
+{ question: "12. Can you load a PDF inside an `&lt;iframe&gt;`?", answer: "Yes, by setting `src` to a PDF file URL." },
+
+{ question: "13. What happens if the `src` of an `&lt;iframe&gt;` is not accessible?", answer: "It shows a blank frame or an error message." },
+
+{ question: "14. How do you prevent an `&lt;iframe&gt;` from loading content from external sites?", answer: "Use Content Security Policy (CSP)." },
+
+{ question: "15. How can you load a YouTube video inside an `&lt;iframe&gt;`?", answer: "Use `&lt;iframe src='https://www.youtube.com/embed/VIDEO_ID'&gt;`" },
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html iframe.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

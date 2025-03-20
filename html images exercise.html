@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fill in the Blanks</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="exercise-container">
+        <h1>Complete the HTML Code - HTML Images</h1>
+        <div id="question-container">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Type your answer...">
+            <button id="submit-btn">Submit</button>
+            <p id="feedback"></p>
+            <p id="timer">⏳ 30s</p>
+        </div>
+
+        <button id="next-btn" style="display: none;">Next Question</button>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+{ question: "1. Which HTML tag is used to display an image?", answer: "<img>" },
+
+{ question: "2. What attribute is used to specify the image source in an `&lt;img&gt;` tag?", answer: "src" },
+
+{ question: "3. Which attribute provides alternative text for an image?", answer: "alt" },
+
+{ question: "4. How do you set the width of an image to 300 pixels using an attribute? (`&lt;img src='image.jpg' ___='300'&gt;`)", answer: "width" },
+
+{ question: "5. Which attribute is used to set the height of an image? (`&lt;img src='image.jpg' ___='200'&gt;`)", answer: "height" },
+
+{ question: "6. What file formats are commonly used for images on the web? (List any one)", answer: "JPEG" },
+
+{ question: "7. Which HTML element is used to define a caption for an image inside a `&lt;figure&gt;` tag?", answer: "<figcaption>" },
+
+{ question: "8. How do you make an image a clickable link? (`&lt;a ___='page.html'&gt;&lt;img src='image.jpg'&gt;&lt;/a&gt;`)", answer: "href" },
+
+{ question: "9. What attribute can be used to specify an image's loading behavior?", answer: "loading" },
+
+{ question: "10. How do you make an image responsive using CSS? (`img { max-___: 100%; height: auto; }`)", answer: "width" },
+
+{ question: "11. What attribute is used to define an image map?", answer: "usemap" },
+
+{ question: "12. What tag is used to define an area inside an image map?", answer: "<area>" },
+
+{ question: "13. How do you specify an SVG image in HTML? (`&lt;img src='image.___'&gt;`)", answer: "svg" },
+
+{ question: "14. What is the purpose of the `&lt;picture&gt;` tag in HTML?", answer: "responsive images" },
+
+{ question: "15. Which attribute in the `&lt;source&gt;` tag is used to define different image versions for different screen sizes?", answer: "srcset" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+
+const questionElement = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const submitButton = document.getElementById("submit-btn");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("next-btn");
+const timerElement = document.getElementById("timer");
+
+function startTimer() {
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            feedbackElement.innerHTML = `⏰ Time's up! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+            submitButton.style.display = "none";
+            nextButton.style.display = "block";
+
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function showQuestion() {
+    clearInterval(timer);
+    answerInput.value = "";
+    feedbackElement.innerHTML = "";
+    submitButton.style.display = "block";
+    nextButton.style.display = "none";
+
+    questionElement.innerHTML = questions[currentQuestion].question.replace(/___/g, "...");
+
+    startTimer();
+}
+
+submitButton.addEventListener("click", () => {
+    clearInterval(timer);
+    let userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === questions[currentQuestion].answer) {
+        feedbackElement.innerHTML = "✅ Correct!";
+        score++;
+    } else {
+        feedbackElement.innerHTML = `❌ Incorrect! The correct answer was: <b>${questions[currentQuestion].answer}</b>`;
+    }
+
+    submitButton.style.display = "none";
+    nextButton.style.display = "block";
+});
+
+function moveToNextQuestion() {
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "🎉 Quiz Completed!";
+    answerInput.style.display = "none";
+    submitButton.style.display = "none";
+    nextButton.style.display = "none";
+    timerElement.textContent = "";
+    feedbackElement.innerHTML = `You scored <b>${score} out of ${questions.length}</b>!`;
+
+    document.getElementById("back-btn").style.display = "block"; // Show back button
+}
+
+function goBackToLesson() {
+    window.location.href = "html images.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+showQuestion();
+
+</script>
+</body>
+</html>

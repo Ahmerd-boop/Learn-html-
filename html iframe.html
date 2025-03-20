@@ -1,0 +1,229 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Iframe</title>
+</head>
+<body>
+<h1 class="topic">*HTML Iframe*</h1><br><br>
+<h3>The HTML <span>&lt;iframe&gt;</span> (inline frame) element allows embedding another HTML document within a web page. It is commonly used to embed videos, maps, external web pages, and advertisements.</h3><br>  
+<div class="warning"><h3><strong>Note:</strong> Network Connection is Required While Viewing Iframes.</h3></div><br>
+<h6>Syntax of the <span>&lt;iframe&gt;</span> Element</h6>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 180px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe src="https://ahmerdportfolio2025.netlify.app/" width="100%" height="400"></iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 500px;"></iframe>
+</div><br>
+<h6>Explanation</h6>
+<h3>
+<li>✔️ The <span>`src`</span> attribute specifies the URL of the page to embed.</li>  
+<li>✔️ The <span>`width`</span> and <span>`height`</span> attributes define the dimensions of the <span>&lt;iframe&gt;</span>.</li></h3>  
+<h6>Attributes of the <span>&lt;iframe&gt;</span> Element</h6>  
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span>`src`</span></td>
+<td>Specifies the URL of the document to display.</td>
+</tr>
+<tr>
+<td><span>`width`</span></td>
+<td>Defines the width of the `<span>&lt;iframe&gt;</span>` in pixels.</td>
+</tr>
+<tr>
+<td><span>`height`</span></td>
+<td>Defines the height of the `<span>&lt;iframe&gt;</span>` in pixels.</td>
+</tr>
+<tr>
+<td><span>`title`</span></td>
+<td>Provides a description for accessibility and SEO.</td>
+</tr>
+<tr>
+<td><span>`frameborder`</span></td>
+<td>Defines the border (deprecated, use CSS instead).</td>
+</tr>
+<tr>
+<td><span>`allowfullscreen`</span></td>
+<td>Enables fullscreen mode.</td>
+</tr>
+<tr>
+<td><span>`loading`</span></td>
+<td>Specifies whether the iframe should load immediately (`eager`) or lazily (`lazy`).</td>
+</tr>
+<tr>
+<td><span>`sandbox`</span></td>
+<td>Applies restrictions to the content inside the `<span>&lt;iframe&gt;</span>`.</td>
+</tr>
+<tr>
+<td><span>`allow`</span></td>
+<td>Controls permissions for the embedded content (e.g., microphone, camera).</td>
+</tr>
+</tbody>
+</table>
+<h6>Example with Fullscreen & Lazy Loading</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 250px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe width="100%" height="280" src="https://www.youtube.com/embed/HfEVEGf1A8Q?si=ejJUBa-yHO0LEAlL?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 300px;"></iframe>
+</div><br>
+<div class="note-box"><h3>✔️ <span style="background-color: transparent;">`allowfullscreen`</span> enables fullscreen mode. <br>  
+✔️ <span style="background-color: transparent;">`loading="lazy"`</span> delays loading the <span>&lt;iframe&gt;</span> to improve performance.</h3></div><br>  
+<h1 class="topic">Embedding External Content Using <span>&lt;iframe&gt;</span></h1>  
+<h6>Embedding a YouTube Video</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 150px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe width="100%" height="280" src="https://www.youtube.com/embed/SKcq_O0GZYc?si=Y_bf4CyMMiQ0xYSi?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br>
+<iframe width="100%" height="280" src="https://www.youtube.com/embed/mbpoxL_kCNE?si=YgJ75JxQ_z6BskiT?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 600px;"></iframe>
+</div><br>
+<div class="note-box"><h3>✔️ <span style="background-color: transparent;">`https://www.youtube.com/embed/{video_id}`</span> is used instead of the normal YouTube link. <br> 
+✔️ <span style="background-color: transparent;">`allowfullscreen`</span> enables fullscreen playback.</h3></div><br> 
+<h6>Embedding Google Maps</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 320px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe 
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1234567890!2d7.58788!3d12.99617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8e0f5f5f5f5f%3A0x1234567890abcdef!2sKofar%20Guga%2C%20Katsina%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1601234567890!5m2!1sen!2sus" 
+width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+</iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<div class="note-box"><h3>✔️ Uses Google Maps embed API. <br> 
+✔️ <span>`loading="lazy"`</span> improves page performance.</h3></div><br>  
+<h6>Embedding an External Website (with Restrictions)</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe src="https://ahmerdportfolio2025.netlify.app/" width="100%" height="600" sandbox="allow-scripts allow-same-origin"></iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 620px;"></iframe>
+</div><br>
+<h6>Use <span>`allow`</span> to control permissions</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe src="https://www.youtube.com/embed/UixqHznz5GE?si=yZ0UOmVKedpPSJDt?enablejsapi=1" allow="camera; microphone" width="100%" height="300"></iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 310px;"></iframe>
+</div><br>
+<div class="note-box"><h3>Grants specific permissions (e.g., camera, microphone).</h3></div><br> 
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;iframe&gt;</span> element is widely supported across all modern browsers.</h3></div><br>  
+<h6>Applications of the <span>&lt;iframe&gt;</span> Element</h6>  
+<h3>    
+<li>✔️ Embedding YouTube & Vimeo videos</li>  
+<li>✔️ Displaying interactive maps (Google Maps, OpenStreetMap)</li>  
+<li>✔️ Integrating third-party widgets (weather, stock prices, social feeds)</li>  
+<li>✔️ Embedding external login systems (e.g., Google authentication)</li>
+<li>✔️ Showing advertisements & tracking pixels</li></h3>
+<h6>Embedding an Facebook Post</h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fweb.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02KVeKBEKtQkg59ZWsGbFY8H7rNNTXtGiKYJV4Qy3hmpcoTRTTm4HMiBD8v4drLsF8l%26id%3D61552605767681&show_text=true&width=500" width="100%" height="300" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 340px;"></iframe>
+</div><br>
+<h6>Best Practices for Using <span>&lt;iframe&gt;</span></h6>  
+<h3>
+<li>✔️ Use the <span>`sandbox`</span> attribute to limit risks.</li>  
+<li>✔️ Always provide a <span>`title`</span> for accessibility.</li>  
+<li>✔️ Use <span>`loading="lazy"`</span> to improve performance.</li>  
+<li>✔️ Consider alternatives (JavaScript APIs) if the website blocks iframes.</li>  
+<li>✔️ Set <span>`X-Frame-Options`</span> on your server to prevent unauthorized embedding.</li></h3>  
+<h6>Secure & Optimized <span>&lt;iframe&gt;</span></h6>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<iframe 
+src="https://www.youtube.com/embed/mOhYG4BDyEI?si=n1clZBGjr0cry5rl" 
+width="100%" height="300" 
+title="Example Website"
+sandbox="allow-scripts allow-same-origin"
+loading="lazy">
+</iframe>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">&lt;iframe&gt;</span> element is a powerful tool for embedding external content like videos, maps, and widgets into a webpage. However, security risks and performance issues should be carefully managed using sandboxing, lazy loading, and proper permissions.</h3></div><br>  
+<div class="questions-container">
+<a href="html iframe quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html iframe exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

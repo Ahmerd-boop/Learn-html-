@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML nbsp</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML nbsp Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What does `&nbsp;` stand for in HTML?",
+    options: ["New Block Space", "Non-Breaking Space", "Nested Block Separator", "Next Best Section"],
+    answer: 1
+  },
+
+  {
+    question: "2. What is the primary use of `&nbsp;` in HTML?",
+    options: ["To create a new paragraph", "To add extra space between words or elements", "To insert an image", "To create a new line"],
+    answer: 1
+  },
+
+  {
+    question: "3. How many spaces does `&nbsp;` create?",
+    options: ["One space", "Two spaces", "A tab space", "A new line"],
+    answer: 0
+  },
+
+  {
+    question: "4. Which HTML entity represents a non-breaking space?",
+    options: ["`&nbsp;`", "`&space;`", "`&break;`", "`&gap;`"],
+    answer: 0
+  },
+
+  {
+    question: "5. How can `&nbsp;` be useful in preventing text wrapping?",
+    options: ["By forcing text to stay on the same line", "By adding a line break", "By making text bold", "By underlining text"],
+    answer: 0
+  },
+
+  {
+    question: "6. What happens if you use multiple `&nbsp;` in a row?",
+    options: ["It creates multiple spaces", "It creates a new paragraph", "It creates a tab space", "It has no effect"],
+    answer: 0
+  },
+
+  {
+    question: "7. Can `&nbsp;` be used inside an HTML attribute like `alt`?",
+    options: ["Yes", "No"],
+    answer: 1
+  },
+
+  {
+    question: "8. In which type of HTML element is `&nbsp;` commonly used?",
+    options: ["Images", "Text content", "Forms", "Videos"],
+    answer: 1
+  },
+
+  {
+    question: "9. Which alternative method can be used to add spaces instead of `&nbsp;`?",
+    options: ["Using CSS `margin` or `padding`", "Using `<br>`", "Using `<p>`", "Using `<hr>`"],
+    answer: 0
+  },
+
+  {
+    question: "10. What is a common mistake when using `&nbsp;` for layout?",
+    options: ["Overusing it instead of CSS", "Using it inside `<img>` tags", "Using it in the `<head>` section", "Using it before a `<title>`"],
+    answer: 0
+  },
+
+  {
+    question: "11. Which of the following is a correct usage of `&nbsp;`?",
+    options: [
+      "<p>HTML&nbsp;Entities</p>",
+      "<nbsp>HTML Entities</nbsp>",
+      "<nbsp='HTML Entities'>",
+      "<p>&nbsp HTML Entities &nbsp</p>"
+    ],
+    answer: 0
+  },
+
+  {
+    question: "12. What is the best way to create an indented paragraph in HTML?",
+    options: ["Using CSS `text-indent`", "Using multiple `&nbsp;`", "Using `<p>`", "Using `<hr>`"],
+    answer: 0
+  },
+
+  {
+    question: "13. Can `&nbsp;` be used to align text?",
+    options: ["No, use CSS instead", "Yes, always", "Only in HTML4", "Only in tables"],
+    answer: 0
+  },
+
+  {
+    question: "14. Which HTML element can be used together with `&nbsp;` to format text?",
+    options: ["`<span>`", "`<h1>`", "`<form>`", "`<iframe>`"],
+    answer: 0
+  },
+
+  {
+    question: "15. Why is `&nbsp;` called a non-breaking space?",
+    options: ["Because it prevents automatic line breaks", "Because it creates a visible space", "Because it adds a new paragraph", "Because it removes spaces"],
+    answer: 0
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html nbsp.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

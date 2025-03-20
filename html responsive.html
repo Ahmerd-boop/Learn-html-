@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Responsive Design</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+<h1 class="topic">*HTML Responsive Design*</h1><br><br>
+<h3>Responsive Web Design (RWD) is an approach to web development that ensures a website adapts seamlessly to different screen sizes and devices. This means that a webpage should look good and function well on desktops, tablets, and smartphones without requiring separate designs for each device.</h3>
+<h6>Why Responsive Design is Important</h6>
+<h3>
+<li> Enhances user experience.</li>
+<li> Improves SEO (Google prioritizes mobile-friendly websites).</li>
+<li> Reduces the need for multiple versions of a website.</li>
+<li> Increases accessibility and usability.</li>
+</h3>
+<h6>The Viewport Meta Tag</h6>
+<h3>The <span>`viewport`</span> meta tag controls how a webpage is displayed on different devices.</h3><br>
+<span>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</span>
+<h6>Explanation</h6>
+<h3>
+<li> `width=device-width`: Sets the page width to the screen width.</li>
+<li> `initial-scale=1`: Ensures no zooming is applied when the page loads.</li>
+</h3>
+<h6>Best Practices</h6>
+<h3>
+<li> Always include the viewport meta tag for proper scaling.</li>
+</h3>
+<h6>Using Flexible Layouts</h6>
+<h3>Flexible layouts use relative units (`%`, `vw`, `vh`, `em`, `rem`) instead of fixed units (`px`).</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+.container {
+width: 80%;
+margin: auto;
+background-color: tomato;
+}
+&lt;/style&gt;
+&lt;body&gt;
+<div class="container">
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima ex at impedit molestias sit libero dolorem voluptate magni, enim aliquam unde totam reiciendis! Magni non voluptatem itaque. Quo, iure at!</p>
+</div>  
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 120px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Avoid fixed widths (`px`), use percentages for fluid layouts.</li>
+<li> Ensure elements resize properly on smaller screens.</li>
+</h3>
+<h6>CSS Media Queries</h6>
+<h3>Media queries apply styles based on screen size, resolution, or other properties.</h3>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+@media (max-width: 768px) {
+body {
+background-color: lightgray;
+}
+.container {
+width: 40%;
+}    
+}
+@media (max-width: 600px) {
+body {
+background-color: red;
+}
+.container {
+width: 70%;
+}    
+}
+@media (max-width: 400px) {
+body {
+background-color: lightgray;
+.container {
+width: 100%;
+}        
+}
+}
+&lt;/style&gt;
+&lt;body&gt;
+<div class="container">
+<p>resize your device to see the changes</p>
+</div>  
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <span>`min-width`</span> for a mobile-first approach.</li>
+<li> Use <span>`max-width`</span> for esktop-first adjustments.</li>
+</h3>
+<h6>Responsive Images</h6>
+<h3>Images should scale with different screen sizes using CSS properties.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 280px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+img {
+max-width: 100%;
+height: auto;
+}
+&lt;/style&gt;
+&lt;body&gt;
+&lt;img src="kofar guga katsina.jpg" alt=""&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 320px;"></iframe>
+</div><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use <span>`srcset`</span> for different resolutions.</li>
+<li> Use <span>`picture`</span> elements for multiple formats.</li>
+</h3>
+<div class="note-box"><h3><b>Responsive design</b> is crucial for modern web development. By implementing flexible layouts, media queries, and best practices, you can create websites that work seamlessly on all devices.</h3></div><br>
+<div class="questions-container">
+<a href="html responsive quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html responsive exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

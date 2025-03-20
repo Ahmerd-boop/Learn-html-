@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - HTML Meta</title>
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Meta Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+  {
+    question: "1. What is the purpose of the `<meta>` tag in HTML?",
+    options: ["To define metadata about the document", "To create a hyperlink", "To display an image", "To add JavaScript"],
+    answer: 0
+  },
+
+  {
+    question: "2. Where is the `<meta>` tag placed in an HTML document?",
+    options: ["Inside `<body>`", "Inside `<head>`", "Inside `<footer>`", "Anywhere in the document"],
+    answer: 1
+  },
+
+  {
+    question: "3. Which `<meta>` tag is used to specify the character encoding of a webpage?",
+    options: ["<meta name='charset'>", "<meta charset='UTF-8'>", "<meta encoding='UTF-8'>", "<meta type='text/html'>"],
+    answer: 1
+  },
+
+  {
+    question: "4. What does `<meta name='viewport'>` do?",
+    options: ["Defines the page's language", "Controls how the webpage is displayed on mobile devices", "Specifies the author of the document", "Loads external stylesheets"],
+    answer: 1
+  },
+
+  {
+    question: "5. Which `<meta>` tag is used for SEO (Search Engine Optimization)?",
+    options: ["<meta name='keywords'>", "<meta charset='UTF-8'>", "<meta viewport='width=device-width'>", "<meta http-equiv='refresh'>"],
+    answer: 0
+  },
+
+  {
+    question: "6. What is the purpose of `<meta name='description'>`?",
+    options: ["To describe the content of a page for search engines", "To set the background color", "To define a hyperlink", "To include JavaScript"],
+    answer: 0
+  },
+
+  {
+    question: "7. What is the purpose of `<meta http-equiv='refresh' content='5'>`?",
+    options: ["It refreshes the page after 5 seconds", "It sets the page encoding", "It redirects to another page", "It enables caching"],
+    answer: 0
+  },
+
+  {
+    question: "8. How do you set an automatic redirect using `<meta>`?",
+    options: ["<meta refresh='redirect'>", "<meta http-equiv='refresh' content='5; url=page.html'>", "<meta redirect='true'>", "<meta name='redirect' content='page.html'>"],
+    answer: 1
+  },
+
+  {
+    question: "9. What is the purpose of `<meta name='author' content='John Doe'>`?",
+    options: ["Defines the website’s creator", "Loads external fonts", "Specifies the page language", "Refreshes the page"],
+    answer: 0
+  },
+
+  {
+    question: "10. Which `<meta>` tag prevents a webpage from being cached?",
+    options: ["<meta name='cache-control' content='no-store'>", "<meta http-equiv='cache-control' content='no-cache'>", "<meta http-equiv='expires' content='0'>", "All of the above"],
+    answer: 3
+  },
+
+  {
+    question: "11. What does `<meta name='robots' content='noindex, nofollow'>` do?",
+    options: ["Prevents search engines from indexing the page", "Refreshes the page", "Forces a page to load over HTTPS", "Disables images"],
+    answer: 0
+  },
+
+  {
+    question: "12. Which `<meta>` tag is used to define the language of the webpage?",
+    options: ["<meta name='language' content='en'>", "<meta lang='english'>", "<meta name='charset' content='UTF-8'>", "<meta name='locale' content='en-US'>"],
+    answer: 0
+  },
+
+  {
+    question: "13. What does `<meta name='theme-color' content='#000000'>` do?",
+    options: ["Sets the background color", "Defines the color for browser UI elements", "Changes the text color", "Specifies the site's primary color for SEO"],
+    answer: 1
+  },
+
+  {
+    question: "14. How do you specify the expiration date of cached content using `<meta>`?",
+    options: ["<meta name='expires' content='Wed, 10 Mar 2025 00:00:00 GMT'>", "<meta http-equiv='expires' content='Wed, 10 Mar 2025 00:00:00 GMT'>", "<meta name='cache' content='expires=2025'>", "<meta expire='2025-03-10'>"],
+    answer: 1
+  },
+
+  {
+    question: "15. What does `<meta property='og:title' content='My Website'>` do?",
+    options: ["Defines the Open Graph title for social media", "Changes the browser title", "Sets the website’s description", "Loads JavaScript files"],
+    answer: 0
+  },
+
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html meta.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>

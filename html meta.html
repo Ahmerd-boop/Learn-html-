@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Meta</title>
+</head>
+<body>
+<h1 class="topic">*HTML Meta*</h1><br><br>
+<h3>The <span>&lt;meta&gt;</span> tag in HTML provides metadata about a webpage, such as character encoding, viewport settings, description, and keywords. Metadata helps browsers, search engines, and social media platforms understand and process web pages efficiently.</h3>  
+<h3>Unlike other HTML elements, <span>&lt;meta&gt;</span> does not display content on the page. Instead, it works behind the scenes to improve SEO, optimize page rendering, and enhance accessibility.</h3>  
+<h3>A <span>&lt;meta&gt;</span> tag is placed inside the <span>&lt;head&gt;</span> section of an HTML document and follows this basic structure:</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta name="name" content="value"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<h3>Alternatively, for charset and viewport settings:</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 150px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<h1 class="topic">Common Uses of <span>&lt;meta&gt;</span> Tags</h1>  
+<h6>Setting Character Encoding</h6>
+<h3>Defines the character set used by the document. UTF-8 supports most languages and special characters.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<h6>Defining Viewport for Responsive Design</h6>
+<h3>Ensures proper scaling on mobile devices.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<h6>Search Engine Optimization (SEO)</h6>
+<h3>Helps search engines understand page content.</h3><br>  
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta name="description" content="Learn HTML, CSS, and JavaScript with CodeNova."&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<div class="note-box"><h3><b>Meta Description</b> – A brief page summary shown in search results.</h3></div><br>  
+<h6>Auto Refresh or Redirect</h6>
+<h3>Automatically refreshes the page after a set time.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;meta http-equiv="refresh" content="5"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+</div><br>
+<div class="note-box"><h3>Redirects the user after 5 seconds.</h3></div><br>
+<div class="note-box"><h3>The <span style="background-color: transparent;">`&lt;meta&gt;`</span> tag is universally supported in all modern browsers.</h3></div><br>
+<h6>Limitations of <span>&lt;meta&gt;</span> Tags</h6>
+<h3>  
+<li>Meta descriptions do not guarantee better SEO rankings – Google may choose a different snippet from your page.</li>  
+<li>Meta keywords are ignored by most search engines – Google does not use them for ranking.</li>  
+<li>Auto-refresh `<span>&lt;meta&gt;</span>` can be annoying – Frequent page reloads can frustrate users.</li></h3>  
+<h6>Best Practices for Using <span>&lt;meta&gt;</span> Tags</h6>
+<h3> 
+<li>✔️ Always include <span>`&lt;meta charset="UTF-8"&gt;`</span> to avoid character encoding issues.</li>  
+<li>✔️ Use a concise, clear <span>`&lt;meta name="description"&gt;`</span> (50-160 characters).</li>  
+<li>✔️ Optimize <span>`&lt;meta name="viewport"&gt;`</span> for mobile-friendly design.</li>  
+<li>✔️ Avoid excessive use of <span>`&lt;meta name="keywords"&gt;`</span> (no longer effective for SEO).</li>  
+<li>✔️ Use Open Graph and Twitter meta tags for better social media previews.</li></h3>
+<div class="note-box"><h3>The HTML `<span style="background-color: transparent;">&lt;meta&gt;</span>` tag plays a crucial role in SEO, mobile optimization, and social media integration. While it does not affect visual elements, properly using `<span style="background-color: transparent;">&lt;meta&gt;</span>` tags improves page visibility, performance, and user experience.</h3></div><br>  
+<div class="questions-container">
+<a href="html meta quiz .html">
+<button>Quiz</button>
+</a>
+<a href="html meta exercise .html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assests/css/style.css">
+<title>Learn HTML - HTML Forms</title>
+</head>
+<body>
+<h1 class="topic">*HTML Forms*</h1><br><br>
+<h3>HTML forms are an essential part of web development, allowing users to interact with websites by entering and submitting data. Forms are commonly used for user registration, login, feedback collection, and much more.</h3>
+<h6>What is an HTML Form?</h6>
+<h3>An HTML form is an element that collects user input and sends it to a server for processing. Forms are created using the <span>&lt;form&gt;</span> element.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 220px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<form action="submit.php" method="post">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name">
+<input type="submit" value="Submit">
+</form>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h3>The <span>&lt;form&gt;</span> element acts as a container for input elements.</h3>
+<h3>The action attribute specifies the URL where the form data will be sent.</h3>
+<h3>The method attribute defines how data should be sent (GET or POST).</h3>
+<h1 class="topic">HTML Form Elements</h6>
+<h3>A form can contain various elements like text fields, checkboxes, radio buttons, dropdowns, and buttons.</h3>
+<h6>Text Input Fields (<span>&lt;input type="text"&gt;</span>)</h6>
+<h3>Used to enter single-line text input.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 150px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="email">Email:</label>
+<input type="text" id="email" name="email" placeholder="Enter your email">
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Password Field (<span>&lt;input type="password"&gt;</span>)</h6>
+<h3>Hides user input, typically used for passwords.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 150px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<label for="password">Password:</label>
+<input type="password" id="password" name="password">
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h6>Radio Buttons (<span>&lt;input type="radio"&gt;</span>)</h6>
+<h3>Allows users to select one option from multiple choices.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 230px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<p>Select your gender:</p>
+<input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label>
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>File Upload in Forms</h6>
+<h3>To allow users to upload files, use <span>&lt;input type="file"&gt;</span>.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 230px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<form action="upload.php" method="post" enctype="multipart/form-data">
+<label for="file">Upload file:</label>
+<input type="file" id="file" name="file"><br>
+<input type="submit" value="Upload">
+</form>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<h3>The <span>enctype="multipart/form-data"</span> is necessary for file uploads.</h3>
+<h6>Forms and JavaScript</h6>
+<h3>JavaScript can handle form submissions and validation.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 430px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<form onsubmit="return validateForm()">
+<label for="user">Username:</label>
+<input type="text" id="user" name="user">
+<input type="submit" value="Submit">
+</form>
+
+<script>
+function validateForm() {
+let user = document.getElementById("user").value;
+if (user === "") {
+alert("Please enter your name in the field.");
+return false;
+}
+return true;
+}
+</script>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 60px;"></iframe>
+</div><br>
+<div class="note-box"><h3><b>HTML forms</b> are crucial for user interaction. By combining different elements and attributes, you can create functional and user-friendly forms. For enhanced validation and interactivity, JavaScript can be used alongside HTML forms.</h3></div><br>
+<div class="questions-container">
+<a href="html forms quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html forms exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

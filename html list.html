@@ -1,0 +1,219 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Learn HTML - HTML Lists</title>
+<link rel="stylesheet" href="assests/css/style.css">
+</head>
+<style>
+a{
+color: blueviolet;
+text-decoration: none;
+}
+</style>
+<body>
+<h1 class="topic">*HTML Lists*</h1><br><br>
+<h3>HTML lists are used to structure content in a meaningful and organized manner. Lists help in grouping related items together, improving readability and user experience. HTML supports three main types of lists:</h3>
+<h3>
+<li>Ordered List (&lt;ol&gt;) - Lists items in a specific sequence.</li>
+<li>Unordered List (&lt;ul&gt;) - Lists items without any specific order.</li>
+<li>Description List (&lt;dl&gt;) - Used for term-description pairs.</li>
+</h3>
+<h6>Ordered List (&lt;ol&gt;)</h6>
+<h3>An <b>ordered list</b> is used when the sequence of items is important. Items are numbered by default.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<ol>
+<li>First item</li>
+<li>Second item</li>
+<li>Third item</li>
+</ol>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 240px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<h3>Steps to Bake a Cake</h3>
+<ol>
+<li>Preheat the oven to 350°F.</li>
+<li>Mix the ingredients.</li>
+<li>Pour the batter into a pan.</li>
+<li>Bake for 30 minutes.</li>
+</ol>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 130px;"></iframe>
+</div><br>
+<h6>Customizing the Numbering Style</h6>
+<h3>You can customize the numbering style using the <span>`type`</span> attribute</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 140px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<ol type="A">
+<li>Item A</li>
+<li>Item B</li>
+<li>Item C</li>
+</ol>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 100px;"></iframe>
+</div><br>
+<h6>Available `type` values</h6>
+<h3>
+<li> `1` - Default (Numbers: 1, 2, 3...)</li>
+<li> `A` - Uppercase letters (A, B, C...)</li>
+<li> `a` - Lowercase letters (a, b, c...)</li>
+<li> `I` - Uppercase Roman numerals (I, II, III...)</li>
+<li> `i` - Lowercase Roman numerals (i, ii, iii...)</li>
+</h3><br>
+<h6>Best Practices</h6>
+<h3>
+<li> Use ordered lists only when the order matters.</li>
+<li> Keep list items short and meaningful.</li>
+<li> Use CSS for further styling.</li>
+</h3>
+<h6>Unordered List (<span>&lt;ul&gt;</span>)</h6>
+<h3>An <b>unordered list</b> is used when the order of items does not matter. It uses bullet points by default.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 380px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<ul>
+<li>Apples</li>
+<li>Oranges</li>
+<li>Bananas</li>
+</ul>
+<h3>Grocery List</h3>
+<ul>
+<li>Milk</li>
+<li>Bread</li>
+<li>Eggs</li>
+</ul>
+
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Customizing Bullet Styles</h6>
+<h3>You can customize the bullet points using CSS</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 450px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;style&gt;
+ul {
+list-style-type: square;
+}  
+&lt;/style&gt;
+&lt;body&gt;
+<ul>
+<li>Apples</li>
+<li>Oranges</li>
+<li>Bananas</li>
+</ul>
+<h3>Grocery List</h3>
+<ul>
+<li>Milk</li>
+<li>Bread</li>
+<li>Eggs</li>
+</ul>
+
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Available <span>list-style-type</span> values</h6>
+<h3>
+<li> <span>`disc`</span> (default)</li>
+<li> <span>`circle`</span></li>
+<li> <span>`square`</span></li>
+<li> <span>`none`</span> (removes bullets)</li>
+</h3>
+<h6>Best Practices</h6>
+<h3>
+<li> Use unordered lists for non-sequential items.</li>
+<li> Avoid too many nested lists for readability.</li>
+<li> Use <span>list-style-type</span> to match the theme of your website.</li>
+</h3>
+<h6>Description List (<span>&lt;dl&gt;</span>)</h6>
+<div class="note-box"><h3>We already done with <b>HTML description list</b>, you can learn it <a href="description list.html">here</a></h3></div>
+<h6>Nested Lists</h6>
+<h3>Lists can be nested within each other to create sub-items.</h3><br>
+<div class="example-editor">
+<textarea spellcheck="false" class="codeEditor" oninput="autoRunCode(this)" style="height: 400px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+<h3>Company Departments</h3>
+<ul>
+<li>Marketing
+<ul>
+<li>SEO</li>
+<li>Content Writing</li>
+</ul>
+</li>
+<li>Development
+<ul>
+<li>Frontend</li>
+<li>Backend</li>
+</ul>
+</li>
+</ul>
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+<br>
+<button onclick="runCode(this)">Run Code</button>
+<button onclick="downloadCode(this)">Download Code</button>
+<iframe class="output" style="height: 200px;"></iframe>
+</div><br>
+<h6>Best Practices for Nested Lists</h6>
+<h3>
+<li> Keep nesting minimal to avoid complexity.</li>
+<li> Use indentation to enhance readability.</li>
+<li> Consider breaking content into multiple lists instead of deep nesting.</li>
+</h3><br>
+<div class="note-box"><h3><b>HTML lists</b> are essential for organizing and structuring content. By using <i>ordered</i>, <i>unordered</i>, and <i>description lists</i>, developers can create well-structured web pages that improve user experience and accessibility.</h3></div><br>
+<div class="questions-container">
+<a href="html list quiz.html">
+<button>Quiz</button>
+</a>
+<a href="html list exercise.html">
+<button>Exercise</button>
+</a>
+</div><br>
+<script src="assests/js/exaple-editor.js"></script>
+<script src="assests/js/script.js"></script>
+</body>
+</html>

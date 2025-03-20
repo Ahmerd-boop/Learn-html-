@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assests/css/style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>HTML Section Quiz</h1>
+        <div id="timer">⏳ 30s</div>
+        <p id="question">Loading question...</p>
+        <div id="options"></div>
+        <button id="next-btn" disabled>Next</button>
+        <div id="result" style="font-size: 16px;"></div>
+        <button id="back-btn" onclick="goBackToLesson()">Back to Lesson</button>
+    </div>
+
+    <script>
+const questions = [
+    {
+        question: "1. What is the purpose of the `<section>` element in HTML?",
+        options: [
+            "To create a navigation menu",
+            "To define a section of related content",
+            "To format text",
+            "To display inline elements"
+        ],
+        answer: 1
+    },
+    {
+        question: "2. Which HTML element is commonly used alongside `<section>` to structure a webpage?",
+        options: ["<div>", "<article>", "<span>", "<b>"],
+        answer: 1
+    },
+    {
+        question: "3. Can a `<section>` element contain a `<header>` and a `<footer>`?",
+        options: ["Yes", "No", "Only in HTML5", "Only in inline elements"],
+        answer: 0
+    },
+    {
+        question: "4. Which of the following elements is most similar in purpose to `<section>`?",
+        options: ["<div>", "<span>", "<b>", "<i>"],
+        answer: 0
+    },
+    {
+        question: "5. What is the key difference between `<section>` and `<div>`?",
+        options: [
+            "A `<section>` has semantic meaning, while `<div>` is purely for styling",
+            "A `<div>` is required in every HTML document",
+            "A `<section>` can only be used once per page",
+            "A `<div>` cannot contain text"
+        ],
+        answer: 0
+    },
+    {
+        question: "6. Which of the following is an appropriate use of the `<section>` element?",
+        options: [
+            "Grouping navigation links",
+            "Wrapping an entire webpage",
+            "Separating different topics on a blog page",
+            "Styling inline text"
+        ],
+        answer: 2
+    },
+    {
+        question: "7. Can a `<section>` contain another `<section>` inside it?",
+        options: ["Yes", "No", "Only in HTML4", "Only in the `<body>` tag"],
+        answer: 0
+    },
+    {
+        question: "8. How does a `<section>` element behave by default?",
+        options: [
+            "It is displayed as an inline element",
+            "It creates a block-level container",
+            "It centers content by default",
+            "It is hidden until styled"
+        ],
+        answer: 1
+    },
+    {
+        question: "9. What is the best practice for using `<section>` elements?",
+        options: [
+            "Use it for all webpage containers",
+            "Use it only for styling",
+            "Use it to group related content with a heading",
+            "Use it only within `<nav>` elements"
+        ],
+        answer: 2
+    },
+    {
+        question: "10. Which HTML element should typically be used inside a `<section>` to provide a title?",
+        options: ["<h1>", "<div>", "<span>", "<p>"],
+        answer: 0
+    },
+    {
+        question: "11. Can a `<section>` contain an `<aside>` element?",
+        options: ["Yes", "No", "Only inside `<header>`", "Only inside `<footer>`"],
+        answer: 0
+    },
+    {
+        question: "12. What happens if you use multiple `<section>` elements inside a webpage?",
+        options: [
+            "The webpage will break",
+            "Each section will be treated as a separate content block",
+            "Only the first section will be displayed",
+            "Sections will be ignored by the browser"
+        ],
+        answer: 1
+    },
+    {
+        question: "13. How do search engines treat `<section>` elements?",
+        options: [
+            "They ignore them",
+            "They consider them as separate content blocks for better indexing",
+            "They treat them the same as `<div>`",
+            "They reduce SEO ranking"
+        ],
+        answer: 1
+    },
+    {
+        question: "14. Is it necessary to add a class or ID to every `<section>`?",
+        options: ["Yes", "No", "Only when using CSS", "Only when using JavaScript"],
+        answer: 1
+    },
+    {
+        question: "15. When should you prefer `<section>` over `<div>`?",
+        options: [
+            "When grouping related content with a heading",
+            "When creating a navigation menu",
+            "When styling inline elements",
+            "When defining an entire webpage"
+        ],
+        answer: 0
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timer;
+const timerElement = document.getElementById("timer");
+const questionElement = document.getElementById("question");
+const optionsContainer = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+const backButton = document.getElementById("back-btn");
+const resultElement = document.getElementById("result");
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 30;
+    timerElement.textContent = `⏳ ${timeLeft}s`;
+
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultElement.textContent = "";
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.addEventListener("click", () => selectAnswer(index));
+        optionsContainer.appendChild(button);
+    });
+
+    nextButton.disabled = true;
+    nextButton.style.display = "none";
+    backButton.style.display = "none"; // Hide back button at the start
+
+    // Start timer
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `⏳ ${timeLeft}s`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            showResult(false);
+            setTimeout(moveToNextQuestion, 2000); // Move to next question after 2 seconds
+        }
+    }, 1000);
+}
+
+function selectAnswer(selectedIndex) {
+    clearInterval(timer);
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Highlight correct and wrong answers
+    document.querySelectorAll("#options button").forEach((button, index) => {
+        if (index === currentQuestion.answer) {
+            button.classList.add("correct");
+        } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+        }
+        button.disabled = true;
+    });
+
+    if (selectedIndex === currentQuestion.answer) {
+        score++;
+    }
+
+    nextButton.disabled = false;
+    nextButton.style.display = "block";
+}
+
+function showResult(timeOut) {
+    if (timeOut) {
+        resultElement.innerHTML = "⏰ Time's up! Moving to next question...";
+    }
+}
+
+function moveToNextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showFinalResult();
+    }
+}
+
+nextButton.addEventListener("click", moveToNextQuestion);
+
+function showFinalResult() {
+    questionElement.textContent = "Quiz Completed!";
+    optionsContainer.innerHTML = "";
+    timerElement.textContent = "";
+    resultElement.innerHTML = `🎉 You scored ${score} out of ${questions.length}!`;
+
+    nextButton.style.display = "none";
+    backButton.style.display = "block"; // Show back button after quiz
+}
+
+function goBackToLesson() {
+    window.location.href = "html section.html"; // Change this to your actual lesson page
+}
+
+// Start the quiz
+loadQuestion();
+
+    </script>
+    <script src="assests/js/script.js"></script>
+</body>
+</html>
