@@ -1,20 +1,61 @@
+// ✅ Register the Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js')
-        .then(reg => console.log('Service Worker Registered!', reg))
-        .catch(err => console.log('Service Worker Error:', err));
+        .then(reg => console.log('✅ Service Worker Registered!', reg))
+        .catch(err => console.log('❌ Service Worker Registration Failed:', err));
 }
 
-//local storage
+// ✅ Save and Restore Page Content
 document.addEventListener('DOMContentLoaded', function () {
-    let content = document.getElementById('content').innerHTML;
-    localStorage.setItem('savedContent', content);
-});
+    let contentElement = document.getElementById('content');
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (!navigator.onLine) {  // If offline
+    if (contentElement) {
         let savedContent = localStorage.getItem('savedContent');
-        if (savedContent) {
-            document.getElementById('content').innerHTML = savedContent;
+
+        // If offline and saved content exists, load it
+        if (!navigator.onLine && savedContent) {
+            contentElement.innerHTML = savedContent;
         }
+
+        // Save the current content to local storage
+        localStorage.setItem('savedContent', contentElement.innerHTML);
     }
 });
+
+// ✅ Monitor Online/Offline Status
+window.addEventListener('online', () => {
+    console.log('✅ Online: Connection restored.');
+    alert('✅ You are back online!');
+});
+
+window.addEventListener('offline', () => {
+    console.log('❌ Offline: No internet connection.');
+    alert('❌ You are offline. Some features may not work.');
+});
+
+// ✅ Save Additional Dynamic Content
+function saveDynamicContent() {
+    let dynamicElements = document.querySelectorAll('[data-save]');
+    dynamicElements.forEach(element => {
+        localStorage.setItem('saved-' + element.id, element.innerHTML);
+    });
+}
+
+// ✅ Restore Additional Dynamic Content When Offline
+function restoreDynamicContent() {
+    let dynamicElements = document.querySelectorAll('[data-save]');
+    dynamicElements.forEach(element => {
+        let savedData = localStorage.getItem('saved-' + element.id);
+        if (savedData) {
+            element.innerHTML = savedData;
+        }
+    });
+}
+
+// ✅ Restore Content If Offline
+if (!navigator.onLine) {
+    restoreDynamicContent();
+}
+
+// ✅ Auto-Save Dynamic Content Every 5 Seconds
+setInterval(saveDynamicContent, 5000);
