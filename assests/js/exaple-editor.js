@@ -13,3 +13,18 @@ link.href = URL.createObjectURL(blob);
 link.download = "CodeNova.html";     link.click(); }  window.onload = () => {     
 document.querySelectorAll(".example-editor").forEach(editor => {         
 runCode(editor.querySelector("button"));     }); };           
+
+
+//offline
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
+    });
+  }
+  
