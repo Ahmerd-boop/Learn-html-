@@ -91,6 +91,7 @@ margin: 5px 5px 0 5px;
 /*buttons in the body section*/
 .buttons {
 display: flex;
+justify-content: space-between;
 }
 
 .buttons img {

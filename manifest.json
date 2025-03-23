@@ -1,10 +1,10 @@
 {
-    "name": "My Offline Website",
-    "short_name": "OfflineWeb",
+    "name": "Learn HTML",
+    "short_name": "Learn HTML",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#007bff",
+    "background_color": "lightblue",
+    "theme_color": "#333",
     "icons": [
       {
         "src": "logo.png",
