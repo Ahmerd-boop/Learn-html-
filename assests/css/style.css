@@ -711,21 +711,3 @@ font-weight: 100;
 text-align: left;
 font-family: 'Inter', sans-serif;
 }
-@font-face {
-    font-family: 'Poppins';
-    src: url('fonts/Poppins-Regular.woff2') format('woff2'),
-         url('fonts/Poppins-Regular.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Poppins';
-    src: url('fonts/Poppins-Bold.woff2') format('woff2'),
-         url('fonts/Poppins-Bold.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('fonts/Inter-Regular.woff2') format('woff2'),
-         url('fonts/Inter-Regular.woff') format('woff');
-}
-
