@@ -1,78 +1,93 @@
-// Modern App Download Button Handler  
-document.getElementById('forward-btn').addEventListener('click', async function() {
-    const btn = this;
-    
-    // 1. Add click animation
-    btn.classList.add('clicked');
-    
-    // 2. Track analytics (multiple providers support)
-    trackEvent('app_download_click', {
-      platform: detectPlatform(),
-      location: window.location.pathname
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  const shareBtn = document.getElementById('forward-btn');
+  const shareModal = document.querySelector('.share-modal');
+  const closeModal = document.querySelector('.close-modal');
+  const copyBtn = document.querySelector('.copy-btn');
+  const nativeShareBtn = document.getElementById('native-share');
+  const url = "https://www.webintoapp.com/store/666174";
   
-    // 3. Show loading state (UX improvement)
-    btn.innerHTML = `
-      <svg class="spinner" viewBox="0 0 50 50">
-        <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-      </svg>
-      Redirecting...
-    `;
-  
-    // 4. Device-specific handling
-    const url = "https://www.webintoapp.com/store/666174";
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+  // Modern share button with loading state
+  shareBtn.addEventListener('click', function() {
+    // Show loading state
+    shareBtn.querySelector('.btn-content').style.opacity = '0';
+    shareBtn.querySelector('.btn-loader').style.opacity = '1';
     
-    try {
-      // 5. Vibrate on mobile (if supported)
-      if (isMobile && navigator.vibrate) {
-        navigator.vibrate(50);
-      }
-  
-      // 6. Smart redirection with delay for animation
-      await new Promise(resolve => setTimeout(resolve, 800));
+    setTimeout(() => {
+      // Show modal after slight delay
+      shareModal.classList.add('show-modal');
       
-      // 7. Progressive enhancement
-      if (isMobile) {
-        // Try deep linking first
-        window.location.href = `intent://webintoapp.com/store/666174#Intent;package=com.webintoapp;scheme=https;end`;
-        
-        // Fallback after delay
-        setTimeout(() => {
-          window.open(url, '_blank');
-        }, 500);
-      } else {
-        // Desktop experience
-        const newWindow = window.open('', '_blank');
-        newWindow.location.href = url;
-      }
-    } catch (e) {
-      console.error('Redirect failed:', e);
-      // Fallback for all errors
-      window.location.href = url;
-    } finally {
-      // Reset button state after 1.5s
-      setTimeout(() => {
-        btn.innerHTML = `
-          <img src="assests/icons/share (1).png" class="img-icon" alt="Download">
-          <span>Get the App</span>
-        `;
-        btn.classList.remove('clicked');
-      }, 1500);
+      // Reset button
+      shareBtn.querySelector('.btn-content').style.opacity = '1';
+      shareBtn.querySelector('.btn-loader').style.opacity = '0';
+    }, 500);
+  });
+  
+  // Close modal
+  closeModal.addEventListener('click', () => {
+    shareModal.classList.remove('show-modal');
+  });
+  
+  // Click outside to close
+  shareModal.addEventListener('click', (e) => {
+    if (e.target === shareModal) {
+      shareModal.classList.remove('show-modal');
     }
   });
   
-  // Helper functions
-  function trackEvent(event, data) {
-    // Supports Google Analytics, Facebook Pixel, and others
-    if (typeof gtag !== 'undefined') gtag('event', event, data);
-    if (typeof fbq !== 'undefined') fbq('track', event, data);
-    if (typeof amplitude !== 'undefined') amplitude.logEvent(event, data);
-  }
+  // Copy link functionality
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(url).then(() => {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+      }, 2000);
+    }).catch(() => {
+      // Fallback for older browsers
+      const input = document.querySelector('.link-container input');
+      input.select();
+      document.execCommand('copy');
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+      }, 2000);
+    });
+  });
   
-  function detectPlatform() {
-    const ua = navigator.userAgent;
-    if (/Android/i.test(ua)) return 'android';
-    if (/iPhone|iPad/i.test(ua)) return 'ios';
-    return 'desktop';
-  }
+  // Native share API
+  nativeShareBtn.addEventListener('click', () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Learn HTML App',
+        text: 'Check out this awesome app for learning HTML!',
+        url: url
+      }).catch(() => {
+        // User cancelled share
+      });
+    } else {
+      // Fallback for browsers without Web Share API
+      window.open(`https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20app%20for%20learning%20HTML!&url=${encodeURIComponent(url)}`, '_blank');
+    }
+  });
+  
+  // Social sharing
+  document.querySelectorAll('[data-share]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const platform = this.dataset.share;
+      let shareUrl = '';
+      
+      switch(platform) {
+        case 'whatsapp':
+          shareUrl = `https://wa.me/?text=${encodeURIComponent('Check out this app: ' + url)}`;
+          break;
+        case 'telegram':
+          shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('Learn HTML App')}`;
+          break;
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this app: ' + url)}`;
+          break;
+      }
+      
+      window.open(shareUrl, '_blank', 'width=550,height=420');
+    });
+  });
+});
