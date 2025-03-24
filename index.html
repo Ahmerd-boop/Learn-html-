@@ -4,17 +4,21 @@
 
 <head>
 <!--meta data's-->
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!--App title-->
-<title>Learn HTML - Home</title>
+<title>Learn HTML</title>
 <!--links-->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assests/css/style.css">
-<link rel="manifest" href="/manifest.json">
+<!-- Link to PWA Manifest -->
+<link rel="manifest" href="manifest.json">
 <!-- Google AdSense Script -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
+<!--none-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
@@ -24,7 +28,16 @@
 <!--body-->
 
 <body>
-<!--header in the body-->
+    <button id="installButton" hidden>Update The App</button>
+    <script>
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        const installButton = document.getElementById('installButton');
+        installButton.hidden = false;
+        installButton.addEventListener('click', () => e.prompt());
+      });
+    </script>
+    <!--header in the body-->
 <header class="body-header">
 <!--like App logo-->
 <h1>Learn HTML</h1>
@@ -105,7 +118,6 @@ style=" filter: opacity(0.8);">
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="assests/js/server.js"></script>
 <script src="assests/js/scret key.env"></script>
-<script src="assests/js/paystack.js"></script>
 <script src="assests/js/continue.js"></script>
 <script src="assests/js/share.js"></script>
 <script src="assests/js/welcome.js"></script>
@@ -122,8 +134,7 @@ data-full-width-responsive="true">
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<script src="/script.js"></script>
+<script src="script.js"></script>
 </body>
 <!--end of the body element-->
-
 </html>
