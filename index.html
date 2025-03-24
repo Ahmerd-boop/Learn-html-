@@ -28,18 +28,9 @@
 <!--body-->
 
 <body>
-    <button id="installButton" hidden>Update The App</button>
-    <script>
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        const installButton = document.getElementById('installButton');
-        installButton.hidden = false;
-        installButton.addEventListener('click', () => e.prompt());
-      });
-    </script>
     <!--header in the body-->
 <header class="body-header">
-<!--like App logo-->
+    <!--like App logo-->
 <h1>Learn HTML</h1>
 <!--like App description-->
 <p>Master Hyper Text Markup Language</p>
@@ -51,10 +42,19 @@
     class="img-icon"></a></button>
 
 
-
 <button id="forward-btn"><img src="assests/icons/share (1).png" class="img-icon"></button>
 </div>
 </header>
+<button id="installButton" hidden>Update The App</button>
+<script>
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    const installButton = document.getElementById('installButton');
+    installButton.hidden = false;
+    installButton.addEventListener('click', () => e.prompt());
+  });
+</script>
+
 <!--main section ofthe body-->
 <main>
 <!--buttons in the main section 1/3-->

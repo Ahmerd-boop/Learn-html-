@@ -243,4 +243,31 @@ document.addEventListener('DOMContentLoaded', async function () {
         };
     }
   }
+  //back
+// Handle both PWA and WebView cases
+function handleBackNavigation() {
+    if (window.history.length > 1) {
+      window.history.back(); // Normal browser/PWA behavior
+    } else {
+      if (confirm('Exit the app?')) {
+        // For Cordova/WebView
+        if (typeof navigator.app !== 'undefined') {
+          navigator.app.exitApp();
+        } else {
+          // For PWAs (can't truly exit, just close window)
+          window.close(); // Only works if window was opened by script
+        }
+      }
+    }
+  }
   
+  // Try Cordova/WebView event first
+  document.addEventListener('backbutton', function(e) {
+    e.preventDefault();
+    handleBackNavigation();
+  }, false);
+  
+  // Fallback for regular browsers/PWAs
+  window.onpopstate = function() {
+    handleBackNavigation();
+  };
