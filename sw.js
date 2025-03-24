@@ -10,7 +10,6 @@ const FILES_TO_CACHE = [
     '/assests/js/download.js',
     '/assests/js/editor.js',
     '/assests/js/exaple-editor.js',
-   '/assests/js/share.js',
    '/assests/js/server.js',
     '/assests/js/welcome.js',
     '/assests/js/script.js',
