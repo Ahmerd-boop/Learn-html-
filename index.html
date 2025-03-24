@@ -36,20 +36,46 @@
 <p>Master Hyper Text Markup Language</p>
 <!--icons at the button of bodt header-->
 <div class="icons">
-<button id="settings-btn"><img src="assests/icons/SeTTiNGSS_enhanced.png" class="img-icon"></button>
+<button id="settings-btn"><img src="assests/icons/SeTTiNGSS_enhanced.png" style="max-width: 35px;"></button>
 
 <button id="email-btn"><a href="mailto:websitebuilder176@gmail.com"><img src="assests/icons/email.png"
-    class="img-icon"></a></button>
-<button id="forward-btn"><a href="share.html"><img src="assests/icons/share (1).png" class="img-icon"></a></button>
-<button id="installButton" hidden><img src="assests/icons/Update-removebg-preview.png" class="img-icon"></button>
-<script>
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    const installButton = document.getElementById('installButton');
-    installButton.hidden = false;
-    installButton.addEventListener('click', () => e.prompt());
-  });
-</script>
+    style="max-width: 35px;"></a></button>
+<button id="forward-btn"><a href="share.html"><img src="assests/icons/share (1).png" style="max-width: 35px;"></a></button>
+<button id="installButton" hidden><img src="assests/icons/Update-removebg-preview.png" style="max-width: 35px;"></button>
+  <script>
+    let deferredPrompt;
+  
+    // For Android/Chrome
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installButton = document.getElementById('installButton');
+      installButton.hidden = false;
+    });
+  
+    // For iOS/Safari
+    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  
+    if (isiOS || isSafari) {
+      const installButton = document.getElementById('installButton');
+      installButton.hidden = false;
+    }
+  
+    // Handle Install Button Click
+    document.getElementById('installButton').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        // Android/Chrome
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('User response:', outcome);
+        deferredPrompt = null;
+      } else if (isiOS) {
+        // iOS: Show instructions
+        alert('Tap the "Share" icon → "Add to Home Screen"');
+      }
+    });
+  </script>
 </div>
 </header>
 <!--main section ofthe body-->
