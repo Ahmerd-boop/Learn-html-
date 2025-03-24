@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const nativeShareBtn = document.getElementById('native-share');
   const url = "https://www.webintoapp.com/store/666174";
   
+  if (!shareBtn || !shareModal || !closeModal || !copyBtn || !nativeShareBtn) {
+    console.error('One or more elements are missing! Check your HTML structure.');
+    return;
+  }
+
   // Modern share button with loading state
   shareBtn.addEventListener('click', function() {
     // Show loading state
