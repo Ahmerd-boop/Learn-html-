@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   '/assests/js/editor.js',
   '/assests/js/exaple-editor.js',
   '/assests/js/server.js',
+  '/assests/js/share.js',
   '/assests/js/welcome.js',
   '/assests/js/script.js',
   '/assests/js/payment method.js',
