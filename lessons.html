@@ -188,6 +188,121 @@
 <a href="share.html">
     <button class="lesson-title"><h2>Share This App!</h2><i class="right-nav-icon">&#8250;</i></button></a>
     </div><br><br><br><br><br><br>
+    <!-- Layer 1: Direct HTML Button -->
+<div id="back-button-container" style="
+position: fixed !important;
+bottom: 10px !important;
+left: 10px !important;
+z-index: 2147483647 !important; /* Maximum possible z-index */
+display: block !important;
+visibility: visible !important;
+opacity: 0.7 !important;
+pointer-events: auto !important;
+">
+<button id="universal-back-button" style="
+  width: 35px !important;
+  height: 35px !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 0 3px white, 0 0 0 6px lightblue !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+">←</button>
+</div>
+<script>
+    //back button
+    // Self-executing function for maximum priority
+    (function() {
+        // Emergency create if missing (double protection)
+        if (!document.getElementById('universal-back-button')) {
+          const container = document.createElement('div');
+          container.id = 'back-button-container';
+          container.style.cssText = `
+            position: fixed !important;
+            bottom: 10px !important;
+            left: 10px !important;
+            z-index: 2147483647 !important;
+          `;
+          
+          const button = document.createElement('button');
+          button.id = 'universal-back-button';
+          button.innerHTML = '←';
+          button.style.cssText = `
+            width: 35px !important;
+            height: 35px !important;
+            color: white !important;
+            border-radius: 50% !important;
+            font-size: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+          `;
+          
+          container.appendChild(button);
+          document.body.appendChild(container);
+        }
+        
+        // Triple protection - periodic visibility check
+        setInterval(() => {
+          const btn = document.getElementById('universal-back-button') || 
+                     document.getElementById('back-button-container');
+          if (btn) {
+            btn.style.display = 'flex !important';
+            btn.style.visibility = 'visible !important';
+            btn.style.opacity = '1 !important';
+          }
+        }, 1000);
+        
+        // Quadruple protection - mutation observer
+        const observer = new MutationObserver(() => {
+          const btn = document.getElementById('universal-back-button');
+          if (btn && (btn.style.display === 'none' || 
+                     btn.style.visibility === 'hidden')) {
+            btn.style.display = 'flex !important';
+            btn.style.visibility = 'visible !important';
+          }
+        });
+        
+        observer.observe(document.body, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+        
+        // Button functionality
+        function handleBack() {
+          try {
+            if (window.history.length > 1) {
+              window.history.back();
+            } else {
+              window.location.href = '/';
+            }
+          } catch (e) {
+            window.location.href = '/';
+          }
+          return false;
+        }
+        
+        document.getElementById('universal-back-button').onclick = handleBack;
+        
+        // Make it flash for 5 seconds to confirm it's working
+        let flashCount = 0;
+        const flashInterval = setInterval(() => {
+          const btn = document.getElementById('universal-back-button');
+          if (btn) {
+            btn.style.backgroundColor = flashCount % 2 === 0 ? 'gray' : 'lightblue';
+          }
+          if (++flashCount >= 1000) clearInterval(flashInterval);
+        }, 500);
+      })();
+</script>
     <script src="assests/js/script.js"></script>
     <script src="assests/js/continue.js"></script>
     <script src="script.js"></script>

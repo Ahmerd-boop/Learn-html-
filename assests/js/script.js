@@ -271,3 +271,5 @@ function handleBackNavigation() {
   window.onpopstate = function() {
     handleBackNavigation();
   };
+
+  

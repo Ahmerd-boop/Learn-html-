@@ -1,10 +1,12 @@
 {
   "name": "Learn HTML",
-  "short_name": "HTML",
+  "short_name": "Learn HTML",
+  "packageId": "com.codenova.learnhtml",
+  "id": "com.codenova.learnhtml",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#87CEEB",
+  "background_color": "#FFF",
   "theme_color": "#333333",
   "icons": [
     {
