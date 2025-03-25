@@ -27,9 +27,9 @@
 <!--body-->
 
 <body>
-<!--header in the body-->
+    <!--header in the body-->
 <header class="body-header">
-<!--like App logo-->
+    <!--like App logo-->
 <h1>Learn HTML</h1>
 <!--like App description-->
 <p>Master Hyper Text Markup Language</p>
@@ -38,43 +38,43 @@
 <button id="settings-btn"><img src="assests/icons/SeTTiNGSS_enhanced.png" style="max-width: 35px;" alt="settings"></button>
 
 <button id="email-btn"><a href="mailto:websitebuilder176@gmail.com"><img src="assests/icons/email.png"
-style="max-width: 35px;" alt="email"></a></button>
+    style="max-width: 35px;" alt="email"></a></button>
 <button id="forward-btn"><a href="share.html"><img src="assests/icons/share (1).png" style="max-width: 35px;" alt="share"></a></button>
 <button id="installButton" hidden><img src="assests/icons/Update-removebg-preview.png" style="max-width: 35px;" alt="update"></button>
-<script>
-let deferredPrompt;
-
-// For Android/Chrome
-window.addEventListener('beforeinstallprompt', (e) => {
-e.preventDefault();
-deferredPrompt = e;
-const installButton = document.getElementById('installButton');
-installButton.hidden = false;
-});
-
-// For iOS/Safari
-const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-if (isiOS || isSafari) {
-const installButton = document.getElementById('installButton');
-installButton.hidden = false;
-}
-
-// Handle Install Button Click
-document.getElementById('installButton').addEventListener('click', async () => {
-if (deferredPrompt) {
-// Android/Chrome
-deferredPrompt.prompt();
-const { outcome } = await deferredPrompt.userChoice;
-console.log('User response:', outcome);
-deferredPrompt = null;
-} else if (isiOS) {
-// iOS: Show instructions
-alert('Tap the "Share" icon → "Add to Home Screen"');
-}
-});
-</script>
+  <script>
+    let deferredPrompt;
+  
+    // For Android/Chrome
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installButton = document.getElementById('installButton');
+      installButton.hidden = false;
+    });
+  
+    // For iOS/Safari
+    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  
+    if (isiOS || isSafari) {
+      const installButton = document.getElementById('installButton');
+      installButton.hidden = false;
+    }
+  
+    // Handle Install Button Click
+    document.getElementById('installButton').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        // Android/Chrome
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('User response:', outcome);
+        deferredPrompt = null;
+      } else if (isiOS) {
+        // iOS: Show instructions
+        alert('Tap the "Share" icon → "Add to Home Screen"');
+      }
+    });
+  </script>
 </div>
 </header>
 <!--main section ofthe body-->
@@ -82,7 +82,7 @@ alert('Tap the "Share" icon → "Add to Home Screen"');
 <!--buttons in the main section 1/3-->
 <section class="buttons">
 <button id="get-started"><a href="lessons.html" class="home-nav-link"><img
-src="assests/images/StArTI_enhanced.png" class="" style=" filter: opacity(0.5);">
+    src="assests/images/StArTI_enhanced.png" class="" style=" filter: opacity(0.5);">
 <p style="padding: 0 3px; font-weight: 300; font-family: monospace;">Get Started</p></button></a>
 
 <button id="continue" onclick="continueLastLesson()"><a href="#" class="home-nav-link"></a><img
@@ -94,7 +94,7 @@ src="assests/images/cOnTiNueE(1)_enhanced.png" class="" style=" filter: opacity(
 <section class="buttons">
 
 <button id="editor"><a href="editor.html" class="home-nav-link"><img
-src="assests/images/editor_enhanced.png" class="" style=" filter: opacity(0.5);">
+    src="assests/images/editor_enhanced.png" class="" style=" filter: opacity(0.5);">
 <p style="padding: 0 3px; font-weight: 300; font-family: monospace;">Open The Editor</p>
 </button></a>
 <button id="upgrade" onclick="payWithPaystack()"><img src="assests/images/UpGrDeE_enhanced.png" class=""
@@ -106,7 +106,7 @@ style=" filter: opacity(0.8);">
 </section>
 <section class="buttons">
 <button id="play"><a href="games.html" class="home-nav-link"><img src="assests/images/GAmEs_enhanced.png"
-style=" filter: opacity(0.5);">
+    style=" filter: opacity(0.5);">
 <p style="padding: 0 3px; font-weight: 300; font-family: monospace;">Play Games</p></button></a>
 <button id="community"><a href="https://www.facebook.com/profile.php?id=61572888009863
 " class="home-nav-link"><img src="assests/images/cOmuNiTyY_enhanced.png" class="">
@@ -159,170 +159,170 @@ data-full-width-responsive="true">
 <script src="script.js"></script>
 <!-- Add this RIGHT BEFORE </body> -->
 <div id="offline-motivation" style="
-display: none;
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-background: linear-gradient(135deg, #667eea, #764ba2);
-color: white;
-padding: 16px;
-z-index: 9999;
-border-top-left-radius: 16px;
-border-top-right-radius: 16px;
-box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 16px;
+  z-index: 9999;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 ">
-<div style="
-display: flex;
-align-items: center;
-gap: 12px;
-max-width: 100%;
-">
-<span id="connection-emoji" style="
-font-size: 28px;
-flex-shrink: 0;
-">🌐</span>
-<div style="flex-grow: 1;">
-<p style="
-margin: 0 0 4px 0;
-font-size: 16px;
-font-weight: 600;
-">You're Offline</p>
-<p style="
-margin: 0;
-font-size: 14px;
-line-height: 1.4;
-opacity: 0.9;
-">Connect to the internet to access all pages and features.</p>
-</div>
-<button id="reconnect-btn" style="
-background: white;
-color: #667eea;
-border: none;
-padding: 8px 16px;
-border-radius: 20px;
-font-weight: 600;
-font-size: 14px;
-cursor: pointer;
-white-space: nowrap;
-flex-shrink: 0;
-">Try Again</button>
-</div>
+  <div style="
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+  ">
+    <span id="connection-emoji" style="
+      font-size: 28px;
+      flex-shrink: 0;
+    ">🌐</span>
+    <div style="flex-grow: 1;">
+      <p style="
+        margin: 0 0 4px 0;
+        font-size: 16px;
+        font-weight: 600;
+      ">You're Offline</p>
+      <p style="
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        opacity: 0.9;
+      ">Connect to the internet to access all pages and features.</p>
+    </div>
+    <button id="reconnect-btn" style="
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    ">Try Again</button>
+  </div>
 </div>
 
 <script>
 // Nuclear-proof offline detection
 (function() {
-// DOM elements
-const offlineMsg = document.getElementById('offline-motivation');
-const reconnectBtn = document.getElementById('reconnect-btn');
-const connectionEmoji = document.getElementById('connection-emoji');
+  // DOM elements
+  const offlineMsg = document.getElementById('offline-motivation');
+  const reconnectBtn = document.getElementById('reconnect-btn');
+  const connectionEmoji = document.getElementById('connection-emoji');
+  
+  // Emoji rotation for attention
+  const emojis = ['🌐', '📱', '⚠️', '📶'];
+  
+  // Show notification with animation
+  function showOffline() {
+    if (!offlineMsg) return;
+    
+    // Force show and animate
+    offlineMsg.style.display = 'block';
+    offlineMsg.style.transform = 'translateY(100%)';
+    setTimeout(() => {
+      offlineMsg.style.transform = 'translateY(0)';
+      offlineMsg.style.transition = 'transform 0.3s ease-out';
+    }, 10);
+    
+    // Rotate emoji every 3 seconds
+    const emojiInterval = setInterval(() => {
+      connectionEmoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    }, 3000);
+    
+    // Store interval for cleanup
+    offlineMsg.dataset.interval = emojiInterval;
+  }
 
-// Emoji rotation for attention
-const emojis = ['🌐', '📱', '⚠️', '📶'];
+  // Hide notification
+  function hideOffline() {
+    if (!offlineMsg) return;
+    clearInterval(offlineMsg.dataset.interval);
+    offlineMsg.style.display = 'none';
+  }
 
-// Show notification with animation
-function showOffline() {
-if (!offlineMsg) return;
+  // Check connection status
+  function checkConnection() {
+    if (navigator.onLine) {
+      hideOffline();
+    } else {
+      showOffline();
+    }
+  }
 
-// Force show and animate
-offlineMsg.style.display = 'block';
-offlineMsg.style.transform = 'translateY(100%)';
-setTimeout(() => {
-offlineMsg.style.transform = 'translateY(0)';
-offlineMsg.style.transition = 'transform 0.3s ease-out';
-}, 10);
+  // Button click handler
+  reconnectBtn.addEventListener('click', function() {
+    if (navigator.onLine) {
+      location.reload();
+    } else {
+      // Visual feedback
+      this.textContent = 'No Connection...';
+      this.style.background = '#ffdd59';
+      this.style.color = '#333';
+      
+      setTimeout(() => {
+        this.textContent = 'Try Again';
+        this.style.background = 'white';
+        this.style.color = '#667eea';
+      }, 1500);
+    }
+  });
 
-// Rotate emoji every 3 seconds
-const emojiInterval = setInterval(() => {
-connectionEmoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-}, 3000);
-
-// Store interval for cleanup
-offlineMsg.dataset.interval = emojiInterval;
-}
-
-// Hide notification
-function hideOffline() {
-if (!offlineMsg) return;
-clearInterval(offlineMsg.dataset.interval);
-offlineMsg.style.display = 'none';
-}
-
-// Check connection status
-function checkConnection() {
-if (navigator.onLine) {
-hideOffline();
-} else {
-showOffline();
-}
-}
-
-// Button click handler
-reconnectBtn.addEventListener('click', function() {
-if (navigator.onLine) {
-location.reload();
-} else {
-// Visual feedback
-this.textContent = 'No Connection...';
-this.style.background = '#ffdd59';
-this.style.color = '#333';
-
-setTimeout(() => {
-this.textContent = 'Try Again';
-this.style.background = 'white';
-this.style.color = '#667eea';
-}, 1500);
-}
-});
-
-// EVENT LISTENERS (multiple for reliability)
-window.addEventListener('offline', showOffline);
-window.addEventListener('online', hideOffline);
-
-// Mobile-specific events
-document.addEventListener('visibilitychange', checkConnection);
-window.addEventListener('pageshow', checkConnection);
-
-// Initial check
-setTimeout(checkConnection, 500); // Delay ensures proper detection
-
-// Periodic checks (every 3 seconds)
-setInterval(checkConnection, 3000);
-
-// Emergency fallback (if DOM gets removed)
-setInterval(() => {
-if (!document.getElementById('offline-motivation')) {
-location.reload();
-}
-}, 10000);
+  // EVENT LISTENERS (multiple for reliability)
+  window.addEventListener('offline', showOffline);
+  window.addEventListener('online', hideOffline);
+  
+  // Mobile-specific events
+  document.addEventListener('visibilitychange', checkConnection);
+  window.addEventListener('pageshow', checkConnection);
+  
+  // Initial check
+  setTimeout(checkConnection, 500); // Delay ensures proper detection
+  
+  // Periodic checks (every 3 seconds)
+  setInterval(checkConnection, 3000);
+  
+  // Emergency fallback (if DOM gets removed)
+  setInterval(() => {
+    if (!document.getElementById('offline-motivation')) {
+      location.reload();
+    }
+  }, 10000);
 })();
 </script>
 <style>
-/* Animation fix for mobile browsers */
-@media (max-width: 768px) {
-#offline-motivation {
-padding: 14px;
-border-radius: 0;
-}
-#reconnect-btn {
-padding: 8px 12px;
-font-size: 13px;
-}
-}
-
-/* Dark mode adaptation */
-@media (prefers-color-scheme: dark) {
-#offline-motivation {
-background: linear-gradient(135deg, #4b6cb7, #182848);
-}
-#reconnect-btn {
-background: rgba(255,255,255,0.9);
-color: #182848;
-}
-}
-</style>
+  /* Animation fix for mobile browsers */
+  @media (max-width: 768px) {
+    #offline-motivation {
+      padding: 14px;
+      border-radius: 0;
+    }
+    #reconnect-btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  }
+  
+  /* Dark mode adaptation */
+  @media (prefers-color-scheme: dark) {
+    #offline-motivation {
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+    }
+    #reconnect-btn {
+      background: rgba(255,255,255,0.9);
+      color: #182848;
+    }
+  }
+  </style>
 </body>
 <!--end of the body element-->
 </html>
