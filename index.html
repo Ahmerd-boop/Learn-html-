@@ -159,121 +159,152 @@ data-full-width-responsive="true">
 </script>
 <script src="script.js"></script>
 
-<div id="offline-notification" class="offline-notification">
-  <div class="offline-content">
-    <span class="offline-icon">📶</span>
+<!-- Add this right before </body> -->
+<div id="offline-motivation" style="
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 18px;
+  z-index: 9999;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+  animation: slideUp 0.5s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+">
+  <div style="
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  ">
+    <span style="
+      font-size: 28px;
+      flex-shrink: 0;
+    ">🌐</span>
     <div>
-      <p class="offline-title">No Internet Connection</p>
-      <p class="offline-message">Turn on mobile data or Wi-Fi to access full content and view all pages properly.</p>
+      <p style="
+        margin: 0 0 6px 0;
+        font-size: 17px;
+        font-weight: 600;
+      ">Connection Lost</p>
+      <p style="
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        opacity: 0.9;
+      ">Great content awaits! Reconnect to explore our full website and discover amazing features.</p>
     </div>
-    <button id="retry-button" class="retry-button">Try Again</button>
+    <button id="reconnect-btn" style="
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 14px;
+      margin-left: auto;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    ">Reconnect Now</button>
   </div>
 </div>
 
 <style>
-  /* Modern mobile-first styles */
-  .offline-notification {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    color: white;
-    padding: 12px 16px;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    animation: slideUp 0.4s ease-out;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .offline-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .offline-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-
-  .offline-title {
-    font-weight: 600;
-    margin: 0 0 2px 0;
-    font-size: 15px;
-  }
-
-  .offline-message {
-    margin: 0;
-    font-size: 13px;
-    opacity: 0.9;
-  }
-
-  .retry-button {
-    background: white;
-    color: #ff6b6b;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 14px;
-    margin-left: auto;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-
-  .retry-button:active {
-    transform: scale(0.95);
-  }
-
   @keyframes slideUp {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
   }
-
-  /* Dark mode support */
+  
+  /* Dark mode */
   @media (prefers-color-scheme: dark) {
-    .offline-notification {
-      background: linear-gradient(135deg, #d64545, #ff6b6b);
+    #offline-motivation {
+      background: linear-gradient(135deg, #4b6cb7, #182848);
     }
-    .retry-button {
-      background: rgba(255, 255, 255, 0.9);
+    #reconnect-btn {
+      background: rgba(255,255,255,0.9);
+      color: #182848;
+    }
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    #offline-motivation {
+      padding: 14px;
+    }
+    #reconnect-btn {
+      padding: 8px 16px;
+      font-size: 13px;
     }
   }
 </style>
 
 <script>
-  // Modern detection with toast
-  const notification = document.getElementById('offline-notification');
-  const retryButton = document.getElementById('retry-button');
-
-  function showOffline() {
-    notification.style.display = 'block';
-  }
-
-  function hideOffline() {
-    notification.style.display = 'none';
-    if (navigator.onLine) location.reload();
-  }
-
-  retryButton.addEventListener('click', () => {
-    if (navigator.onLine) hideOffline();
-    else {
-      retryButton.textContent = "Still offline";
-      setTimeout(() => retryButton.textContent = "Try Again", 2000);
+  // Self-executing function to ensure it runs
+  (function() {
+    const offlineMsg = document.getElementById('offline-motivation');
+    const reconnectBtn = document.getElementById('reconnect-btn');
+    
+    // Show motivational message when offline
+    function showMotivation() {
+      offlineMsg.style.display = 'block';
+      
+      // Add inspirational emoji rotation
+      const emoji = offlineMsg.querySelector('span');
+      emoji.innerHTML = ['🌐', '🚀', '✨', '🌟'][Math.floor(Math.random()*4)];
     }
-  });
-
-  // Listeners
-  window.addEventListener('offline', showOffline);
-  window.addEventListener('online', hideOffline);
-
-  // Initial check
-  if (!navigator.onLine) showOffline();
+    
+    // Hide when back online
+    function hideMotivation() {
+      offlineMsg.style.display = 'none';
+      if (navigator.onLine) {
+        // Show welcome back message
+        setTimeout(() => {
+          alert("Welcome back! Enjoy your browsing experience.");
+        }, 300);
+      }
+    }
+    
+    // Button action - tries to reload
+    reconnectBtn.addEventListener('click', function() {
+      if (navigator.onLine) {
+        location.reload();
+      } else {
+        // Motivational feedback
+        reconnectBtn.textContent = "Keep trying!";
+        reconnectBtn.style.background = "#ffdd59";
+        reconnectBtn.style.color = "#333";
+        
+        setTimeout(() => {
+          reconnectBtn.textContent = "Reconnect Now";
+          reconnectBtn.style.background = "white";
+          reconnectBtn.style.color = "#667eea";
+        }, 1500);
+      }
+    });
+    
+    // Event listeners
+    window.addEventListener('offline', showMotivation);
+    window.addEventListener('online', hideMotivation);
+    
+    // Check immediately on load
+    if (!navigator.onLine) {
+      showMotivation();
+    }
+    
+    // Periodic check (in case events don't fire)
+    setInterval(() => {
+      if (!navigator.onLine && offlineMsg.style.display !== 'block') {
+        showMotivation();
+      }
+    }, 5000);
+  })();
 </script>
 </body>
 <!--end of the body element-->
