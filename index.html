@@ -158,8 +158,7 @@ data-full-width-responsive="true">
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <script src="script.js"></script>
-
-<!-- Add this right before </body> -->
+<!-- Add this RIGHT BEFORE </body> -->
 <div id="offline-motivation" style="
   display: none;
   position: fixed;
@@ -168,144 +167,164 @@ data-full-width-responsive="true">
   right: 0;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  padding: 18px;
+  padding: 16px;
   z-index: 9999;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-  animation: slideUp 0.5s ease-out;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 ">
   <div style="
     display: flex;
     align-items: center;
-    gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 12px;
+    max-width: 100%;
   ">
-    <span style="
+    <span id="connection-emoji" style="
       font-size: 28px;
       flex-shrink: 0;
     ">🌐</span>
-    <div>
+    <div style="flex-grow: 1;">
       <p style="
-        margin: 0 0 6px 0;
-        font-size: 17px;
+        margin: 0 0 4px 0;
+        font-size: 16px;
         font-weight: 600;
-      ">Connection Lost</p>
+      ">You're Offline</p>
       <p style="
         margin: 0;
         font-size: 14px;
         line-height: 1.4;
         opacity: 0.9;
-      ">Great content awaits! Reconnect to explore our full website and discover amazing features.</p>
+      ">Connect to the internet to access all features</p>
     </div>
     <button id="reconnect-btn" style="
       background: white;
       color: #667eea;
       border: none;
-      padding: 10px 20px;
-      border-radius: 24px;
+      padding: 8px 16px;
+      border-radius: 20px;
       font-weight: 600;
       font-size: 14px;
-      margin-left: auto;
       cursor: pointer;
-      transition: all 0.2s;
       white-space: nowrap;
-    ">Reconnect Now</button>
+      flex-shrink: 0;
+    ">Try Again</button>
   </div>
 </div>
 
-<style>
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  
-  /* Dark mode */
-  @media (prefers-color-scheme: dark) {
-    #offline-motivation {
-      background: linear-gradient(135deg, #4b6cb7, #182848);
-    }
-    #reconnect-btn {
-      background: rgba(255,255,255,0.9);
-      color: #182848;
-    }
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 600px) {
-    #offline-motivation {
-      padding: 14px;
-    }
-    #reconnect-btn {
-      padding: 8px 16px;
-      font-size: 13px;
-    }
-  }
-</style>
-
 <script>
-  // Self-executing function to ensure it runs
-  (function() {
-    const offlineMsg = document.getElementById('offline-motivation');
-    const reconnectBtn = document.getElementById('reconnect-btn');
+// Nuclear-proof offline detection
+(function() {
+  // DOM elements
+  const offlineMsg = document.getElementById('offline-motivation');
+  const reconnectBtn = document.getElementById('reconnect-btn');
+  const connectionEmoji = document.getElementById('connection-emoji');
+  
+  // Emoji rotation for attention
+  const emojis = ['🌐', '📱', '🚀', '⚠️', '📶'];
+  
+  // Show notification with animation
+  function showOffline() {
+    if (!offlineMsg) return;
     
-    // Show motivational message when offline
-    function showMotivation() {
-      offlineMsg.style.display = 'block';
+    // Force show and animate
+    offlineMsg.style.display = 'block';
+    offlineMsg.style.transform = 'translateY(100%)';
+    setTimeout(() => {
+      offlineMsg.style.transform = 'translateY(0)';
+      offlineMsg.style.transition = 'transform 0.3s ease-out';
+    }, 10);
+    
+    // Rotate emoji every 3 seconds
+    const emojiInterval = setInterval(() => {
+      connectionEmoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    }, 3000);
+    
+    // Store interval for cleanup
+    offlineMsg.dataset.interval = emojiInterval;
+  }
+
+  // Hide notification
+  function hideOffline() {
+    if (!offlineMsg) return;
+    clearInterval(offlineMsg.dataset.interval);
+    offlineMsg.style.display = 'none';
+  }
+
+  // Check connection status
+  function checkConnection() {
+    if (navigator.onLine) {
+      hideOffline();
+    } else {
+      showOffline();
+    }
+  }
+
+  // Button click handler
+  reconnectBtn.addEventListener('click', function() {
+    if (navigator.onLine) {
+      location.reload();
+    } else {
+      // Visual feedback
+      this.textContent = 'No Connection...';
+      this.style.background = '#ffdd59';
+      this.style.color = '#333';
       
-      // Add inspirational emoji rotation
-      const emoji = offlineMsg.querySelector('span');
-      emoji.innerHTML = ['🌐', '🚀', '✨', '🌟'][Math.floor(Math.random()*4)];
+      setTimeout(() => {
+        this.textContent = 'Try Again';
+        this.style.background = 'white';
+        this.style.color = '#667eea';
+      }, 1500);
     }
-    
-    // Hide when back online
-    function hideMotivation() {
-      offlineMsg.style.display = 'none';
-      if (navigator.onLine) {
-        // Show welcome back message
-        setTimeout(() => {
-          alert("Welcome back! Enjoy your browsing experience.");
-        }, 300);
-      }
+  });
+
+  // EVENT LISTENERS (multiple for reliability)
+  window.addEventListener('offline', showOffline);
+  window.addEventListener('online', hideOffline);
+  
+  // Mobile-specific events
+  document.addEventListener('visibilitychange', checkConnection);
+  window.addEventListener('pageshow', checkConnection);
+  
+  // Initial check
+  setTimeout(checkConnection, 500); // Delay ensures proper detection
+  
+  // Periodic checks (every 3 seconds)
+  setInterval(checkConnection, 3000);
+  
+  // Emergency fallback (if DOM gets removed)
+  setInterval(() => {
+    if (!document.getElementById('offline-motivation')) {
+      location.reload();
     }
-    
-    // Button action - tries to reload
-    reconnectBtn.addEventListener('click', function() {
-      if (navigator.onLine) {
-        location.reload();
-      } else {
-        // Motivational feedback
-        reconnectBtn.textContent = "Keep trying!";
-        reconnectBtn.style.background = "#ffdd59";
-        reconnectBtn.style.color = "#333";
-        
-        setTimeout(() => {
-          reconnectBtn.textContent = "Reconnect Now";
-          reconnectBtn.style.background = "white";
-          reconnectBtn.style.color = "#667eea";
-        }, 1500);
-      }
-    });
-    
-    // Event listeners
-    window.addEventListener('offline', showMotivation);
-    window.addEventListener('online', hideMotivation);
-    
-    // Check immediately on load
-    if (!navigator.onLine) {
-      showMotivation();
-    }
-    
-    // Periodic check (in case events don't fire)
-    setInterval(() => {
-      if (!navigator.onLine && offlineMsg.style.display !== 'block') {
-        showMotivation();
-      }
-    }, 5000);
-  })();
+  }, 10000);
+})();
 </script>
+
+<style>
+/* Animation fix for mobile browsers */
+@media (max-width: 768px) {
+  #offline-motivation {
+    padding: 14px;
+    border-radius: 0;
+  }
+  #reconnect-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Dark mode adaptation */
+@media (prefers-color-scheme: dark) {
+  #offline-motivation {
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+  }
+  #reconnect-btn {
+    background: rgba(255,255,255,0.9);
+    color: #182848;
+  }
+}
+</style>
 </body>
 <!--end of the body element-->
 </html>
