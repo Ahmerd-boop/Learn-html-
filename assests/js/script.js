@@ -57,21 +57,21 @@ document.getElementById('reset-settings').addEventListener('click', function () 
     location.reload(); // Refresh the page to reset
 });
 
-//offline
+//OFFLINE 
 document.addEventListener('DOMContentLoaded', async function () {
     const db = await openDatabase();
-  
-    // ✅ Check if pages are already stored offline
+
+    // ✅ Check if IndexedDB already has saved pages
     const hasOfflineData = await checkIfDataExists();
-    
+
     if (navigator.onLine || !hasOfflineData) {
         console.log('✅ Online OR First Time: Fetching and saving all pages.');
-        await saveAllPagesToDB(); // Save all pages for offline use
+        await saveAllPagesToDB();
     } else {
         console.log('❌ Offline: Loading saved content.');
         loadContentFromDB();
     }
-  
+
     // ✅ Handle internal link clicks
     document.body.addEventListener('click', function (event) {
         if (event.target.tagName === 'A' && event.target.href.startsWith(location.origin)) {
@@ -79,10 +79,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             navigateTo(event.target.href);
         }
     });
-  });
-  
-  // ✅ Open IndexedDB Database
-  async function openDatabase() {
+});
+
+// ✅ Open IndexedDB Database
+async function openDatabase() {
     return new Promise((resolve, reject) => {
         let request = indexedDB.open('offlineDatabase', 1);
         request.onupgradeneeded = function (event) {
@@ -98,15 +98,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             reject(event.target.error);
         };
     });
-  }
-  
-  // ✅ Check if IndexedDB already has saved pages
-  async function checkIfDataExists() {
+}
+
+// ✅ Check if IndexedDB has saved pages
+async function checkIfDataExists() {
     const db = await openDatabase();
     const transaction = db.transaction(['pages'], 'readonly');
     const store = transaction.objectStore('pages');
     const request = store.getAllKeys();
-  
+
     return new Promise((resolve) => {
         request.onsuccess = function () {
             resolve(request.result.length > 0);
@@ -115,115 +115,75 @@ document.addEventListener('DOMContentLoaded', async function () {
             resolve(false);
         };
     });
-  }
-  
-  // ✅ Save all pages to IndexedDB (First Visit)
-  async function saveAllPagesToDB() {
+}
+
+// ✅ Save all pages & assets to IndexedDB (First Visit)
+async function saveAllPagesToDB() {
     const db = await openDatabase();
     const transaction = db.transaction(['pages'], 'readwrite');
     const store = transaction.objectStore('pages');
-  
+
     const pages = [
-  '/',
-  '/index.html',
-  '/assests/css/style.css',
-  '/script.js',
-  '/assests/js/continue.js',
-  '/assests/js/download.js',
-  '/assests/js/editor.js',
-  '/assests/js/exaple-editor.js',
-  '/assests/js/server.js',
-  '/assests/js/welcome.js',
-  '/assests/js/script.js',
-  '/assests/js/payment method.js',
-  '/assests/js/games.js',
-  '/assests/icons/email.png',
-  '/assests/icons/SeTTiNGSS_enhanced.png',
-  '/assests/icons/share (1).png',
-  '/editor.html',
-  '/assests/games/game1.html',
-  '/assests/games/game2.html',
-  '/assests/games/game3.html',
-  '/assests/games/game4.html',
-  '/assests/games/game5.html',
-  '/games.html',
-  '/lessons.html',
-  '/quiz certificate.html',
-  '/styled html.html',
-  '/kofar guga katsina.jpg',
-  '/assests/images/cOmuNiTyY_enhanced.png',
-  '/assests/images/cOnTiNueE(1)_enhanced.png',
-  '/assests/images/editor_enhanced.png',
-  '/assests/images/GAmEs_enhanced.png',
-  '/assests/images/gidan sarki.jpg',
-  '/assests/images/StArTI_enhanced.png',
-  '/assests/images/UpGrDeE_enhanced.png',
-  '/developer.jpeg',
-  '/file 1.png',
-  '/file 2.png',
-  '/file 3.png',
-  '/file 4.png',
-  '/file 5.png',
-  '/file 6.png',
-  '/file 7.png',
-  '/file 8.png',
-  '/file 9.png',
-  '/file 10.png',
-  '/html tag.png',
-  '/Girlimage.jpg',
-  '/video.mp4',
-  '/video 2.mp4',
-  '/audio.mp3',
-  '/audio.m4a',
-  '/sw.js',
-  '/manifest.json'
+        '/', '/index.html', '/assests/css/style.css', '/script.js',
+        '/assests/js/continue.js', '/assests/js/download.js',
+        '/assests/js/editor.js', '/assests/js/example-editor.js',
+        '/assests/js/server.js', '/assests/js/welcome.js',
+        '/assests/js/script.js', '/assests/js/payment-method.js',
+        '/assests/js/games.js', '/assests/icons/email.png',
+        '/assests/icons/SeTTiNGSS_enhanced.png', '/assests/icons/share.png',
+        '/editor.html', '/assests/games/game1.html', '/games.html',
+        '/lessons.html', '/quiz-certificate.html', '/styled-html.html',
+        '/kofar-guga-katsina.jpg', '/assests/images/community.png',
+        '/assests/images/editor.png', '/assests/images/games.png',
+        '/assests/images/gidan-sarki.jpg', '/video.mp4', '/audio.mp3',
+        '/sw.js', '/manifest.json'
     ];
-  
+
     for (let page of pages) {
         try {
             let response = await fetch(page);
-            let content = await response.text();
-            store.put({ url: page, content });
+            let contentType = response.headers.get('content-type');
+
+            let content;
+            if (contentType.includes('text') || contentType.includes('json')) {
+                content = await response.text(); // For HTML, CSS, JS, JSON
+            } else {
+                content = await response.blob(); // For images, videos, audio
+            }
+
+            store.put({ url: page, content, contentType });
         } catch (error) {
             console.error(`❌ Error fetching ${page}:`, error);
         }
     }
-  }
-  
-  // ✅ Save the current page content to IndexedDB
-  async function saveContentToDB() {
-    const db = await openDatabase();
-    const transaction = db.transaction(['pages'], 'readwrite');
-    const store = transaction.objectStore('pages');
-  
-    const pageData = {
-        url: window.location.pathname,
-        content: document.documentElement.innerHTML
-    };
-  
-    store.put(pageData);
-  }
-  
-  // ✅ Load the saved page content from IndexedDB when offline
-  async function loadContentFromDB() {
+}
+
+// ✅ Load content from IndexedDB (Offline)
+async function loadContentFromDB() {
     const db = await openDatabase();
     const transaction = db.transaction(['pages'], 'readonly');
     const store = transaction.objectStore('pages');
     const request = store.get(window.location.pathname);
-  
+
     request.onsuccess = function () {
         if (request.result) {
-            document.open();
-            document.write(request.result.content);
-            document.close();
+            let { content, contentType } = request.result;
+
+            if (contentType.includes('text')) {
+                document.open();
+                document.write(content);
+                document.close();
+            } else {
+                console.log(`⚠️ Non-text content detected: ${contentType}`);
+            }
         } else {
             console.log('⚠️ No saved data available for this page.');
         }
     };
-  }
-  
-  // ✅ Handle Internal Link Navigation (Offline Mode)
-  async function navigateTo(url) {
+}
+
+// ✅ Handle Internal Link Navigation (Offline)
+async function navigateTo(url) {
     if (navigator.onLine) {
         window.location.href = url;
     } else {
@@ -231,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const transaction = db.transaction(['pages'], 'readonly');
         const store = transaction.objectStore('pages');
         const request = store.get(new URL(url).pathname);
-  
+
         request.onsuccess = function () {
             if (request.result) {
                 document.open();
@@ -242,34 +202,28 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         };
     }
-  }
-  //back
-// Handle both PWA and WebView cases
+}
+
+// ✅ Back Navigation
 function handleBackNavigation() {
     if (window.history.length > 1) {
-      window.history.back(); // Normal browser/PWA behavior
+        window.history.back();
     } else {
-      if (confirm('Exit the app?')) {
-        // For Cordova/WebView
-        if (typeof navigator.app !== 'undefined') {
-          navigator.app.exitApp();
-        } else {
-          // For PWAs (can't truly exit, just close window)
-          window.close(); // Only works if window was opened by script
+        if (confirm('Exit the app?')) {
+            if (typeof navigator.app !== 'undefined') {
+                navigator.app.exitApp();
+            } else {
+                window.close();
+            }
         }
-      }
     }
-  }
-  
-  // Try Cordova/WebView event first
-  document.addEventListener('backbutton', function(e) {
+}
+
+document.addEventListener('backbutton', function (e) {
     e.preventDefault();
     handleBackNavigation();
-  }, false);
-  
-  // Fallback for regular browsers/PWAs
-  window.onpopstate = function() {
-    handleBackNavigation();
-  };
+}, false);
 
-  
+window.onpopstate = function () {
+    handleBackNavigation();
+};

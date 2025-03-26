@@ -3,72 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Our App</title>
+    <title>Share Learn HTML App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4361ee;
-            --secondary: #3a0ca3;
+            --primary-dark: #3a0ca3;
+            --accent: #4cc9f0;
             --text: #2b2d42;
+            --text-light: #6c757d;
             --light: #f8f9fa;
-            --success: #4cc9f0;
-            --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --white: #ffffff;
+            --border-radius: 16px;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f7fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .share-container {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            background: white;
+        .share-card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transform: translateY(0);
+            transition: var(--transition);
+            padding: 0;
+        }
+
+        .share-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px 25px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-header::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .app-header::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
         }
 
         .app-icon {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
+            width: 80px;
+            height: 80px;
             border-radius: 20px;
             object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         h1 {
-            color: var(--primary);
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 400;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
         }
 
         .app-description {
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-light);
+            padding: 25px;
+            text-align: center;
         }
 
         .share-section {
-            margin-top: 30px;
+            padding: 0 25px 25px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary);
         }
 
         .link-container {
             display: flex;
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
+            background: var(--light);
+            border-radius: 12px;
             overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .link-container:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
         }
 
         .link-input {
             flex: 1;
-            padding: 12px 15px;
+            padding: 15px;
             border: none;
-            font-size: 16px;
+            background: transparent;
+            font-size: 0.85rem;
+            color: var(--text);
+            outline: none;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .copy-btn {
@@ -78,18 +170,25 @@
             padding: 0 20px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.3s;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .copy-btn:hover {
-            background: var(--secondary);
+            background: var(--primary-dark);
+        }
+
+        .copy-btn i {
+            margin-right: 8px;
         }
 
         .social-share {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
 
         .social-btn {
@@ -97,21 +196,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-            border-radius: var(--border-radius);
+            padding: 15px 10px;
+            border-radius: 12px;
             color: white;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
         }
 
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .social-icon {
-            font-size: 24px;
+        .social-btn i {
+            font-size: 1.4rem;
             margin-bottom: 8px;
         }
 
@@ -119,121 +216,165 @@
         .facebook { background: #1877F2; }
         .twitter { background: #1DA1F2; }
         .telegram { background: #0088cc; }
-        .email { background: #666; }
-        .more { background: var(--light); color: var(--text); border: 1px solid #ddd; }
+        .email { background: #6c757d; }
+        .more { 
+            background: var(--white); 
+            color: var(--text); 
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: -100px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             color: white;
             padding: 12px 24px;
-            border-radius: var(--border-radius);
+            border-radius: 50px;
             z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .show-toast {
-            opacity: 1;
+        .toast.show {
+            bottom: 30px;
         }
 
-        @media (max-width: 600px) {
-            .share-container {
-                margin: 20px;
-                padding: 20px;
+        .toast i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                background: var(--white);
+            }
+            
+            .share-card {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            .app-header {
+                padding: 25px 20px;
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
             }
             
             .social-share {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Animation for the header */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .app-icon {
+            animation: float 4s ease-in-out infinite;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="share-container">
-        <h1>Share Our App</h1>
-        <p class="app-description">Help others discover this amazing app by sharing it with your friends!</p>
+    <div class="share-card">
+        <div class="app-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="App Icon" class="app-icon">
+            <h1>Learn HTML: Master HTML</h1>
+            <p class="app-tagline">The Complete HTML Learning App</p>
+        </div>
+        
+        <p class="app-description">
+            Share this app with friends who want to learn web development from scratch!
+        </p>
         
         <div class="share-section">
-            <h2>Copy App Link</h2>
+            <h3 class="section-title"><i class="fas fa-link"></i> App Download Link</h3>
             <div class="link-container">
-                <input type="text" value="https://www.webintoapp.com/store/666174" readonly class="link-input">
-                <button class="copy-btn" id="copy-btn">Copy</button>
+                <input type="text" value="https://github.com/Ahmerd-boop/learnhtmlapp/releases/download/v1.o/Learn.HTML.apk" readonly class="link-input" id="share-link">
+                <button class="copy-btn" id="copy-btn"><i class="far fa-copy"></i> Copy</button>
             </div>
         </div>
         
         <div class="share-section">
-            <h2>Share Via Social Media</h2>
+            <h3 class="section-title"><i class="fas fa-share-alt"></i> Share Via</h3>
             <div class="social-share">
                 <a href="#" class="social-btn whatsapp" id="whatsapp-share">
-                    <i class="fab fa-whatsapp social-icon"></i>
+                    <i class="fab fa-whatsapp"></i>
                     WhatsApp
                 </a>
                 <a href="#" class="social-btn facebook" id="facebook-share">
-                    <i class="fab fa-facebook-f social-icon"></i>
+                    <i class="fab fa-facebook-f"></i>
                     Facebook
                 </a>
                 <a href="#" class="social-btn twitter" id="twitter-share">
-                    <i class="fab fa-twitter social-icon"></i>
+                    <i class="fab fa-twitter"></i>
                     Twitter
                 </a>
                 <a href="#" class="social-btn telegram" id="telegram-share">
-                    <i class="fab fa-telegram-plane social-icon"></i>
+                    <i class="fab fa-telegram-plane"></i>
                     Telegram
                 </a>
-                <a href="mailto:?subject=Check%20out%20this%20app&body=https://www.webintoapp.com/store/666174" class="social-btn email">
-                    <i class="fas fa-envelope social-icon"></i>
+                <a href="mailto:?subject=Check%20out%20Learn%20HTML%20App&body=Download%20the%20Learn%20HTML%20app%20here:%0A%0Ahttps://github.com/Ahmerd-boop/learnhtmlapp/releases/download/v1.o/Learn.HTML.apk" class="social-btn email">
+                    <i class="far fa-envelope"></i>
                     Email
                 </a>
                 <button class="social-btn more" id="native-share">
-                    <i class="fas fa-share-alt social-icon"></i>
+                    <i class="fas fa-ellipsis-h"></i>
                     More
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="toast" id="toast">Link copied to clipboard!</div>
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Link copied to clipboard!</span>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const url = "https://www.webintoapp.com/store/666174";
+            const url = "https://github.com/Ahmerd-boop/learnhtmlapp/releases/download/v1.o/Learn.HTML.apk";
             const copyBtn = document.getElementById('copy-btn');
             const toast = document.getElementById('toast');
-            const linkInput = document.querySelector('.link-input');
+            const linkInput = document.getElementById('share-link');
             
             // Copy link functionality
             copyBtn.addEventListener('click', function() {
-                // Select the input text
                 linkInput.select();
                 linkInput.setSelectionRange(0, 99999);
                 
-                // Try modern clipboard API first
                 navigator.clipboard.writeText(url).then(() => {
                     showToast();
                 }).catch(() => {
-                    // Fallback for older browsers
                     document.execCommand('copy');
                     showToast();
                 });
             });
             
-            // Social sharing
-            document.getElementById('whatsapp-share').href = `https://wa.me/?text=${encodeURIComponent('Check out this awesome app: ' + url)}`;
-            document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-            document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this awesome app: ' + url)}`;
-            document.getElementById('telegram-share').href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('Awesome App!')}`;
+            // Social sharing setup
+            document.getElementById('whatsapp-share').href = `https://wa.me/?text=${encodeURIComponent('Check out Learn HTML App - The complete HTML learning tool: ' + url)}`;
+            document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent('Learn HTML - Master web development')}`;
+            document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out Learn HTML App - The complete HTML learning tool')}&url=${encodeURIComponent(url)}`;
+            document.getElementById('telegram-share').href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('Learn HTML - Master web development')}`;
             
             // Native share API
             document.getElementById('native-share').addEventListener('click', function() {
                 if (navigator.share) {
                     navigator.share({
-                        title: 'Awesome App',
-                        text: 'Check out this app I found!',
+                        title: 'Learn HTML App',
+                        text: 'The complete HTML learning tool',
                         url: url
                     }).catch(err => {
                         console.log('Error sharing:', err);
@@ -246,9 +387,9 @@
             
             // Show toast message
             function showToast() {
-                toast.classList.add('show-toast');
+                toast.classList.add('show');
                 setTimeout(() => {
-                    toast.classList.remove('show-toast');
+                    toast.classList.remove('show');
                 }, 3000);
             }
         });
