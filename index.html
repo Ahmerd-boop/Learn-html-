@@ -15,6 +15,7 @@
 <!--links-->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assests/css/style.css">
+<link rel="stylesheet" href="assests/css/styles.css?v=1.1">
 <!-- Link to PWA Manifest -->
 <link rel="manifest" href="manifest.json">
 <!-- Google AdSense Script -->
@@ -22,6 +23,99 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
+<style>
+#connection-banner {
+position: fixed;
+bottom: -200px;
+left: 50%;
+transform: translateX(-50%);
+background: linear-gradient(135deg, #6e8efb, #a777e3);
+color: white;
+padding: 24px;
+text-align: center;
+font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+z-index: 1000;
+transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+border-radius: 16px;
+max-width: 90%;
+width: 400px;
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+opacity: 0;
+}
+
+#connection-banner.visible {
+bottom: 30px;
+opacity: 1;
+}
+
+#connection-banner h3 {
+margin: 0 0 8px 0;
+font-size: 1.4rem;
+font-weight: 700;
+letter-spacing: 0.5px;
+}
+
+#connection-banner p {
+margin: 0 0 20px 0;
+font-size: 1rem;
+line-height: 1.5;
+opacity: 0.9;
+}
+
+.banner-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.connection-icon {
+font-size: 2.5rem;
+margin-bottom: 15px;
+animation: bounce 2s infinite;
+}
+
+.banner-button {
+border: none;
+padding: 12px 28px;
+border-radius: 50px;
+font-weight: 600;
+cursor: pointer;
+font-size: 1rem;
+transition: all 0.3s ease;
+background: white;
+color: #6e8efb;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.banner-button:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+40% {transform: translateY(-10px);}
+60% {transform: translateY(-5px);}
+}
+
+@media (max-width: 500px) {
+#connection-banner {
+width: 90%;
+padding: 20px;
+}
+
+#connection-banner h3 {
+font-size: 1.2rem;
+}
+
+.banner-button {
+padding: 10px 24px;
+}
+}
+
+</style>
 </head>
 <!--end of the head-->
 <!--body-->
